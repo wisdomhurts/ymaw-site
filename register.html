@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register your son for YMAW — the Young Men's Adventure Weekend in Vancouver, BC. July 11–13, 2025. Ages 12–17.">
+  <title>Register | YMAW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=DM+Mono:wght@400&family=Oswald:wght@600;700&family=Playfair+Display:ital,wght@1,700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="nav nav--dark">
+    <a href="index.html" class="nav__logo">YMAW</a>
+    <ul class="nav__links">
+      <li><a href="about.html" class="nav__link">About</a></li>
+      <li><a href="weekend.html" class="nav__link">The Weekend</a></li>
+      <li><a href="volunteer.html" class="nav__link">Volunteer</a></li>
+      <li><a href="faq.html" class="nav__link">FAQ</a></li>
+    </ul>
+    <div class="nav__right">
+      <a href="register.html" class="btn btn--primary">Register Your Son</a>
+    </div>
+  </nav>
+
+  <header class="hero hero--short hero--dark">
+    <div class="container">
+      <div class="hero__content">
+        <div class="hero__label">Registration & Contact</div>
+        <h1>Secure his spot.</h1>
+        <p class="hero__subtitle">Register your son for the next Young Men's Adventure Weekend, join the production team, or get in touch with any questions.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- REGISTRATION INFO + FORM -->
+    <section class="section section--warm">
+      <div class="container">
+        <div class="split">
+          <div class="split__text">
+            <div class="label">Next Weekend</div>
+            <h2>July 11–13, 2025</h2>
+            <p>Vancouver, BC &middot; Ages 12–17 &middot; $279 CAD</p>
+            <p>Registration includes all meals, activities, equipment, and trained leader supervision. Financial assistance is available for families in need.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(28,26,23,0.12);">
+              <div class="label" style="margin-bottom: 0;">Contact Information</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <p style="margin: 0;"><strong>Email:</strong> info@ymaw.com</p>
+                <p style="margin: 0;"><strong>Website:</strong> <a href="https://ymaw.com" style="color: var(--color-brown); font-weight: 500;">ymaw.com</a></p>
+              </div>
+              <div style="display: flex; gap: 12px;">
+                <a href="https://www.instagram.com/ymaw_official/" class="btn btn--outline" style="font-size: 13px; padding: 10px 20px;">Instagram</a>
+                <a href="https://www.facebook.com/ymawofficial/" class="btn btn--outline" style="font-size: 13px; padding: 10px 20px;">Facebook</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="split__text">
+            <div class="form-card">
+              <div class="label" style="color: var(--color-tan);">Register or Inquire</div>
+              <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 28px; text-transform: uppercase; margin-bottom: 32px; color: var(--color-warm-white);">Get in touch.</h3>
+              <form class="form" action="https://formspree.io/f/placeholder" method="POST">
+                <div class="form__group">
+                  <label class="form__label" for="parent-name">Parent / Guardian Name</label>
+                  <input class="form__input" type="text" id="parent-name" name="parent_name" required>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="son-name">Son's Name</label>
+                  <input class="form__input" type="text" id="son-name" name="son_name" required>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="son-age">Son's Age</label>
+                  <input class="form__input" type="number" id="son-age" name="son_age" min="12" max="17" required>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="email">Email</label>
+                  <input class="form__input" type="email" id="email" name="email" required>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="inquiry-type">I'm interested in</label>
+                  <select class="form__input form__select" id="inquiry-type" name="inquiry_type">
+                    <option value="registration">Registering my son</option>
+                    <option value="volunteer">Joining the production team</option>
+                    <option value="financial-aid">Financial assistance</option>
+                    <option value="question">General question</option>
+                  </select>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="message">Message (optional)</label>
+                  <textarea class="form__input form__textarea" id="message" name="message" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn--tan" style="width: 100%; text-align: center;">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="partners">
+      <div class="container">
+        <div class="partners__inner">
+          <span class="partners__label">Proud to be connected with</span>
+          <div class="partners__logos">
+            <span class="partners__name">ManKind Project</span>
+            <span class="partners__name">Boys to Men</span>
+            <span class="partners__name">Youth Passageways</span>
+            <span class="partners__name">Ever Forward Club</span>
+            <span class="partners__name">The Kingmakers</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span class="footer__logo">YMAW</span>
+    <div class="footer__links">
+      <a href="about.html" class="footer__link">About</a>
+      <a href="weekend.html" class="footer__link">The Weekend</a>
+      <a href="volunteer.html" class="footer__link">Volunteer</a>
+      <a href="faq.html" class="footer__link">FAQ</a>
+      <a href="register.html" class="footer__link">Register</a>
+    </div>
+    <span class="footer__copy">&copy; 2025 Young Men's Adventure Weekend. All rights reserved.</span>
+  </footer>
+
+</body>
+</html>
