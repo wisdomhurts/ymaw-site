@@ -1,0 +1,17 @@
+{
+  "name": "ymaw",
+  "private": true,
+  "type": "module",
+  "description": "YMAW - Young Men's Adventure Weekend. Scroll-driven site + registration (Stripe + Supabase) on Vercel.",
+  "scripts": {
+    "assets": "bash scripts/build-assets.sh",
+    "serve": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "stripe": "^16.12.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}

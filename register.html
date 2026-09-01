@@ -1,138 +1,224 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Register your son for YMAW — the Young Men's Adventure Weekend in Vancouver, BC. Fall 2026. Ages 12–17.">
-  <title>Register | YMAW</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Register · YMAW</title>
+<meta name="description" content="Register your son for the Young Men's Adventure Weekend. Fall 2026, Vancouver BC, ages 12 to 17, $279 CAD. Pay by card or e-transfer; financial assistance available.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="register.css">
 </head>
-<body>
+<body class="reg-body">
 
-  <nav class="nav nav--dark">
-    <a href="index.html" class="nav__logo"><img src="images/logo.png" alt="YMAW" style="height: 36px;"></a>
-    <ul class="nav__links">
-      <li><a href="about.html" class="nav__link">About</a></li>
-      <li><a href="weekend.html" class="nav__link">The Weekend</a></li>
-      <li><a href="volunteer.html" class="nav__link">Volunteer</a></li>
-      <li><a href="faq.html" class="nav__link">FAQ</a></li>
-    </ul>
-    <div class="nav__right">
-      <a href="register.html" class="btn btn--primary">Register Your Son</a>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="/" aria-label="YMAW home">
+    <img src="assets/wordmark-bone.png" alt="YMAW" width="560" height="131">
+  </a>
+  <a class="cta cta--bar" href="#form">Register Your Son</a>
+</header>
+
+<main class="reg">
+
+  <section class="reg-head">
+    <div class="sc-wrap">
+      <p class="sc-label">Registration</p>
+      <h1 class="sc-display sc-display--lg">Secure his&nbsp;spot.</h1>
+      <ul class="reg-facts" role="list">
+        <li>Fall 2026 · dates announced soon</li>
+        <li>Vancouver, BC</li>
+        <li>Ages 12–17</li>
+        <li>$279 CAD, everything included</li>
+      </ul>
     </div>
-  </nav>
+  </section>
 
-  <header class="hero hero--short hero--dark">
-    <div class="container">
-      <div class="hero__content">
-        <div class="hero__label">Registration & Contact</div>
-        <h1>Secure his spot.</h1>
-        <p class="hero__subtitle">Register your son for the next Young Men's Adventure Weekend, join the production team, or get in touch with any questions.</p>
-      </div>
-    </div>
-  </header>
+  <section class="reg-main sc-wrap" id="form">
+    <form class="reg-card" id="regForm" novalidate>
+      <ol class="reg-steps" aria-label="Registration steps">
+        <li data-step-dot="1" class="is-on">Parent</li>
+        <li data-step-dot="2">Your son</li>
+        <li data-step-dot="3">Consent</li>
+        <li data-step-dot="4">Payment</li>
+      </ol>
 
-  <main>
+      <!-- honeypot: real parents never see or fill this -->
+      <input class="reg-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <!-- REGISTRATION INFO + FORM -->
-    <section class="section section--warm">
-      <div class="container">
-        <div class="split">
-          <div class="split__text">
-            <div class="label">Next Weekend</div>
-            <h2>Fall 2026</h2>
-            <p>Vancouver, BC &middot; Ages 12–17 &middot; $279 CAD</p>
-            <p>Registration includes all meals, activities, equipment, and trained leader supervision. Financial assistance is available for families in need.</p>
+      <fieldset class="reg-step is-on" data-step="1">
+        <legend class="sc-display sc-display--md">Parent or guardian</legend>
+        <label class="reg-field">
+          <span>Your full name</span>
+          <input name="parent_name" type="text" autocomplete="name" required maxlength="120">
+        </label>
+        <label class="reg-field">
+          <span>Email</span>
+          <input name="parent_email" type="email" autocomplete="email" required maxlength="160">
+        </label>
+        <label class="reg-field">
+          <span>Phone</span>
+          <input name="parent_phone" type="tel" autocomplete="tel" required maxlength="40">
+        </label>
+      </fieldset>
 
-            <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(28,26,23,0.12);">
-              <div class="label" style="margin-bottom: 0;">Contact Information</div>
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-                <p style="margin: 0;"><strong>Email:</strong> info@ymaw.com</p>
-                <p style="margin: 0;"><strong>Website:</strong> <a href="https://ymaw.com" style="color: var(--color-brown); font-weight: 500;">ymaw.com</a></p>
-              </div>
-              <div style="display: flex; gap: 12px;">
-                <a href="https://www.instagram.com/ymaw_official/" class="btn btn--outline" style="font-size: 13px; padding: 10px 20px;">Instagram</a>
-                <a href="https://www.facebook.com/ymawofficial/" class="btn btn--outline" style="font-size: 13px; padding: 10px 20px;">Facebook</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="split__text">
-            <div class="form-card">
-              <div class="label" style="color: var(--color-tan);">Register or Inquire</div>
-              <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 28px; text-transform: uppercase; margin-bottom: 32px; color: var(--color-warm-white);">Get in touch.</h3>
-              <form class="form" action="https://formspree.io/f/placeholder" method="POST">
-                <div class="form__group">
-                  <label class="form__label" for="parent-name">Parent / Guardian Name</label>
-                  <input class="form__input" type="text" id="parent-name" name="parent_name" required>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="son-name">Son's Name</label>
-                  <input class="form__input" type="text" id="son-name" name="son_name" required>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="son-age">Son's Age</label>
-                  <input class="form__input" type="number" id="son-age" name="son_age" min="12" max="17" required>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="email">Email</label>
-                  <input class="form__input" type="email" id="email" name="email" required>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="inquiry-type">I'm interested in</label>
-                  <select class="form__input form__select" id="inquiry-type" name="inquiry_type">
-                    <option value="registration">Registering my son</option>
-                    <option value="volunteer">Joining the production team</option>
-                    <option value="financial-aid">Financial assistance</option>
-                    <option value="question">General question</option>
-                  </select>
-                </div>
-                <div class="form__group">
-                  <label class="form__label" for="message">Message (optional)</label>
-                  <textarea class="form__input form__textarea" id="message" name="message" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn btn--tan" style="width: 100%; text-align: center;">Send Message</button>
-              </form>
-            </div>
-          </div>
+      <fieldset class="reg-step" data-step="2">
+        <legend class="sc-display sc-display--md">Your son</legend>
+        <div class="reg-row">
+          <label class="reg-field">
+            <span>First name</span>
+            <input name="son_first" type="text" required maxlength="80">
+          </label>
+          <label class="reg-field">
+            <span>Last name</span>
+            <input name="son_last" type="text" required maxlength="80">
+          </label>
         </div>
-      </div>
-    </section>
-
-    <!-- PARTNERS -->
-    <section class="partners">
-      <div class="container">
-        <div class="partners__inner">
-          <span class="partners__label">Proud to be connected with</span>
-          <div class="partners__logos">
-            <img src="images/partners/partner-1.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-2.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-3.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-4.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-5.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-6.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-            <img src="images/partners/partner-7.png" alt="Partner" class="partners__logo-img" style="height: 40px; opacity: 0.35;">
-          </div>
+        <label class="reg-field reg-field--narrow">
+          <span>Age at the weekend</span>
+          <select name="son_age" required>
+            <option value="">Choose</option>
+            <option>12</option><option>13</option><option>14</option>
+            <option>15</option><option>16</option><option>17</option>
+          </select>
+        </label>
+        <div class="reg-row">
+          <label class="reg-field">
+            <span>Emergency contact name</span>
+            <input name="emergency_name" type="text" required maxlength="120">
+          </label>
+          <label class="reg-field">
+            <span>Emergency contact phone</span>
+            <input name="emergency_phone" type="tel" required maxlength="40">
+          </label>
         </div>
+        <label class="reg-field">
+          <span>Medical conditions, allergies, dietary needs <em>(optional, kept private)</em></span>
+          <textarea name="medical_notes" rows="3" maxlength="2000"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset class="reg-step" data-step="3">
+        <legend class="sc-display sc-display--md">Consent</legend>
+        <div class="reg-waiver" tabindex="0" aria-label="Participation agreement">
+          <h3>Participation agreement (v2026-1)</h3>
+          <p>The Young Men's Adventure Weekend is a supervised outdoor program for boys aged 12 to 17, run by a trained volunteer production team. Activities include hiking, paddling, bushcraft, fire craft, group challenges and camping, held outdoors in all weather.</p>
+          <p>I understand that outdoor activities carry inherent risks, including injury, and that YMAW manages these risks through trained leadership, safety briefings, appropriate equipment and supervision of every activity. I confirm my son is able to take part in a physically active outdoor weekend, and that the medical information I have provided is complete and accurate.</p>
+          <p>I authorize the production team to obtain emergency medical care for my son if needed, and to contact the person named as his emergency contact.</p>
+          <p>I understand registration is refundable up to 14 days before the weekend begins, and transferable to another participant at any time by arrangement with the organizers.</p>
+        </div>
+        <label class="reg-check">
+          <input type="checkbox" name="consent_waiver" required>
+          <span>I have read the participation agreement and I consent to my son taking part.</span>
+        </label>
+        <label class="reg-check">
+          <input type="checkbox" name="photo_consent">
+          <span>Photos of my son taken at the weekend may be used by YMAW <em>(optional)</em>.</span>
+        </label>
+      </fieldset>
+
+      <fieldset class="reg-step" data-step="4">
+        <legend class="sc-display sc-display--md">Payment · $279 CAD</legend>
+        <div class="reg-pay" role="radiogroup" aria-label="How would you like to pay">
+          <label class="reg-payopt">
+            <input type="radio" name="payment_method" value="card" checked>
+            <span class="reg-payopt__body">
+              <strong>Pay by card now</strong>
+              <small>Secure checkout with Stripe. Cards, Apple&nbsp;Pay and Google&nbsp;Pay. Receipt by email.</small>
+            </span>
+          </label>
+          <label class="reg-payopt">
+            <input type="radio" name="payment_method" value="etransfer">
+            <span class="reg-payopt__body">
+              <strong>Interac e-Transfer</strong>
+              <small>Reserve his spot now, then send $279 to info@ymaw.com with his name in the message.</small>
+            </span>
+          </label>
+          <label class="reg-payopt">
+            <input type="radio" name="payment_method" value="aid">
+            <span class="reg-payopt__body">
+              <strong>Request financial assistance</strong>
+              <small>Complete registration without paying. We follow up personally and no boy misses the weekend over money.</small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="reg-nav">
+        <button type="button" class="cta cta--ghost reg-back" hidden>Back</button>
+        <button type="button" class="cta cta--solid reg-next">Continue</button>
       </div>
-    </section>
+      <p class="reg-error" role="alert" hidden></p>
+      <p class="reg-note">Questions first? <a href="mailto:info@ymaw.com">info@ymaw.com</a></p>
+    </form>
+  </section>
 
-  </main>
-
-  <footer class="footer">
-    <span class="footer__logo"><img src="images/logo.png" alt="YMAW" style="height: 28px;"></span>
-    <div class="footer__links">
-      <a href="about.html" class="footer__link">About</a>
-      <a href="weekend.html" class="footer__link">The Weekend</a>
-      <a href="volunteer.html" class="footer__link">Volunteer</a>
-      <a href="faq.html" class="footer__link">FAQ</a>
-      <a href="register.html" class="footer__link">Register</a>
+  <section class="reg-team sc-wrap" id="team">
+    <div class="reg-team__grid">
+      <div>
+        <p class="sc-label">The production team</p>
+        <h2 class="sc-display sc-display--md">Built by volunteers, for thirty&nbsp;years.</h2>
+        <p class="sc-body">Every activity is planned, supervised and cooked for by a volunteer team of men who come back year after year. If you want to positively influence younger men, there is a place for you here.</p>
+        <form class="reg-mini" id="teamForm">
+          <label class="reg-field"><span>Name</span><input name="name" type="text" required maxlength="120"></label>
+          <label class="reg-field"><span>Email</span><input name="email" type="email" required maxlength="160"></label>
+          <label class="reg-field"><span>A line about you <em>(optional)</em></span><textarea name="message" rows="2" maxlength="1000"></textarea></label>
+          <input type="hidden" name="kind" value="volunteer">
+          <button type="submit" class="cta cta--ghost">Join the team</button>
+          <p class="reg-error" role="alert" hidden></p>
+          <p class="reg-note reg-mini__done" hidden>Thanks. We will be in touch.</p>
+        </form>
+      </div>
+      <figure class="reg-team__photo">
+        <img src="assets/volunteer.webp" alt="Two smiling volunteers stand together on a mossy forest trail" loading="lazy" width="1200" height="800">
+      </figure>
     </div>
-    <span class="footer__copy">&copy; 2025 Young Men's Adventure Weekend. All rights reserved.</span>
+  </section>
+
+  <section class="reg-faq sc-wrap" id="faq">
+    <p class="sc-label">For parents</p>
+    <h2 class="sc-display sc-display--md">Asked every year.</h2>
+    <details class="reg-q">
+      <summary>Is my son safe at YMAW?</summary>
+      <p>Safety runs the weekend. Every activity is supervised by trained leaders, briefed before it starts, and matched to age and ability. The program has run for thirty years on that discipline.</p>
+    </details>
+    <details class="reg-q">
+      <summary>Does he need outdoor experience?</summary>
+      <p>No. Activities are structured so every boy can learn and win at his own pace, whatever his fitness or experience.</p>
+    </details>
+    <details class="reg-q">
+      <summary>What does the $279 cover?</summary>
+      <p>Everything: all meals, all activities, all equipment, and supervision from Friday evening to Sunday afternoon.</p>
+    </details>
+    <details class="reg-q">
+      <summary>What if the cost is hard for our family right now?</summary>
+      <p>Choose "Request financial assistance" when you register. We follow up personally and privately. No boy misses the weekend over money.</p>
+    </details>
+    <details class="reg-q">
+      <summary>What should he bring?</summary>
+      <p>A full packing list comes with your confirmation. In short: weather-appropriate clothing, a sleeping bag, personal items, and a willingness to try something new. Phones stay home.</p>
+    </details>
+  </section>
+
+  <footer class="reg-foot">
+    <p>
+      <a href="/">The weekend</a>
+      <span aria-hidden="true">·</span>
+      <a href="mailto:info@ymaw.com">info@ymaw.com</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.instagram.com/ymaw_official/" rel="noopener">Instagram</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.facebook.com/ymawofficial/" rel="noopener">Facebook</a>
+      <span aria-hidden="true">·</span>
+      <span>© 2026 Young Men's Adventure Weekend</span>
+    </p>
   </footer>
 
+</main>
+
+<script src="register.js"></script>
 </body>
 </html>

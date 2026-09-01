@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registered · YMAW</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="register.css">
+</head>
+<body class="reg-body">
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="/" aria-label="YMAW home">
+    <img src="assets/wordmark-bone.png" alt="YMAW" width="560" height="131">
+  </a>
+</header>
+
+<main class="reg">
+  <section class="reg-head">
+    <div class="sc-wrap">
+      <p class="sc-label" id="okLabel">Registration</p>
+      <h1 class="sc-display sc-display--lg" id="okTitle">He's on the list.</h1>
+      <div class="reg-card" style="margin-top: var(--sc-6); max-width: 40rem;">
+        <p class="reg-demo" id="demoNote" hidden>This was a demo submission: the site is not yet connected to its database, so nothing was stored. Email <a href="mailto:info@ymaw.com">info@ymaw.com</a> to register for real.</p>
+        <div id="okCard" hidden>
+          <p class="sc-body">Payment received. A receipt is on its way to your email from Stripe, and the full welcome package with dates, the packing list and drop-off details follows from us.</p>
+        </div>
+        <div id="okEtransfer" hidden>
+          <p class="sc-body">His spot is reserved. To confirm it, send an Interac e-Transfer of <strong>$279 CAD</strong> to:</p>
+          <p class="reg-etr"><strong>info@ymaw.com</strong></p>
+          <p class="sc-body">Put <strong id="sonName">your son's name</strong> and reference <strong id="refCode"></strong> in the transfer message. We mark registrations paid as transfers arrive; the welcome package follows.</p>
+        </div>
+        <div id="okAid" hidden>
+          <p class="sc-body">Thank you for asking: that is exactly what the assistance fund is for. His registration is recorded, and someone from the team will reach out personally within a few days. Nothing more to do right now.</p>
+        </div>
+        <p class="reg-note">Reference <strong id="refCode2"></strong> · Questions: <a href="mailto:info@ymaw.com">info@ymaw.com</a></p>
+        <p class="reg-note"><a href="/">Back to the weekend</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var path = q.get('path') || 'card';
+  var ref = q.get('ref') || '';
+  var son = q.get('son') || '';
+  document.getElementById('demoNote').hidden = !q.get('demo');
+  var el = { card: 'okCard', etransfer: 'okEtransfer', aid: 'okAid' }[path] || 'okCard';
+  document.getElementById(el).hidden = false;
+  if (path === 'etransfer') document.getElementById('okTitle').textContent = 'His spot is held.';
+  if (path === 'aid') document.getElementById('okTitle').textContent = 'We got it. We’ll call.';
+  if (son) document.getElementById('sonName').textContent = son + '’s name';
+  document.getElementById('refCode').textContent = ref;
+  document.getElementById('refCode2').textContent = ref || '— sent by email';
+})();
+</script>
+<style>
+.reg-etr {
+  font-family: var(--sc-font-mono); font-size: var(--sc-t-lg);
+  border: 1px dashed var(--sc-hairline-strong); border-radius: var(--sc-r-sm);
+  padding: 0.6em 1em; display: inline-block; margin: var(--sc-3) 0;
+}
+.reg-demo { color: #FFC46B; font-size: var(--sc-t-sm); border: 1px solid color-mix(in oklab, #FFC46B 35%, transparent); border-radius: var(--sc-r-sm); padding: var(--sc-3) var(--sc-4); }
+#okCard p, #okEtransfer p, #okAid p { margin-bottom: var(--sc-3); }
+</style>
+</body>
+</html>
