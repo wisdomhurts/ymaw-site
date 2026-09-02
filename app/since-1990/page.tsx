@@ -49,6 +49,7 @@ export default function Since1990() {
         <div className="wrap mt-12 flex flex-wrap items-center justify-between gap-4">
           <p className="t-lede max-w-[30rem]">The next ring is {FACTS.dates.label}.</p>
           <Link href="/register" className="btn btn-ember btn-lg">Put him in it</Link>
+          <Link href="/media" className="btn btn-ghost btn-lg">All the photos and film</Link>
         </div>
       </section>
     </>

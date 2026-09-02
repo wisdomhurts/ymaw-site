@@ -149,6 +149,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href="/register" className="btn btn-ember btn-lg">Register for {FACTS.dates.short}</Link>
             <Link href="/what-to-bring" className="btn btn-ghost btn-lg">What to bring</Link>
+            <Link href="/media" className="btn btn-ghost btn-lg">Photos &amp; film</Link>
           </div>
         </div>
       </section>

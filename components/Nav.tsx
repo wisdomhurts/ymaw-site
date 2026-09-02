@@ -60,12 +60,12 @@ export default function Nav() {
             <span className="mono hidden opacity-60 sm:inline">Since {FACTS.since}</span>
           </Link>
 
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
             {NAV.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
-                className={`text-[0.95rem] transition-opacity hover:opacity-100 ${path === n.href ? "opacity-100" : "opacity-65"}`}
+                className={`whitespace-nowrap text-[0.92rem] transition-opacity hover:opacity-100 ${path === n.href ? "opacity-100" : "opacity-65"}`}
               >
                 {n.label}
               </Link>
