@@ -1,0 +1,110 @@
+// Locked facts. Every number on the site comes from here or from the
+// Society's own documents. Change here, changes everywhere.
+
+export const FACTS = {
+  name: "Young Men's Adventure Weekend",
+  short: "YMAW",
+  society: "Young Men's Adventure Weekend Society of BC",
+  since: 1990,
+  founder: "Brad Leslie",
+  email: "info@ymaw.com",
+  instagram: "https://www.instagram.com/youngmensadventure/",
+  facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
+  donateLink: "https://buy.stripe.com/3cseVq5ia73N5eUdQQ",
+  region: "Squamish region, BC",
+  ages: { min: 12, max: 17 },
+  priceCAD: 320,
+  priceCents: 32000,
+  event: "ymaw-2026",
+  year: 2026,
+  dates: {
+    label: "September 11–13, 2026",
+    short: "Sept 11–13",
+    start: "2026-09-11",
+    end: "2026-09-13",
+    // Friday pickup, first bus stop (Langley) — America/Vancouver (PDT, UTC-7)
+    busISO: "2026-09-11T15:00:00-07:00",
+  },
+  stops: [
+    {
+      town: "Langley",
+      place: "McDonald's",
+      address: "20394 88 Ave, Langley",
+      depart: "Friday 3:00 pm",
+      return: "Sunday after 2:30 pm",
+    },
+    {
+      town: "Burnaby",
+      place: "Christine Sinclair Community Centre, south lot",
+      address: "3713 Kensington Ave, Burnaby",
+      depart: "Friday 4:00 pm",
+      return: "Sunday after 1:30 pm",
+    },
+  ],
+  crc: {
+    portal: "https://justice.gov.bc.ca/eCRC/",
+    code: "W3LVWMAYTG",
+  },
+  // From the Society's own site and outreach documents.
+  completed: "more than a thousand young men",
+  values: [
+    { name: "Responsibility", line: "We will be accountable for our roles and fulfill our duties to a high standard." },
+    { name: "Integrity", line: "Our thoughts, words, and actions will be in alignment." },
+    { name: "Community", line: "We are all members of many communities. We will endeavour to uphold their values at all times." },
+    { name: "Self-Discovery", line: "We will push our limits, test our mettle, discover our potential, and strive to bring that potential into the world." },
+  ],
+  manCode: {
+    line: "Commitment before ego. Keep your word. Be prepared. Defend humanity. Champion diversity and recognize differences. Always be faithful to others. Fight only honourable battles. Earn and honour rank. Be an example to children.",
+    virtues: ["Endurance", "Commitment", "Integrity", "Passion", "Humour", "Generosity", "Helpfulness", "Hope", "Belief in team", "Trust", "Conviction", "Justice", "Fairness", "Self-mastery", "Patience", "Skill", "Resourcefulness", "Compassion", "Creativity", "Thoughtfulness", "Insight", "Respect", "Wisdom", "Emotional intelligence"],
+  },
+  departments: [
+    { name: "Program & Quests", line: "Design and run the Quest stations and the arc of the weekend." },
+    { name: "Shadows", line: "Walk beside a team of young men all weekend. Watch. Say little. On Sunday, say everything." },
+    { name: "Kitchen", line: "Eight meals for fifty, cooked over fire. The calmest place in camp." },
+    { name: "Site & Supplies", line: "Tarps, tools, water, wood. Leave it better than we found it." },
+    { name: "Safety", line: "First aid, the buddy system, the emergency plan. Everyone's job; your watch." },
+    { name: "Transport", line: "The bus, the trucks, the 4x4s, the stops on time." },
+    { name: "Load & Strike", line: "Thursday load. Sunday strike. Strong backs, early mornings." },
+    { name: "Enrolment", line: "The calls, the emails, the families, the seats filled." },
+  ],
+  // 2026 production leadership, from the Society's team roster. Roles only.
+  team2026: [
+    { name: "Cameron Tsoi-A-Sue", role: "Production Team Manager" },
+    { name: "Rick Moyneur", role: "S1 · second in command" },
+    { name: "Bernard Leclair", role: "Enrolment manager" },
+    { name: "Kevin Malakoff", role: "Enrolment" },
+    { name: "Dan Beck", role: "Finance & registration" },
+    { name: "Raymond Wong", role: "Safety manager" },
+    { name: "Matthieu Francoeur", role: "Transport manager" },
+    { name: "Dorian Leslie", role: "Kitchen · Food Boss" },
+    { name: "Jacob Hokanson", role: "Kitchen" },
+    { name: "Julian Jongkind", role: "Supplies" },
+    { name: "Brad Leslie", role: "Founder" },
+  ],
+  standards: [
+    "Safety. We are all responsible for our own safety and the safety of others.",
+    "Buddy system. Never be alone. Every man is visible to at least one other man at all times, and never alone with a young man.",
+    "No drugs, alcohol, or tobacco at YMAW or in the 24 hours before any YMAW event.",
+    "Honour the site. Leave things better than you found them.",
+    "Confidentiality. Everything you see or hear is confidential. Speak to your own experience only.",
+    "Be on time. Be at the designated place at the designated time, ready.",
+    "No foul language. We are modelling behaviour for the young men.",
+    "We refer to the youth as young men. Not boys, not kids.",
+    "Don't make anything up. Get clear direction and set your ego aside.",
+    "Supportability. Trust the team.",
+    "Your well-being is your responsibility. Hydrate, rest, look out for one another.",
+    "Clean it up. If you find yourself out of integrity, call yourself back in with a simple act of service.",
+    "Fathers of young men: trust the process. This is his time.",
+    "By modelling accountability to the young men and to each other, we cultivate trust and mutual respect.",
+  ],
+} as const;
+
+export const NAV = [
+  { href: "/his-path", label: "His Path" },
+  { href: "/bringing-him", label: "Bringing Him" },
+  { href: "/the-weekend", label: "The Weekend" },
+  { href: "/since-1990", label: "Since 1990" },
+  { href: "/the-men", label: "The Men" },
+  { href: "/support", label: "Support" },
+  { href: "/faq", label: "FAQ" },
+] as const;
