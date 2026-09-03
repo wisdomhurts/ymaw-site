@@ -18,7 +18,6 @@ export default function TheWeekend() {
       <PageHero
         kicker="The weekend · the field log"
         lines={["Hour by hour.", "Friday dusk to", "Sunday afternoon."]}
-        lede="From the Society's own arc-of-the-weekend document. The map is never the territory: the men follow the energy of the young men, and this shifts. But it's close."
         still={STILLS["bus-forest"]}
       />
 

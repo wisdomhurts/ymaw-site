@@ -43,7 +43,6 @@ export const STILLS: Record<string, Still> = {
   "kitchen-chef": { id: "kitchen-chef", src: `${S}/kitchen-chef.webp`, srcSmall: `${S}/kitchen-chef-m.webp`, alt: "A man in a chef's jacket opens his arms wide at the camp kitchen", stage: "men", year: 2025, faces: true },
   "kayak-lake": { id: "kayak-lake", src: `${S}/kayak-lake.webp`, srcSmall: `${S}/kayak-lake-m.webp`, alt: "One kayak paddles out onto a wide grey lake under the mountains", stage: "ordinary", year: 2025 },
   huddle: { id: "huddle", src: `${S}/huddle.webp`, srcSmall: `${S}/huddle-m.webp`, alt: "Young men in purple bandanas huddle under a tarp", stage: "allies", year: 2025, faces: true },
-  "brad-dorian": { id: "brad-dorian", src: `${S}/brad-dorian.webp`, srcSmall: `${S}/brad-dorian-m.webp`, alt: "Two men, the founder and his son, in the mossy forest at camp", stage: "men", year: 2025, faces: true },
   "fire-circle-2003": { id: "fire-circle-2003", src: `${S}/fire-circle-2003.webp`, srcSmall: `${S}/fire-circle-2003-m.webp`, alt: "A team sits around the fire pit under a tarp in the forest, 2003", stage: "ordeal", year: 2003, faces: true },
   "hands-raised": { id: "hands-raised", src: `${S}/hands-raised.webp`, srcSmall: `${S}/hands-raised-m.webp`, alt: "Men and young men on the shore, every hand raised to the mountains", stage: "reward", year: 2025 },
   "arch-2003": { id: "arch-2003", src: `${S}/arch-2003.webp`, alt: "Archive, 2003", stage: "archive", year: 2003 },

@@ -57,7 +57,6 @@ export default function Nav() {
           <Link href="/" className="flex items-center gap-2.5" aria-label="YMAW home">
             <FireMark size={18} title="" />
             <span className="display text-[1.6rem] tracking-wide">YMAW</span>
-            <span className="mono hidden opacity-60 sm:inline">Since {FACTS.since}</span>
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">

@@ -24,9 +24,9 @@ export default function TheMen() {
       {/* Founder */}
       <section className="bg-paper py-20 text-ink" data-surface="paper">
         <div className="wrap grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <Reveal className="relative aspect-[3/2] overflow-hidden rounded-2xl">
-            <Still s={STILLS["brad-dorian"]} sizes="(min-width:1024px) 55vw, 100vw" />
-            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-bone backdrop-blur">Brad Leslie and Dorian Leslie</p>
+          <Reveal className="relative aspect-[2/1] overflow-hidden rounded-2xl">
+            <Still s={STILLS["brad-points"]} sizes="(min-width:1024px) 55vw, 100vw" />
+            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-bone backdrop-blur">Brad Leslie, founder</p>
           </Reveal>
           <div>
             <p className="mono text-flame">Since {FACTS.since}</p>

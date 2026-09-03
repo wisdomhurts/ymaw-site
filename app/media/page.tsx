@@ -5,22 +5,21 @@ import Gallery from "@/components/Gallery";
 import { Lines } from "@/components/Reveal";
 import { FACTS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
-import { GALLERY } from "@/lib/gallery";
+import { BEST } from "@/lib/best";
 
 export const metadata: Metadata = {
-  title: "Photos & Film",
-  description: "The Young Men's Adventure Weekend in real frames: the bus, the hike in, camp, the Quests, the fire, the walk out. Photographs and film from the weekend's own archive, by chapter and by year.",
+  title: "Photos",
+  description: "Thirty photographs from the Young Men's Adventure Weekend: the bus, the hike in, camp, the Quests, the fire, the walk out. Every frame is real.",
 };
 
 export default function MediaPage() {
-  const stills = GALLERY.filter((i) => i.kind === "still").length;
-  const clips = GALLERY.filter((i) => i.kind === "clip").length;
+  const count = BEST.length;
   return (
     <>
       <PageHero
-        kicker="Photos & film · the weekend's own archive"
+        kicker="Photos · the weekend's own archive"
         lines={["Every frame", "is real."]}
-        lede={`${stills} photographs and ${clips} short films, shot at YMAW weekends by the men who were there. Nothing staged, nothing stock. Walk it by chapter, or by year.`}
+        lede={`${count} photographs, shot at YMAW weekends by the men who were there. Nothing staged, nothing stock.`}
         still={STILLS["beach-fire-smoke"]}
         short
       >
@@ -40,7 +39,7 @@ export default function MediaPage() {
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <Link href="/register" className="btn btn-ink btn-lg">Register</Link>
-            <Link href="/since-1990" className="btn btn-ghost btn-lg" style={{ borderColor: "rgba(22,17,12,.2)" }}>Then and now, since 1990</Link>
+            <Link href="/since-1990" className="btn btn-ghost btn-lg" style={{ borderColor: "rgba(22,17,12,.2)" }}>Then and now</Link>
           </div>
         </div>
       </section>

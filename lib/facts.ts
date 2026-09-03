@@ -135,7 +135,7 @@ export const NAV = [
   { href: "/his-path", label: "His Path" },
   { href: "/bringing-him", label: "Bringing Him" },
   { href: "/the-weekend", label: "The Weekend" },
-  { href: "/media", label: "Photos & Film" },
+  { href: "/media", label: "Photos" },
   { href: "/since-1990", label: "Since 1990" },
   { href: "/the-men", label: "The Men" },
   { href: "/support", label: "Support" },

@@ -26,8 +26,6 @@ const COVERS = [
   ["Eight meals", "Cooked over fire for fifty by a kitchen crew. Dietary needs handled, labelled, never made a special case at the table."],
   ["Tools and gear for camp", "Tarps, rope, axes, saws, first aid, water. He brings his own sleeping bag and clothes."],
   ["The Quests", "Designed and run by the program team with safety men at every station."],
-  ["His shirt", "Signed by his team on Sunday."],
-  ["Fifty volunteers", "Nobody is paid. The fee covers costs, not wages."],
 ];
 
 const SUNDAY = [
