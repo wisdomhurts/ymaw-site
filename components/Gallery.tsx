@@ -80,7 +80,7 @@ export default function Gallery() {
       {/* grid */}
       <div className="wrap mt-8">
         {items.length === 0 ? (
-          <p className="t-lede py-20 text-center text-ash">Nothing from that year in this chapter yet. The site grows a ring every September.</p>
+          <p className="t-lede py-20 text-center text-ash">Nothing from that year in this chapter yet. The archive grows every September.</p>
         ) : (
           <div className="columns-2 gap-3 sm:columns-3 lg:columns-4 [&>*]:mb-3">
             {items.map((it, i) => (

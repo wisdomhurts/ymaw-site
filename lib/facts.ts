@@ -103,16 +103,14 @@ export const FACTS = {
   ],
   // 2026 production leadership, from the Society's team roster. Roles only.
   team2026: [
-    { name: "Cameron Tsoi-A-Sue", role: "Production Team Manager" },
-    { name: "Rick Moyneur", role: "S1 · second in command" },
-    { name: "Bernard Leclair", role: "Enrolment manager" },
-    { name: "Kevin Malakoff", role: "Enrolment" },
+    { name: "Jeffery Woods", role: "Production Team Manager" },
+    { name: "Cameron Tsoi-A-Sue", role: "S1 · second in command" },
+    { name: "Bryan Wadsworth", role: "Enrolment manager" },
+    { name: "Jason Macloed", role: "Enrolment 2nd" },
     { name: "Dan Beck", role: "Finance & registration" },
     { name: "Raymond Wong", role: "Safety manager" },
     { name: "Matthieu Francoeur", role: "Transport manager" },
     { name: "Dorian Leslie", role: "Kitchen · Food Boss" },
-    { name: "Jacob Hokanson", role: "Kitchen" },
-    { name: "Julian Jongkind", role: "Supplies" },
     { name: "Brad Leslie", role: "Founder" },
   ],
   standards: [

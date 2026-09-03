@@ -31,7 +31,7 @@ export const STATIONS: Station[] = [
       "His room. His phone. The same week, again. Nobody has asked anything of him that he couldn't do with one thumb.",
       "That's not a criticism of him. It's the world he was handed. It's where the story starts.",
     ],
-    media: { kind: "clip", id: "drone-lake" },
+    media: { kind: "clip", id: "lake-dusk" },
   },
   {
     id: "call",
@@ -47,7 +47,7 @@ export const STATIONS: Station[] = [
       "Most young men arrive because a man they know told their parents. Not a brochure. A conversation, usually short, usually something like: this is the weekend I wish I'd had.",
       "The bus leaves Friday afternoon from Langley and Burnaby and heads north into the Squamish wilderness. You drop him off with a packed lunch, a sleeping bag, and no phone.",
     ],
-    media: { kind: "clip", id: "off-the-bus" },
+    media: { kind: "clip", id: "bus-forest-side" },
   },
   {
     id: "threshold",
@@ -112,7 +112,7 @@ export const STATIONS: Station[] = [
       "Saturday is the Quests: challenge stations designed by the program team that test young men physically and mentally, always as a team. Real tools, real water, real safety men at every station.",
       "The afternoon is the summer-camp part. Fun, food, camaraderie, and tired legs.",
     ],
-    media: { kind: "clip", id: "drone-kayaks" },
+    media: { kind: "clip", id: "kayaks-launch" },
   },
   {
     id: "ordeal",
@@ -176,6 +176,6 @@ export const STATIONS: Station[] = [
       "When the young men leave, they walk through two lines of the production men, eye to eye with every man they spent the weekend with. Then the bus brings them back to Burnaby and Langley.",
       "Pick him up. Feed him. Let him sleep. Then, in the days after, watch.",
     ],
-    media: { kind: "clip", id: "misty-shore-walk" },
+    media: { kind: "still", id: "men-line" },
   },
 ];
