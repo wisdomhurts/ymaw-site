@@ -8,7 +8,7 @@ until the Society has a release for them; they stay in the drive folder.
 """
 import csv, sys, json
 
-YEAR = {"y2024": 2024, "y2019": 2019, "y2022": 2022, "y2016": 2016, "y2006": 2006, "y2007": 2007, "ymawphotos": 0,
+YEAR = {"extra": 2003, "y2024": 2024, "y2019": 2019, "y2022": 2022, "y2016": 2016, "y2006": 2006, "y2007": 2007, "ymawphotos": 0,
         "JACOB YMAW EDITS": 2023, "2019 media": 2019, "2022 media": 2022, "ymaw2023": 2023, "2024 camp videos": 2024,
         "inc photos 2024": 2024, "YMAW 2016 Imagery": 2016, "ymaw 2013 video": 2013}
 EXCLUDE = {"faces"}

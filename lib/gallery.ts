@@ -1173,6 +1173,42 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0344-m.webp"
  },
  {
+  "id": "p-y2007-0131",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2007-0131.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "allies",
+  "year": 2007,
+  "note": "the big circle in the meadow 2007",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-y2007-0131-m.webp"
+ },
+ {
+  "id": "p-y2006-0096",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0096.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "allies",
+  "year": 2006,
+  "note": "everyone along the shore rocks 2006",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-y2006-0096-m.webp"
+ },
+ {
+  "id": "p-extra-0087",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0087.webp",
+  "w": 1600,
+  "h": 1067,
+  "stage": "allies",
+  "year": 2003,
+  "note": "everyone on the rocks above the lake 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0087-m.webp"
+ },
+ {
   "id": "c-1676",
   "kind": "clip",
   "src": "/media/gallery/clips/c-1676.mp4",
@@ -1844,6 +1880,30 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0219-m.webp"
  },
  {
+  "id": "p-y2007-0086",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2007-0086.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "camp",
+  "year": 2007,
+  "note": "the barge at the lakeshore 2007",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-y2007-0086-m.webp"
+ },
+ {
+  "id": "p-y2006-0208",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0208.webp",
+  "w": 1800,
+  "h": 1350,
+  "stage": "camp",
+  "year": 2006,
+  "note": "raising the pole frame at the lakeshore 2006",
+  "faces": "mixed",
+  "small": "/media/gallery/stills/p-y2006-0208-m.webp"
+ },
+ {
   "id": "p-ymawphotos-0010",
   "kind": "still",
   "src": "/media/gallery/stills/p-ymawphotos-0010.webp",
@@ -2503,6 +2563,30 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0272-m.webp"
  },
  {
+  "id": "p-extra-0084",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0084.webp",
+  "w": 1600,
+  "h": 1067,
+  "stage": "trials",
+  "year": 2003,
+  "note": "two young men poling a raft on the lake 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0084-m.webp"
+ },
+ {
+  "id": "p-extra-0096",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0096.webp",
+  "w": 1600,
+  "h": 1067,
+  "stage": "trials",
+  "year": 2003,
+  "note": "creek crossing quest 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0096-m.webp"
+ },
+ {
   "id": "p-ymawphotos-0008",
   "kind": "still",
   "src": "/media/gallery/stills/p-ymawphotos-0008.webp",
@@ -3027,6 +3111,42 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0240-m.webp"
  },
  {
+  "id": "p-y2006-0244",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0244.webp",
+  "w": 1800,
+  "h": 1350,
+  "stage": "ordeal",
+  "year": 2006,
+  "note": "dusk fire circle by the lake 2006",
+  "faces": "silhouettes",
+  "small": "/media/gallery/stills/p-y2006-0244-m.webp"
+ },
+ {
+  "id": "p-y2006-0246",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0246.webp",
+  "w": 1800,
+  "h": 1350,
+  "stage": "ordeal",
+  "year": 2006,
+  "note": "dusk fire line by the lake 2006",
+  "faces": "silhouettes",
+  "small": "/media/gallery/stills/p-y2006-0246-m.webp"
+ },
+ {
+  "id": "p-extra-0107",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0107.webp",
+  "w": 1600,
+  "h": 1067,
+  "stage": "ordeal",
+  "year": 2003,
+  "note": "the fire circle in the meadow 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0107-m.webp"
+ },
+ {
   "id": "p-ymawphotos-0093",
   "kind": "still",
   "src": "/media/gallery/stills/p-ymawphotos-0093.webp",
@@ -3135,6 +3255,18 @@ export const GALLERY: GalleryItem[] = [
   "note": "man addressing young men from behind",
   "faces": "backs",
   "small": "/media/gallery/stills/p-y2019-0264-m.webp"
+ },
+ {
+  "id": "p-y2006-0087",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0087.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "reward",
+  "year": 2006,
+  "note": "building the inukshuk on the rocks 2006",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-y2006-0087-m.webp"
  },
  {
   "id": "p-ymawphotos-0009",
@@ -3276,6 +3408,54 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0036-m.webp"
  },
  {
+  "id": "p-y2006-0272",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0272.webp",
+  "w": 1800,
+  "h": 1350,
+  "stage": "roadback",
+  "year": 2006,
+  "note": "the game in the golden meadow 2006",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-y2006-0272-m.webp"
+ },
+ {
+  "id": "p-extra-0129",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0129.webp",
+  "w": 1600,
+  "h": 1069,
+  "stage": "roadback",
+  "year": 2003,
+  "note": "shields lined up in the meadow 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0129-m.webp"
+ },
+ {
+  "id": "p-extra-0133",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0133.webp",
+  "w": 1600,
+  "h": 1069,
+  "stage": "roadback",
+  "year": 2003,
+  "note": "the game in the dust 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0133-m.webp"
+ },
+ {
+  "id": "p-extra-0136",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0136.webp",
+  "w": 1600,
+  "h": 1069,
+  "stage": "roadback",
+  "year": 2003,
+  "note": "staffs on the field 2003",
+  "faces": "distant",
+  "small": "/media/gallery/stills/p-extra-0136-m.webp"
+ },
+ {
   "id": "p-ymawphotos-0045",
   "kind": "still",
   "src": "/media/gallery/stills/p-ymawphotos-0045.webp",
@@ -3408,6 +3588,30 @@ export const GALLERY: GalleryItem[] = [
   "note": "whole group on the beach 2016 ring",
   "faces": "faces-distant",
   "small": "/media/gallery/stills/p-y2016-0025-m.webp"
+ },
+ {
+  "id": "p-y2007-0393",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2007-0393.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "return",
+  "year": 2007,
+  "note": "everyone at the lake 2007",
+  "faces": "faces-distant",
+  "small": "/media/gallery/stills/p-y2007-0393-m.webp"
+ },
+ {
+  "id": "p-extra-0115",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-extra-0115.webp",
+  "w": 1600,
+  "h": 1067,
+  "stage": "return",
+  "year": 2003,
+  "note": "everyone on the beach 2003",
+  "faces": "faces-distant",
+  "small": "/media/gallery/stills/p-extra-0115-m.webp"
  },
  {
   "id": "p-ymawphotos-0030",
@@ -3751,6 +3955,42 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-y2019-0377-m.webp"
  },
  {
+  "id": "p-y2007-0083",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2007-0083.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "men",
+  "year": 2007,
+  "note": "men on the meadow 2007",
+  "faces": "faces-men",
+  "small": "/media/gallery/stills/p-y2007-0083-m.webp"
+ },
+ {
+  "id": "p-y2007-0373",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2007-0373.webp",
+  "w": 1800,
+  "h": 1200,
+  "stage": "men",
+  "year": 2007,
+  "note": "men on the log with staffs 2007",
+  "faces": "faces-men",
+  "small": "/media/gallery/stills/p-y2007-0373-m.webp"
+ },
+ {
+  "id": "p-y2006-0123",
+  "kind": "still",
+  "src": "/media/gallery/stills/p-y2006-0123.webp",
+  "w": 1800,
+  "h": 1350,
+  "stage": "men",
+  "year": 2006,
+  "note": "production men at the departure lot 2006",
+  "faces": "faces-men",
+  "small": "/media/gallery/stills/p-y2006-0123-m.webp"
+ },
+ {
   "id": "p-ymawphotos-0091",
   "kind": "still",
   "src": "/media/gallery/stills/p-ymawphotos-0091.webp",
@@ -3775,4 +4015,4 @@ export const GALLERY: GalleryItem[] = [
   "small": "/media/gallery/stills/p-ymawphotos-0118-m.webp"
  }
 ];
-export const GALLERY_YEARS = [0, 2016, 2019, 2022, 2023, 2024];
+export const GALLERY_YEARS = [0, 2003, 2006, 2007, 2016, 2019, 2022, 2023, 2024];
