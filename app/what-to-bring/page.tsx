@@ -21,11 +21,12 @@ export default function WhatToBring() {
           kicker="What to bring · the field card"
           lines={["Pack for cold", "and wet. Leave", "the phone."]}
           lede="Everything fits in one bag you can carry up a trail in the dark. Print this, pin it to the fridge, tick it off together the night before."
-          still={STILLS["axe"]}
+          still={STILLS["packs-trailhead"]}
           short
         >
           <div className="mt-6 flex flex-wrap gap-3">
-            <PrintButton />
+            <a href="/YMAW-2026-field-card.pdf" className="btn btn-ember" download>Download the field card (PDF)</a>
+            <PrintButton ghost />
             <Link href="/register" className="btn btn-ghost">Register</Link>
           </div>
         </PageHero>
@@ -118,7 +119,7 @@ export default function WhatToBring() {
             <p className="mt-4 max-w-[36rem] text-bone/80">Tarps, rope, tools, first aid, water, the kitchen, eight meals, the shirt. He brings himself, the bag above, and whatever he's been carrying that a weekend in the woods with fifty men might help him put down.</p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
-            <PrintButton ghost />
+            <a href="/YMAW-2026-field-card.pdf" className="btn btn-ghost btn-lg" download>Download the PDF</a>
             <Link href="/register" className="btn btn-ember btn-lg">Register</Link>
           </div>
         </div>

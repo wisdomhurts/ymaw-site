@@ -37,7 +37,7 @@ export default function Hero() {
     else target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
 
-  const bg = STILLS["kayak-lake"];
+  const bg = STILLS["fire-circle-lake"];
 
   return (
     <section ref={root} className="relative min-h-[100svh] overflow-hidden bg-night text-bone grain">
@@ -54,13 +54,13 @@ export default function Hero() {
         </div>
 
         <h1 className="t-hero text-bone" aria-label="Not a summer camp. A rite of passage.">
-          <span className="block overflow-hidden"><span className="block" data-hero-line>Not a</span></span>
-          <span className="block overflow-hidden"><span className="block" data-hero-line>summer camp.</span></span>
-          <span className="block overflow-hidden"><span className="block text-ember" data-hero-line>A rite of passage.</span></span>
+          <span className="clip-line"><span className="block" data-hero-line>Not a</span></span>
+          <span className="clip-line"><span className="block" data-hero-line>summer camp.</span></span>
+          <span className="clip-line"><span className="block text-ember" data-hero-line>A rite of passage.</span></span>
         </h1>
 
         <p className="t-lede mt-5 max-w-[44rem] text-bone/90 text-shadow" data-hero-fade>
-          Three days of fire, water and real work in the Squamish wilderness, for young men aged 12 to 17,
+          Three days of fire, water and real work in the Squamish wilderness, for young men aged {FACTS.ages.min} to {FACTS.ages.max},
           with men who have shown up for young men since {FACTS.since}.
         </p>
 
@@ -72,7 +72,7 @@ export default function Hero() {
             className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-5 text-left backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-ember/70 hover:bg-white/10"
           >
             <span className="mono text-ember">Door one</span>
-            <span className="display mt-1.5 block text-[2.2rem] leading-none sm:text-[2.6rem]">I'm 12 to 17.</span>
+            <span className="display mt-1.5 block text-[2.2rem] leading-none sm:text-[2.6rem]">I'm {FACTS.ages.min} to {FACTS.ages.max}.</span>
             <span className="mt-2 block text-bone/75">Walk the weekend the way you'll live it. Then decide.</span>
             <span className="mt-4 inline-flex items-center gap-2 text-sm text-ash transition-colors group-hover:text-bone">
               Start walking <Arrow />

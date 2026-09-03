@@ -52,7 +52,7 @@ export const YoungMan = z.object({
   // your consents
   consent_medical: z.literal(true, { message: "Please confirm the medical consent" }),
   consent_waiver: z.literal(true, { message: "Please confirm the release and waiver" }),
-  media_consent: z.enum(["full", "anonymous", "none"]),
+  consent_media: z.literal(true, { message: "Please agree to the photo and video release" }),
   guardian_signature: z.string().trim().min(2, "Type your full name as your signature").max(120),
   // payment
   payment_method: z.enum(["card", "etransfer", "aid"]),

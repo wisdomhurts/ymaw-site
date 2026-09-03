@@ -31,7 +31,7 @@ export const STATIONS: Station[] = [
       "His room. His phone. The same week, again. Nobody has asked anything of him that he couldn't do with one thumb.",
       "That's not a criticism of him. It's the world he was handed. It's where the story starts.",
     ],
-    media: { kind: "clip", id: "leg1" },
+    media: { kind: "clip", id: "drone-lake" },
   },
   {
     id: "call",
@@ -47,7 +47,7 @@ export const STATIONS: Station[] = [
       "Most young men arrive because a man they know told their parents. Not a brochure. A conversation, usually short, usually something like: this is the weekend I wish I'd had.",
       "The bus leaves Friday afternoon from Langley and Burnaby and heads north into the Squamish wilderness. You drop him off with a packed lunch, a sleeping bag, and no phone.",
     ],
-    media: { kind: "still", id: "kayaks" },
+    media: { kind: "clip", id: "off-the-bus" },
   },
   {
     id: "threshold",
@@ -63,7 +63,7 @@ export const STATIONS: Station[] = [
       "The young men hike in to the site with their gear, usually in the last light. It's real work and it's meant to feel like entering the unknown, because it is.",
       "Phones stay home or in the bag until Sunday. In more than thirty years no one has failed to survive it. What they get instead is three days of men's full attention.",
     ],
-    media: { kind: "still", id: "fire-circle-2003" },
+    media: { kind: "clip", id: "packs-forest" },
     tone: "dark",
   },
   {
@@ -80,7 +80,7 @@ export const STATIONS: Station[] = [
       "Teams are formed on the first night and each team is given its shadows: production men whose only role is to stay with those young men for the whole weekend, observe, and hold back.",
       "Every man on the team has a signed criminal record check, is never alone with a young man, and keeps the buddy system without exception.",
     ],
-    media: { kind: "still", id: "huddle" },
+    media: { kind: "clip", id: "rain-circle" },
   },
   {
     id: "camp",
@@ -96,7 +96,7 @@ export const STATIONS: Station[] = [
       "Each team builds its own shelter with tools, tarps and rope. It's the first place leadership shows up, and the first place a young man finds out he can do something with his hands he didn't know he could.",
       "Dinner is hearty and cooked over fire. Then the young men blow off steam, sometimes late, under the eyes of men who remember doing the same.",
     ],
-    media: { kind: "clip", id: "leg2" },
+    media: { kind: "clip", id: "shelters" },
   },
   {
     id: "trials",
@@ -112,7 +112,7 @@ export const STATIONS: Station[] = [
       "Saturday is the Quests: challenge stations designed by the program team that test young men physically and mentally, always as a team. Real tools, real water, real safety men at every station.",
       "The afternoon is the summer-camp part. Fun, food, camaraderie, and tired legs.",
     ],
-    media: { kind: "clip", id: "leg3" },
+    media: { kind: "clip", id: "drone-kayaks" },
   },
   {
     id: "ordeal",
@@ -128,7 +128,7 @@ export const STATIONS: Station[] = [
       "Saturday evening the focus shifts from physical and mental effort to emotional depth. In the Society's words, the young men are invited to empty their emotional buckets and discover the resilience that's been within them all along.",
       "It is never filmed, never recorded, and never repeated outside the circle. Confidentiality is a standard every man signs. Your son may tell you about it. That is his to decide.",
     ],
-    media: { kind: "clip", id: "leg4" },
+    media: { kind: "clip", id: "lanterns" },
     tone: "dark",
   },
   {
@@ -145,7 +145,7 @@ export const STATIONS: Station[] = [
       "On Sunday, in front of his team, each young man is acknowledged by the shadows who watched him all weekend, for what he actually brought. He receives a gift and a t-shirt his team signs.",
       "Then Future Plans: he writes down, in his own words, what he's claiming and where he's going. Ask him about it. He may show you.",
     ],
-    media: { kind: "clip", id: "leg5" },
+    media: { kind: "clip", id: "arms-raised" },
   },
   {
     id: "roadback",
@@ -160,7 +160,7 @@ export const STATIONS: Station[] = [
     you: [
       "The weekend ends in a tradition: one spirited game, young men versus the men, something like handball meets British Bulldog. Then the young men strike their camps, eat a bag lunch, and get ready to leave.",
     ],
-    media: { kind: "still", id: "men-truck" },
+    media: { kind: "clip", id: "dust-run" },
   },
   {
     id: "return",
@@ -176,6 +176,6 @@ export const STATIONS: Station[] = [
       "When the young men leave, they walk through two lines of the production men, eye to eye with every man they spent the weekend with. Then the bus brings them back to Burnaby and Langley.",
       "Pick him up. Feed him. Let him sleep. Then, in the days after, watch.",
     ],
-    media: { kind: "clip", id: "leg6" },
+    media: { kind: "clip", id: "misty-shore-walk" },
   },
 ];

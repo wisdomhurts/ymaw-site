@@ -136,7 +136,8 @@ a { color: inherit; text-decoration: none; }
 /* Reveal (used by ScrollReveal, and CSS-only fallback) */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--ease-out-expo), transform 1s var(--ease-out-expo); }
 .reveal.is-in { opacity: 1; transform: none; }
-.reveal-lines > * { display: block; overflow: hidden; }
+/* Masked lines keep room for descenders (g, p, y) so they aren't clipped */
+.reveal-lines > *, .clip-line { display: block; overflow: hidden; padding-bottom: .18em; margin-bottom: -.18em; }
 .reveal-lines > * > span { display: block; transform: translateY(110%); transition: transform 1s var(--ease-out-expo); }
 .reveal-lines.is-in > * > span { transform: none; }
 .reveal-lines > *:nth-child(2) > span { transition-delay: .08s; }

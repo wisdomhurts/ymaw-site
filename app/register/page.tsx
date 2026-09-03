@@ -7,7 +7,7 @@ import { Still } from "@/components/Media";
 
 export const metadata: Metadata = {
   title: "Register",
-  description: `Register a young man (12–17), join the production team, or sponsor a seat. ${FACTS.dates.label}, ${FACTS.region}. $${FACTS.priceCAD} CAD.`,
+  description: `Register a young man (${FACTS.ages.min}–${FACTS.ages.max}), join the production team, or sponsor a seat. ${FACTS.dates.label}, ${FACTS.region}. $${FACTS.priceCAD} CAD.`,
 };
 
 export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ role?: string; canceled?: string; ref?: string }> }) {
@@ -18,7 +18,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
         {/* left: the reason */}
         <aside className="relative hidden lg:block">
           <div className="sticky top-0 h-[100svh] overflow-hidden">
-            <Still s={STILLS["hands-raised"]} sizes="33vw" className="brightness-[.8]" />
+            <Still s={STILLS["arms-up-lake"]} sizes="33vw" className="brightness-[.8]" />
             <div className="scrim-b absolute inset-x-0 bottom-0 h-1/2" />
             <div className="absolute bottom-8 left-8 right-8 text-bone">
               <p className="mono text-ember">{FACTS.dates.label}</p>

@@ -46,7 +46,7 @@ export default function BringingHim() {
         kicker="Bringing him · for parents and guardians"
         lines={["He needs this", "now."]}
         lede="Plain, unhurried, specific. Why the weekend exists, who is responsible for him, what the money covers, how the three days run, and what to expect when he gets off the bus."
-        still={STILLS["hands-raised"]}
+        still={STILLS["lake-watch"]}
       />
 
       {/* Why */}
@@ -59,7 +59,7 @@ export default function BringingHim() {
           <div className="grid gap-4 text-[1.1rem] leading-relaxed text-ink/80">
             <p>Every culture that lasted had a way of marking the passage from boyhood to manhood, witnessed by men, involving real challenge, ending in a return to the community as someone new. Most of us grew up without one. Many of the men on this team did.</p>
             <p>{FACTS.founder} started the Young Men's Adventure Weekend in {FACTS.since} for his own son and for the next generation. The Society's purpose, in its own words, is to provide the leadership, community and environment for young men to discover themselves and test their limits, to build their confidence, to create a safe space in which to be vulnerable, and to awaken the power in a young man that lets him overcome life's challenges.</p>
-            <p>It is non-denominational and it is deliberate about character. Four values run through everything: responsibility, integrity, community, and self-discovery. The men hold themselves to a code and to fourteen written standards, and they hold each other to them out loud.</p>
+            <p>It is non-denominational and it is deliberate about character. Five values run through everything, and the men coach by them all weekend. T.E.A.M.S.: truthful, excellence, accountable, mindful, service. The men hold themselves to a code and to fourteen written standards, and they hold each other to them out loud.</p>
             <p>It is not therapy, not a boot camp, not a church retreat, and not a summer camp. It is a rite of passage, built on the shape of the hero's journey, run by volunteers, for thirty-six years.</p>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function BringingHim() {
       <section className="relative overflow-hidden bg-night py-20 text-bone">
         <div className="wrap grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Still s={STILLS["fire-circle-2003"]} sizes="(min-width:1024px) 50vw, 100vw" />
+            <Still s={STILLS["meadow-circle"]} sizes="(min-width:1024px) 50vw, 100vw" />
           </Reveal>
           <div>
             <p className="mono text-ember">How the weekend runs</p>

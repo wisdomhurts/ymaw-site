@@ -16,8 +16,7 @@ export const PACKING: Group[] = [
       { item: "Rain gear", note: "Jacket at minimum. Pants if you have them." },
       { item: "Long-sleeve shirt", note: "Sun and bugs." },
       { item: "Hat" },
-      { item: "Hiking boots", note: "Broken in. Blisters are the one avoidable injury." },
-      { item: "A second pair of shoes", note: "No flip-flops. Runners or sandals with a heel strap." },
+      { item: "Two pairs of shoes", note: "One you can hike in, broken in, and one to change into. No flip-flops." },
       { item: "Swimsuit and towel" },
     ],
   },
@@ -32,10 +31,8 @@ export const PACKING: Group[] = [
   },
   {
     name: "For eating",
-    why: "Eight meals cooked over fire. You carry your own kit and you wash it.",
+    why: "Eight meals cooked over fire. Plates, bowls and cutlery are supplied, biodegradable, so leave the kit at home.",
     items: [
-      { item: "Plate, bowl, mug" },
-      { item: "Fork, knife, spoon", note: "A camping set or the old ones from the drawer." },
       { item: "Water bottle, full", note: "For the bus and the weekend." },
       { item: "A packed lunch for the bus", note: "The ride is about three hours. You'll want it." },
     ],
@@ -44,10 +41,7 @@ export const PACKING: Group[] = [
     name: "Toiletries",
     why: "Small. A ziplock does it.",
     items: [
-      { item: "Toothbrush and toothpaste" },
-      { item: "Body wash and shampoo" },
-      { item: "Deodorant" },
-      { item: "Sunscreen" },
+      { item: "Toothbrush" },
       { item: "Medications, in a labelled bag", note: "Listed at registration. The safety man can hold them if you'd prefer." },
     ],
   },
@@ -59,7 +53,6 @@ export const LEAVE_HOME: Item[] = [
   { item: "Drugs, tobacco, alcohol, vapes" },
   { item: "Tents and tarps", note: "Your team builds its shelter from the Society's gear." },
   { item: "Lighters and matches" },
-  { item: "Bug spray", note: "Long sleeves work. Ask the men why." },
 ];
 
 export const CONFISCATION = "Items from this list will be confiscated and may, or may not, be returned at the end of the weekend.";

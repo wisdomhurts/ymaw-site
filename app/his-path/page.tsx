@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 const HARD = [
   ["Your phone stays home.", "Three days. Everyone survives this, including you. Around Saturday lunch you stop noticing."],
-  ["You hike in with your gear, in the dark.", "It's real work. It's meant to feel a little risky. It is safe: men who've done it thirty times walk with you."],
+  ["You hike in with your gear.", "It's real work. It's meant to feel a little risky. It is safe: men who've done it before will guide you."],
   ["You build the shelter you sleep in.", "Tarps, rope, a knot manual, your team. Nobody does it for you. It's a better sleep than you'd think."],
-  ["The Quests will find the thing you're bad at.", "In front of people. So will everyone else's. Your team needs you anyway."],
+  ["The Quests will ask for something you don't have yet.", "Nerve, strength, wits: nobody brings all three. What you're missing, someone on your team has, and what he's missing, you have. That's the whole idea of a team."],
   ["Saturday night you sit in the circle.", "Men talk. Young men who want to, talk. Nobody makes you. What is said there stays there."],
 ];
 
@@ -24,8 +24,8 @@ const NOBODY = [
   "Nobody makes you speak in the circle.",
   "Nobody makes you swim, climb, or do anything the safety man hasn't checked.",
   "Nobody hazes anyone. That's not what this is, and the men would end it in a second.",
-  "Nobody preaches. It's non-denominational. Four values, no creed.",
-  "Nobody films the circle, the ceremony, or anything you'd rather not be filmed. You choose, at registration, what pictures of you can be used.",
+  "Nobody preaches. It's non-denominational. Five values, no creed.",
+  "Nobody films the circle or the ceremony. The photos and film the men take are how the next young man finds this; if one of you ever bothers you, say so and it comes down.",
 ];
 
 const HOME = [
@@ -40,10 +40,10 @@ export default function HisPath() {
   return (
     <>
       <PageHero
-        kicker="His path · to you, 12 to 17"
+        kicker={`His path · to you, ${FACTS.ages.min} to ${FACTS.ages.max}`}
         lines={["Someone thinks", "you're ready."]}
         lede="They might be wrong. Only one way to find out. Here is exactly what happens, what's hard, what nobody makes you do, and what you come home with."
-        still={STILLS["axe"]}
+        still={STILLS["single-file"]}
       />
 
       {/* What it is */}
@@ -54,9 +54,9 @@ export default function HisPath() {
             <h2 className="t-h2 mt-3"><Lines lines={["Not a camp.", "Not a course.", "Not therapy."]} /></h2>
           </div>
           <div className="grid gap-4 text-[1.1rem] leading-relaxed text-bone/85">
-            <p>A bus takes you and about forty other young men north into the Squamish wilderness on a Friday afternoon. Fifty men are already there. They built the camp that morning. None of them are paid. Most of them have done this for years; some of them did it as young men.</p>
+            <p>A bus takes you and a bunch of other young men north into the Squamish wilderness on a Friday afternoon. The men are already there. They built the camp that morning. They paid to be here, just like you. Most of them have done this for years; some of them did it as young men.</p>
             <p>For three days you live in a world run by men who take you seriously. You'll work with your hands, compete, fail, eat a lot, sleep outside, and sit around a fire at night. On Sunday you'll be acknowledged in front of your team for what you actually brought, and then you'll walk out between two lines of men and get back on the bus.</p>
-            <p>This has happened every year since {FACTS.since}. {FACTS.completed.charAt(0).toUpperCase() + FACTS.completed.slice(1)} have done it. Some of their fathers did it before them.</p>
+            <p>This has happened since {FACTS.since}. {FACTS.completed.charAt(0).toUpperCase() + FACTS.completed.slice(1)} have done it.</p>
           </div>
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function HisPath() {
               </Reveal>
             ))}
             <Reveal delay={260} className="relative min-h-[16rem] overflow-hidden bg-ink">
-              <Still s={STILLS["creek-team"]} sizes="(min-width:1024px) 33vw, 100vw" />
+              <Still s={STILLS["shields"]} sizes="(min-width:1024px) 33vw, 100vw" />
             </Reveal>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function HisPath() {
       <section className="bg-night py-20 text-bone">
         <div className="wrap grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal className="relative aspect-[4/5] overflow-hidden rounded-2xl lg:order-2">
-            <Still s={STILLS["huddle"]} sizes="(min-width:1024px) 50vw, 100vw" />
+            <Still s={STILLS["stump"]} sizes="(min-width:1024px) 50vw, 100vw" />
           </Reveal>
           <div>
             <p className="mono text-ember">What nobody makes you do</p>
@@ -96,6 +96,31 @@ export default function HisPath() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* T.E.A.M.S. — the five questions */}
+      <section className="bg-cedar py-20 text-bone">
+        <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <p className="mono text-ember">Five questions</p>
+            <h2 className="t-h2 mt-3"><Lines lines={["You'll hear these", "all weekend."]} /></h2>
+            <p className="mt-4 max-w-[26rem] text-bone/75">The men don't preach. They ask. Five words, one question each, and they let you answer it. By Sunday you'll be asking your team.</p>
+            <p className="display mt-8 text-[clamp(3rem,9vw,6rem)] leading-none tracking-wide"><span className="text-ember">T</span>.<span className="text-ember">E</span>.<span className="text-ember">A</span>.<span className="text-ember">M</span>.<span className="text-ember">S</span>.</p>
+          </div>
+          <ol className="grid gap-3">
+            {FACTS.teams.map((v, i) => (
+              <Reveal key={v.name} as="li" delay={i * 50} className="grid gap-1 rounded-xl border border-white/10 p-5 sm:grid-cols-[3rem_1fr] sm:gap-4">
+                <span className="display text-[2.6rem] leading-none text-ember">{v.letter}</span>
+                <div>
+                  <p className="display text-2xl leading-none">{v.name}</p>
+                  <p className="mt-2 text-sm text-bone/70">{v.line}</p>
+                  <p className="mt-2 font-serif text-[1.1rem] italic text-bone">“{v.ask}”</p>
+                </div>
+              </Reveal>
+            ))}
+            <li className="rounded-xl border border-ember/40 p-5 text-sm text-bone/80"><span className="display text-xl text-bone">And one more: Team.</span> {FACTS.team.steel}</li>
+          </ol>
         </div>
       </section>
 
@@ -117,7 +142,7 @@ export default function HisPath() {
 
       {/* Your part */}
       <section className="relative overflow-hidden bg-night py-24 text-bone">
-        <div className="absolute inset-0 opacity-30"><Still s={STILLS["young-man"]} sizes="100vw" className="blur-[1px] brightness-50" /></div>
+        <div className="absolute inset-0 opacity-30"><Still s={STILLS["misty-shore"]} sizes="100vw" className="blur-[1px] brightness-50" /></div>
         <div className="scrim-t absolute inset-x-0 top-0 h-1/2" /><div className="scrim-b absolute inset-x-0 bottom-0 h-1/2" />
         <div className="wrap relative grid gap-10 lg:grid-cols-2 lg:items-end">
           <div>

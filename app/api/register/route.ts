@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       emergency_name: y.emergency_name, emergency_relationship: y.emergency_relationship, emergency_phone: y.emergency_phone, emergency_alt_phone: y.emergency_alt_phone || null,
       heard_from: y.heard_from || null, sponsor_name: y.sponsor_name || null, sponsor_phone: y.sponsor_phone || null,
       consent_waiver: true, waiver_version: WAIVER_VERSION, consented_at: now, guardian_signature: y.guardian_signature,
-      photo_consent: y.media_consent === "full", media_consent: y.media_consent,
+      photo_consent: true, media_consent: "full",
       participant_email: y.participant_email || null,
       participant_initials: signedHere ? y.participant_initials : null,
       participant_signature: signedHere ? y.participant_signature : null,
@@ -196,7 +196,7 @@ export async function POST(req: Request) {
       ),
     }),
   );
-  after.push(notifyTeam(`New ${d.role.replace("_", " ")} registration · ${ref}`, `<p><strong>${payer_name}</strong> (${payer_email}) · ${d.role} · ${d.payment_method} · $${(amount / 100).toFixed(0)}</p><p>${d.role === "young_man" ? `Young man: ${(d as YoungManT).son_first} ${(d as YoungManT).son_last}, ${(d as YoungManT).son_age}. Media: ${(d as YoungManT).media_consent}. His signature: ${signToken ? "pending (link sent)" : "done"}.` : ""}</p><p>Supabase → registrations → ${ref}</p>`));
+  after.push(notifyTeam(`New ${d.role.replace("_", " ")} registration · ${ref}`, `<p><strong>${payer_name}</strong> (${payer_email}) · ${d.role} · ${d.payment_method} · $${(amount / 100).toFixed(0)}</p><p>${d.role === "young_man" ? `Young man: ${(d as YoungManT).son_first} ${(d as YoungManT).son_last}, ${(d as YoungManT).son_age}. Media release: signed. His signature: ${signToken ? "pending (link sent)" : "done"}.` : ""}</p><p>Supabase → registrations → ${ref}</p>`));
 
   const results = await Promise.allSettled(after);
   const emails = { confirmation: results[results.length - 2]?.status, team: results[results.length - 1]?.status, sign_link: signToken ? results[1]?.status : "n/a" };

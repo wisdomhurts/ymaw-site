@@ -8,7 +8,7 @@ import { STILLS } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "The Men",
-  description: "Who produces the Young Men's Adventure Weekend: volunteer men, the departments, the fourteen standards, the Man Code, and how to join the production team.",
+  description: "Who produces the Young Men's Adventure Weekend: volunteer men, the departments, the five values (T.E.A.M.S.), the fourteen standards, the Man Code, and how to join the production team.",
 };
 
 export default function TheMen() {
@@ -18,7 +18,7 @@ export default function TheMen() {
         kicker="The men · the production team"
         lines={["Fifty men.", "Nobody paid.", "Every year since 1990."]}
         lede="Fathers, tradesmen, teachers, men who came through the weekend as young men. They build a camp on Thursday and Friday, run it for three days, strike it on Sunday, and go to work Monday."
-        still={STILLS["men-truck"]}
+        still={STILLS["men-shore"]}
       />
 
       {/* Founder */}
@@ -74,25 +74,47 @@ export default function TheMen() {
         </div>
       </section>
 
-      {/* Values + Man Code */}
+      {/* T.E.A.M.S. */}
+      <section className="bg-night py-20 text-bone">
+        <div className="wrap">
+          <p className="mono text-ember">The five values · T.E.A.M.S.</p>
+          <h2 className="t-h2 mt-3 max-w-[18ch]"><Lines lines={["Five words every man", "coaches by. Out loud."]} /></h2>
+          <p className="mt-4 max-w-[44rem] text-ash">Truthful, Excellence, Accountable, Mindful, Service. The men don't lecture them; they ask them. When a young man cuts a corner, blames a teammate, or drifts off, a man asks one question and lets him answer it. When he gets it right, a man says so, by name. By Sunday the young men are asking each other.</p>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-5">
+            {FACTS.teams.map((v, i) => (
+              <Reveal key={v.name} delay={i * 50} className="bg-night p-6">
+                <p className="display text-[4rem] leading-none text-ember">{v.letter}</p>
+                <h3 className="display mt-1 text-2xl leading-none">{v.name}</h3>
+                <p className="mt-3 text-sm text-bone/75">{v.def}</p>
+                <p className="mt-4 border-t border-white/10 pt-3 font-serif text-[1.05rem] italic text-bone/90">“{v.ask}”</p>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+            <div>
+              <p className="mono text-ember">And the word itself</p>
+              <h3 className="t-h3 mt-2">Team.</h3>
+              <p className="mt-3 text-bone/80">{FACTS.team.unequal}</p>
+              <p className="mono mt-4 text-ember">The men ask: <span className="serif normal-case tracking-normal text-[1.15rem] text-bone">“{FACTS.team.ask}”</span></p>
+            </div>
+            <div>
+              <p className="t-quote text-bone/90">{FACTS.team.carbon}</p>
+              <p className="t-lede mt-6 text-ember">{FACTS.team.steel}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Man Code */}
       <section className="bg-paper py-20 text-ink" data-surface="paper">
         <div className="wrap grid gap-12 lg:grid-cols-2">
           <div>
-            <p className="mono text-flame">Four values</p>
-            <div className="mt-6 grid gap-5">
-              {FACTS.values.map((v) => (
-                <Reveal key={v.name} className="border-l-2 border-flame pl-5">
-                  <h3 className="display text-[2rem] leading-none">{v.name}</h3>
-                  <p className="mt-2 text-ink/75">{v.line}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-          <div>
             <p className="mono text-flame">The Man Code</p>
             <p className="t-quote mt-6">“{FACTS.manCode.line}”</p>
-            <p className="mt-6 text-sm text-ink/60">Core values of the Man Code:</p>
-            <div className="mt-3 flex flex-wrap gap-2">
+          </div>
+          <div>
+            <p className="mono text-flame">Core values of the Man Code</p>
+            <div className="mt-5 flex flex-wrap gap-2">
               {FACTS.manCode.virtues.map((v) => <span key={v} className="rounded-full border border-ink/15 px-3 py-1 text-sm">{v}</span>)}
             </div>
             <p className="mt-6 text-sm text-ink/60">Over the weekend, the young men are invited to create their own shared standards to live by. As men, we already hold ourselves to high standards. This is a chance to raise them.</p>
@@ -120,7 +142,7 @@ export default function TheMen() {
 
       {/* Straight talk + join */}
       <section className="relative overflow-hidden bg-night py-24 text-bone">
-        <div className="absolute inset-0 opacity-30"><Still s={STILLS["kitchen-chef"]} sizes="100vw" className="blur-[1px] brightness-50" /></div>
+        <div className="absolute inset-0 opacity-30"><Still s={STILLS["men-circle-arms"]} sizes="100vw" className="blur-[1px] brightness-50" /></div>
         <div className="scrim-t absolute inset-x-0 top-0 h-1/2" /><div className="scrim-b absolute inset-x-0 bottom-0 h-1/2" />
         <div className="wrap relative grid gap-10 lg:grid-cols-2 lg:items-end">
           <div>

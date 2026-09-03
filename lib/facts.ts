@@ -12,7 +12,7 @@ export const FACTS = {
   facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
   donateLink: "https://buy.stripe.com/3cseVq5ia73N5eUdQQ",
   region: "Squamish region, BC",
-  ages: { min: 12, max: 17 },
+  ages: { min: 11, max: 18 },
   priceCAD: 320,
   priceCents: 32000,
   event: "ymaw-2026",
@@ -47,12 +47,46 @@ export const FACTS = {
   },
   // From the Society's own site and outreach documents.
   completed: "more than a thousand young men",
-  values: [
-    { name: "Responsibility", line: "We will be accountable for our roles and fulfill our duties to a high standard." },
-    { name: "Integrity", line: "Our thoughts, words, and actions will be in alignment." },
-    { name: "Community", line: "We are all members of many communities. We will endeavour to uphold their values at all times." },
-    { name: "Self-Discovery", line: "We will push our limits, test our mettle, discover our potential, and strive to bring that potential into the world." },
+  // T.E.A.M.S. — the five values the men coach the young men in, from the
+  // Society's "T.E.A.M.S. Core Values for Coaching Young Men". Definitions verbatim.
+  teams: [
+    {
+      letter: "T", name: "Truthful",
+      def: "The commitment to honesty and integrity in all aspects of life.",
+      line: "Genuine and sincere in your words and actions, to others and to yourself. Face reality with courage, admit mistakes, and do what is right even when it's difficult.",
+      ask: "Are you being truthful?",
+    },
+    {
+      letter: "E", name: "Excellence",
+      def: "The pursuit of giving your best in everything you do, at all times, by taking intentional actions to achieve your desired outcomes.",
+      line: "High standards, brought every time. Out of your comfort zone, into the challenge, and through it. Never settling for mediocre.",
+      ask: "Are you striving for excellence?",
+    },
+    {
+      letter: "A", name: "Accountable",
+      def: "Taking full responsibility for yourself, your actions and even your thoughts.",
+      line: "Own it when you fall short of who you want to be. Make amends. Keep your commitments, to yourself and to others, and stay open to feedback.",
+      ask: "Are you being accountable?",
+    },
+    {
+      letter: "M", name: "Mindful",
+      def: "Paying attention to your thoughts, feelings, sensations and surroundings with curiosity and acceptance.",
+      line: "Be here, fully. In tune with yourself, your emotions and the people around you, not lost in the past or the future.",
+      ask: "Are you being mindful?",
+    },
+    {
+      letter: "S", name: "Service",
+      def: "Prioritizing the needs of others above your own wants and desires, without seeking attention or praise.",
+      line: "Present and ready to improve a situation. Help when asked, not to be seen. Lead by example and put the greater good over recognition.",
+      ask: "Are you serving others, or just yourself right now?",
+    },
   ],
+  team: {
+    ask: "Are you being a team player?",
+    unequal: "Every man on a team is not equal. The largest man cannot do what the smallest can, and vice versa. Each one brings a strength the others don't have, and the team wins by putting them together.",
+    carbon: "A young man is a chunk of carbon. A man is a diamond. Only pressure, heat and time form the diamond, and only when its rough edges are ground down does it show its glow in the sun.",
+    steel: "As steel sharpens steel, so does one man sharpen another. That is the value of a team.",
+  },
   manCode: {
     line: "Commitment before ego. Keep your word. Be prepared. Defend humanity. Champion diversity and recognize differences. Always be faithful to others. Fight only honourable battles. Earn and honour rank. Be an example to children.",
     virtues: ["Endurance", "Commitment", "Integrity", "Passion", "Humour", "Generosity", "Helpfulness", "Hope", "Belief in team", "Trust", "Conviction", "Justice", "Fairness", "Self-mastery", "Patience", "Skill", "Resourcefulness", "Compassion", "Creativity", "Thoughtfulness", "Insight", "Respect", "Wisdom", "Emotional intelligence"],

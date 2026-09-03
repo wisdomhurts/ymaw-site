@@ -34,7 +34,7 @@ export default function Support() {
         kicker="Support · send a young man"
         lines={["Money is never", "the reason he", "stays home."]}
         lede="The Society is volunteer-run. Every dollar goes to the weekend. Every hour goes to a young man. Here are the ways in."
-        still={STILLS["kitchen-chef"]}
+        still={STILLS["griddle"]}
       />
 
       <section className="bg-paper py-20 text-ink" data-surface="paper">

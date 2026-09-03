@@ -2,7 +2,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import Journey from "@/components/Journey";
 import Countdown from "@/components/Countdown";
-import FourValues from "@/components/FourValues";
+import Teams from "@/components/Teams";
 import Reveal, { Lines } from "@/components/Reveal";
 import { Still } from "@/components/Media";
 import FireMark from "@/components/FireMark";
@@ -21,9 +21,9 @@ export default function Home() {
         <div className="marquee">
           {[0, 1].map((k) => (
             <div key={k} className="flex shrink-0 items-center gap-10 pr-10">
-              {FACTS.values.map((v) => (
+              {FACTS.teams.map((v) => (
                 <span key={v.name + k} className="display flex items-center gap-10 text-[2rem] uppercase tracking-wide">
-                  {v.name} <span className="text-ember">✦</span>
+                  <span><span className="text-ember">{v.letter}</span>{v.name.slice(1)}</span> <span className="text-ember">✦</span>
                 </span>
               ))}
               <span className="display flex items-center gap-10 text-[2rem] uppercase tracking-wide">
@@ -34,7 +34,7 @@ export default function Home() {
         </div>
       </div>
 
-      <FourValues />
+      <Teams />
 
       {/* Countdown + stops */}
       <section className="relative bg-night py-24 text-bone" aria-labelledby="bus">
@@ -84,7 +84,7 @@ export default function Home() {
               ["Real tools. Real fire.", "Axes, knots, shelters, water, the Quests. Skills taught by men who use them, with a safety man at every station."],
               ["A circle, not a lecture.", "Saturday night the men sit with the young men. Nobody is made to speak. What is said there stays there."],
               ["Since 1990.", `${FACTS.completed} have completed the weekend. Many of their fathers did too.`],
-              ["Non-denominational.", "No creed. Four values: responsibility, integrity, community, self-discovery. And the Man Code the men live by."],
+              ["Non-denominational.", "No creed. Five values the men coach by, T.E.A.M.S.: truthful, excellence, accountable, mindful, service. And the Man Code the men live by."],
               [`$${FACTS.priceCAD}, all in.`, "Bus, food, tools, shirt, the lot. If money is the reason he'd stay home, tell us. Work-to-earn and assistance exist for exactly that."],
             ].map(([h, p], i) => (
               <Reveal key={h} delay={i * 60} className="bg-paper p-7">
@@ -131,7 +131,7 @@ export default function Home() {
       {/* Register */}
       <section className="relative overflow-hidden bg-night py-28 text-bone" aria-labelledby="go">
         <div className="pointer-events-none absolute inset-0 opacity-40">
-          <Still s={STILLS["hands-raised"]} sizes="100vw" className="blur-[2px] brightness-50" />
+          <Still s={STILLS["arms-up-lake"]} sizes="100vw" className="blur-[2px] brightness-50" />
         </div>
         <div className="scrim-t absolute inset-x-0 top-0 h-1/2" />
         <div className="scrim-b absolute inset-x-0 bottom-0 h-1/2" />

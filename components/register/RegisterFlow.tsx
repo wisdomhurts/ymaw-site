@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { FACTS } from "@/lib/facts";
-import { YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, MEDIA_CHOICES, WAIVER_VERSION } from "@/lib/legal";
+import { YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, MEDIA_RELEASE, WAIVER_VERSION } from "@/lib/legal";
 import { Field, Select, YesNo, Choice, Check, Agreement, Signature, StepHead } from "./fields";
 import FireMark from "../FireMark";
 
@@ -15,6 +15,10 @@ const RELATIONSHIPS = ["Mother", "Father", "Step-parent", "Legal guardian", "Gra
 const HEARD = ["A man who's been", "A parent whose son went", "School or counsellor", "Coach or club", "Instagram or Facebook", "Search", "Flyer or poster", "Other"];
 const PROVINCES = ["BC", "AB", "SK", "MB", "ON", "QC", "NB", "NS", "PE", "NL", "YT", "NT", "NU", "Other"];
 const DEPTS = FACTS.departments.map((d) => d.name);
+
+// He must be 11 to 18 on the Friday of the weekend.
+const DOB_MIN = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.ages.max - 1); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); })();
+const DOB_MAX = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.ages.min); return d.toISOString().slice(0, 10); })();
 
 function ageFrom(dob: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) return null;
@@ -31,7 +35,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
     initialRole === "young-man" ? "young_man" : initialRole === "man" ? "man" : initialRole === "sponsor" ? "sponsor" : null,
   );
   const [step, setStep] = useState(0);
-  const [d, setD] = useState<D>({ province: "BC", relationship: "", attended_before: "", participant_mode: "here", media_consent: "", payment_method: "", seats: "1", crc_status: "", amount: String(FACTS.priceCAD) });
+  const [d, setD] = useState<D>({ province: "BC", relationship: "", attended_before: "", participant_mode: "here", payment_method: "", seats: "1", crc_status: "", amount: String(FACTS.priceCAD) });
   const [errs, setErrs] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [serverErr, setServerErr] = useState<string | null>(null);
@@ -102,7 +106,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
       } else if (name === "Your part") {
         if (d.consent_medical !== "1") e.consent_medical = "Please confirm the medical consent";
         if (d.consent_waiver !== "1") e.consent_waiver = "Please confirm the release and waiver";
-        if (!d.media_consent) e.media_consent = "Choose one";
+        if (d.consent_media !== "1") e.consent_media = "Please agree to the photo and video release";
         if (!d.guardian_signature?.trim()) e.guardian_signature = "Type your full name";
         else if (d.parent_name && d.guardian_signature.trim().toLowerCase() !== d.parent_name.trim().toLowerCase()) e.guardian_signature = `Type your name exactly as above: ${d.parent_name}.`;
       } else if (name === "Payment") {
@@ -163,7 +167,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         participant_initials: d.participant_mode === "here" ? YM_AGREEMENTS.map((_, i) => d[`ym_init${i}`]) : undefined,
         participant_signature: d.participant_mode === "here" ? d.participant_signature : undefined,
         participant_email: d.participant_email || "",
-        consent_medical: true, consent_waiver: true, media_consent: d.media_consent, guardian_signature: d.guardian_signature,
+        consent_medical: true, consent_waiver: true, consent_media: true, guardian_signature: d.guardian_signature,
         payment_method: d.payment_method, aid_note: d.aid_note || "", website: d.website || "",
       };
     } else if (role === "man") {
@@ -203,7 +207,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         <StepHead kicker="Register" title="Who's registering?" lede="One form, on a phone, in about five minutes. Pick your door." />
         {canceledRef && <p className="card mb-6 p-4 text-sm">Card payment was cancelled. Your registration <span className="mono">{canceledRef}</span> is saved as pending — pay by e-transfer, or start again below.</p>}
         <div className="grid gap-3">
-          <Choice on={false} onClick={() => { setRole("young_man"); goto(0); }} title="A young man, 12 to 17" line="A parent or guardian registers. He signs his own agreements — on your phone, or from a link we email him." badge={`$${FACTS.priceCAD}`} />
+          <Choice on={false} onClick={() => { setRole("young_man"); goto(0); }} title={`A young man, ${FACTS.ages.min} to ${FACTS.ages.max}`} line="A parent or guardian registers. He signs his own agreements — on your phone, or from a link we email him." badge={`$${FACTS.priceCAD}`} />
           <Choice on={false} onClick={() => { setRole("man"); goto(0); }} title="A production man" line="Volunteer on the team that produces the weekend. Criminal record check required." badge={`$${FACTS.priceCAD}`} />
           <Choice on={false} onClick={() => { setRole("sponsor"); goto(0); }} title="Sponsor a seat" line="Send a young man you know, or one you don't. A seat is $320; any amount helps." badge="Any amount" />
         </div>
@@ -269,7 +273,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="His first name" name="son_first" value={d.son_first || ""} onChange={(v) => set("son_first", v)} required autoComplete="off" error={errs.son_first} half />
             <Field label="His last name" name="son_last" value={d.son_last || ""} onChange={(v) => set("son_last", v)} required autoComplete="off" error={errs.son_last} half />
-            <Field label="Date of birth" name="dob" type="date" value={d.dob || ""} onChange={(v) => set("dob", v)} required error={errs.dob} half hint={d.dob && ageFrom(d.dob) !== null ? `${ageFrom(d.dob)} on the Friday of the weekend` : `He must be ${FACTS.ages.min}–${FACTS.ages.max} on ${FACTS.dates.label.split(",")[0]}`} min="2008-01-01" max="2015-12-31" />
+            <Field label="Date of birth" name="dob" type="date" value={d.dob || ""} onChange={(v) => set("dob", v)} required error={errs.dob} half hint={d.dob && ageFrom(d.dob) !== null ? `${ageFrom(d.dob)} on the Friday of the weekend` : `He must be ${FACTS.ages.min}–${FACTS.ages.max} on ${FACTS.dates.label.split(",")[0]}`} min={DOB_MIN} max={DOB_MAX} />
             <YesNo label="Has he been to YMAW before?" value={d.attended_before || ""} onChange={(v) => set("attended_before", v)} error={errs.attended_before} />
             {d.attended_before === "yes" && <Field label="How many times?" name="times_attended" type="number" inputMode="numeric" value={d.times_attended || ""} onChange={(v) => set("times_attended", v)} half />}
             <Field label="Any wilderness experience?" name="wilderness_experience" value={d.wilderness_experience || ""} onChange={(v) => set("wilderness_experience", v)} textarea placeholder="Camping, scouts, hiking, none — all fine." />
@@ -359,7 +363,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
 
       {role === "young_man" && name === "Your part" && (
         <section>
-          <StepHead kicker="His registration · 5 of 6" title="Your part." lede="Medical consent, the release, and how we may use pictures of him." />
+          <StepHead kicker="His registration · 5 of 6" title="Your part." lede="Medical consent, the release and waiver, and the photo and video release." />
           <div className="grid gap-7">
             <div>
               <h2 className="t-h3">Medical treatment</h2>
@@ -376,12 +380,10 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
               <div className="mt-3"><Check checked={d.consent_waiver === "1"} onChange={(v) => set("consent_waiver", v ? "1" : "")} error={errs.consent_waiver}>I have read the release and waiver and I agree to it on behalf of myself and {d.son_first || "the participant"}.</Check></div>
             </div>
             <div>
-              <h2 className="t-h3">Pictures of him</h2>
-              <p className="mt-2 text-sm text-[color:var(--muted)]">Everything on this website was taken at a real weekend. Nothing goes up without this choice. Change it any time by email.</p>
-              <div className="mt-3 grid gap-3">
-                {MEDIA_CHOICES.map((m) => <Choice key={m.value} on={d.media_consent === m.value} onClick={() => set("media_consent", m.value)} title={m.title} line={m.line} />)}
-              </div>
-              {errs.media_consent && <p className="mt-2 text-sm text-flame">{errs.media_consent}</p>}
+              <h2 className="t-h3">Photos and video of him</h2>
+              <p className="mt-2 text-sm text-[color:var(--muted)]">Every frame on this website was taken at a real weekend by the men. This is how the next young man finds it.</p>
+              <div className="legal mt-3"><p>As parent or guardian of <strong>{d.son_first} {d.son_last}</strong>: {MEDIA_RELEASE}</p></div>
+              <div className="mt-3"><Check checked={d.consent_media === "1"} onChange={(v) => set("consent_media", v ? "1" : "")} error={errs.consent_media}>I agree to the photo and video release.</Check></div>
             </div>
             <Signature label={`Your signature, ${d.parent_name || "parent or guardian"}`} value={d.guardian_signature || ""} onChange={(v) => set("guardian_signature", v)} error={errs.guardian_signature} />
           </div>

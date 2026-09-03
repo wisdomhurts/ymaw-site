@@ -32,6 +32,7 @@ export type Clip = {
 
 const S = "/media/stills";
 const C = "/media/clips";
+const G = "/media/gallery";
 
 export const STILLS: Record<string, Still> = {
   axe: { id: "axe", src: `${S}/axe.webp`, srcSmall: `${S}/axe-m.webp`, alt: "A young man swings an axe overhead at a round of cedar, camp behind him", stage: "camp", portrait: true, year: 2025, faces: true },
@@ -50,6 +51,41 @@ export const STILLS: Record<string, Still> = {
   "arch-2025": { id: "arch-2025", src: `${S}/arch-2025.webp`, alt: "Archive, 2025", stage: "archive", year: 2025 },
   king: { id: "king", src: `${S}/king.webp`, alt: "A young man stands on the shore", stage: "reward" },
   volunteer: { id: "volunteer", src: `${S}/volunteer.webp`, alt: "Production men at the site", stage: "men" },
+  // From the 2026 archive survey (public/media/gallery)
+  "fire-circle-lake": { id: "fire-circle-lake", src: `${G}/stills/p-y2019-0231.webp`, srcSmall: `${G}/stills/p-y2019-0231-m.webp`, alt: "Dusk. Everyone in a circle around the fire pit by the lake, mountains behind", stage: "ordeal", year: 2019 },
+  "meadow-circle": { id: "meadow-circle", src: `${G}/stills/p-y2024-0217.webp`, srcSmall: `${G}/stills/p-y2024-0217-m.webp`, alt: "The whole weekend in one circle in the meadow at dusk, a fire in the middle", stage: "allies", year: 2024 },
+  "bus-forest": { id: "bus-forest", src: `${G}/stills/p-y2019-0104.webp`, srcSmall: `${G}/stills/p-y2019-0104-m.webp`, alt: "The yellow school bus arriving on the forest road", stage: "call", year: 2019 },
+  "bus-packs": { id: "bus-packs", src: `${G}/stills/p-y2019-0107.webp`, srcSmall: `${G}/stills/p-y2019-0107-m.webp`, alt: "Young men with packs beside the bus in the forest", stage: "threshold", year: 2019 },
+  "packs-trailhead": { id: "packs-trailhead", src: `${G}/stills/p-y2019-0108.webp`, srcSmall: `${G}/stills/p-y2019-0108-m.webp`, alt: "Young men shoulder their packs at the trailhead", stage: "threshold", year: 2019 },
+  "single-file": { id: "single-file", src: `${G}/stills/p-y2022-0100.webp`, srcSmall: `${G}/stills/p-y2022-0100-m.webp`, alt: "Young men walking single file into the old growth", stage: "threshold", year: 2022 },
+  "rain-circle": { id: "rain-circle", src: `${G}/stills/p-y2019-0243.webp`, srcSmall: `${G}/stills/p-y2019-0243-m.webp`, alt: "The circle in the rain under the old growth, everyone in ponchos", stage: "allies", year: 2019 },
+  "circle-old-growth": { id: "circle-old-growth", src: `${G}/stills/p-y2019-0254.webp`, srcSmall: `${G}/stills/p-y2019-0254-m.webp`, alt: "A wide circle of men and young men in the mossy forest", stage: "allies", year: 2019 },
+  "stump": { id: "stump", src: `${G}/stills/p-y2019-0126.webp`, srcSmall: `${G}/stills/p-y2019-0126-m.webp`, alt: "A young man stands on a mossy stump, facing the forest", stage: "reward", year: 2019 },
+  "lake-watch": { id: "lake-watch", src: `${G}/stills/p-ymawphotos-0030.webp`, srcSmall: `${G}/stills/p-ymawphotos-0030-m.webp`, alt: "A man and a young man at the lake's edge, looking out", stage: "return" },
+  "arms-up-lake": { id: "arms-up-lake", src: `${G}/stills/p-ymawphotos-0109.webp`, srcSmall: `${G}/stills/p-ymawphotos-0109-m.webp`, alt: "The whole weekend at the lake, every arm up", stage: "return" },
+  "men-shore": { id: "men-shore", src: `${G}/stills/p-y2019-0216.webp`, srcSmall: `${G}/stills/p-y2019-0216-m.webp`, alt: "The production men in a line at the lakeshore", stage: "men", year: 2019 },
+  "men-line": { id: "men-line", src: `${G}/stills/p-y2019-0215.webp`, srcSmall: `${G}/stills/p-y2019-0215-m.webp`, alt: "The production men lined up on the shore, mountains behind", stage: "men", year: 2019 },
+  "men-circle-arms": { id: "men-circle-arms", src: `${G}/stills/p-y2019-0257.webp`, srcSmall: `${G}/stills/p-y2019-0257-m.webp`, alt: "Men in the forest circle, arms out", stage: "men", year: 2019 },
+  "sun-forest": { id: "sun-forest", src: `${G}/stills/p-y2024-0264.webp`, srcSmall: `${G}/stills/p-y2024-0264-m.webp`, alt: "Sun through the cedars over the forest camp", stage: "threshold", year: 2024 },
+  "embers": { id: "embers", src: `${G}/stills/p-y2019-0236.webp`, srcSmall: `${G}/stills/p-y2019-0236-m.webp`, alt: "The fire at night, embers", stage: "ordeal", year: 2019 },
+  "driftwood-fire": { id: "driftwood-fire", src: `${G}/stills/p-y2019-0166.webp`, srcSmall: `${G}/stills/p-y2019-0166-m.webp`, alt: "The driftwood fire pit on the lakeshore", stage: "camp", year: 2019 },
+  "pushups": { id: "pushups", src: `${G}/stills/p-y2019-0155.webp`, srcSmall: `${G}/stills/p-y2019-0155-m.webp`, alt: "Everyone doing push-ups on the beach at morning circle", stage: "trials", year: 2019 },
+  "shields": { id: "shields", src: `${G}/stills/p-y2022-0120.webp`, srcSmall: `${G}/stills/p-y2022-0120-m.webp`, alt: "Young men with wooden shields in the forest quest", stage: "trials", year: 2022 },
+  "swim": { id: "swim", src: `${G}/stills/p-ymawphotos-0095.webp`, srcSmall: `${G}/stills/p-ymawphotos-0095-m.webp`, alt: "Young men wading into the turquoise lake", stage: "trials" },
+  "game-dust": { id: "game-dust", src: `${G}/stills/p-ymawphotos-0119.webp`, srcSmall: `${G}/stills/p-ymawphotos-0119-m.webp`, alt: "The game: young men versus the men in the dust", stage: "roadback" },
+  "griddle": { id: "griddle", src: `${G}/stills/p-y2019-0226.webp`, srcSmall: `${G}/stills/p-y2019-0226-m.webp`, alt: "A production man at the kitchen griddle", stage: "men", year: 2019 },
+  "axe-swing": { id: "axe-swing", src: `${G}/stills/p-y2022-0061.webp`, srcSmall: `${G}/stills/p-y2022-0061-m.webp`, alt: "A man splitting wood with an axe", stage: "camp", year: 2022 },
+  "misty-shore": { id: "misty-shore", src: `${G}/stills/p-y2019-0003.webp`, srcSmall: `${G}/stills/p-y2019-0003-m.webp`, alt: "Figures at the misty lakeshore under the trees", stage: "ordinary", year: 2019 },
+  "beach-fire-smoke": { id: "beach-fire-smoke", src: `${G}/stills/p-y2019-0022.webp`, srcSmall: `${G}/stills/p-y2019-0022-m.webp`, alt: "Smoke from the beach fire, the whole camp by the lake", stage: "ordeal", year: 2019 },
+  "kayak-grey": { id: "kayak-grey", src: `${G}/stills/p-y2019-0183.webp`, srcSmall: `${G}/stills/p-y2019-0183-m.webp`, alt: "A kayak on the grey lake", stage: "trials", year: 2019 },
+  "raft": { id: "raft", src: `${G}/stills/p-ymawphotos-0008.webp`, srcSmall: `${G}/stills/p-ymawphotos-0008-m.webp`, alt: "Two young men poling a raft across the lake", stage: "trials" },
+  "run-lake": { id: "run-lake", src: `${G}/stills/p-ymawphotos-0073.webp`, srcSmall: `${G}/stills/p-ymawphotos-0073-m.webp`, alt: "Two young men running into the lake", stage: "trials" },
+  "group-2019": { id: "group-2019", src: `${G}/stills/p-y2019-0300.webp`, srcSmall: `${G}/stills/p-y2019-0300-m.webp`, alt: "The 2019 weekend, everyone, at the lake", stage: "return", year: 2019 },
+  "group-2016": { id: "group-2016", src: `${G}/stills/p-y2016-0025.webp`, srcSmall: `${G}/stills/p-y2016-0025-m.webp`, alt: "The 2016 weekend, everyone, on the beach", stage: "return", year: 2016 },
+  "group-2024": { id: "group-2024", src: `${G}/stills/p-y2024-0445.webp`, srcSmall: `${G}/stills/p-y2024-0445-m.webp`, alt: "The 2024 weekend, everyone, under the trees", stage: "return", year: 2024 },
+  "tarp-forest": { id: "tarp-forest", src: `${G}/stills/p-y2024-0196.webp`, srcSmall: `${G}/stills/p-y2024-0196-m.webp`, alt: "A tarp shelter going up in the forest", stage: "camp", year: 2024 },
+  "mossy-trail": { id: "mossy-trail", src: `${G}/stills/p-y2019-0044.webp`, srcSmall: `${G}/stills/p-y2019-0044-m.webp`, alt: "The mossy trail through the old growth", stage: "threshold", year: 2019 },
+  "bus-road-2023": { id: "bus-road-2023", src: `${G}/posters/c-1478.webp`, alt: "The bus arriving on the gravel road, 2023", stage: "call", year: 2023 },
 };
 
 export const CLIPS: Record<string, Clip> = {
@@ -59,6 +95,19 @@ export const CLIPS: Record<string, Clip> = {
   leg4: { id: "leg4", src: `${C}/leg4-m.mp4`, poster: `${S}/fire-circle-2003-m.webp`, alt: "The fire circle", stage: "ordeal", seconds: 8, portrait: true },
   leg5: { id: "leg5", src: `${C}/leg5.mp4`, poster: `${S}/hands-raised.webp`, alt: "Every hand goes up", stage: "reward", seconds: 12 },
   leg6: { id: "leg6", src: `${C}/leg6-m.mp4`, poster: `${S}/young-man-m.webp`, alt: "He looks back", stage: "return", seconds: 8, portrait: true },
+  // From the 2026 archive survey
+  "drone-lake": { id: "drone-lake", src: `${G}/clips/c-0139.mp4`, poster: `${G}/posters/c-0139.webp`, alt: "Drone over the lake and the forest", stage: "ordinary", year: 2022, seconds: 9 },
+  "off-the-bus": { id: "off-the-bus", src: `${G}/clips/c-2156.mp4`, poster: `${G}/posters/c-2156.webp`, alt: "Young men getting off the yellow bus in the forest", stage: "call", year: 2023, seconds: 9 },
+  "packs-forest": { id: "packs-forest", src: `${G}/clips/c-1495.mp4`, poster: `${G}/posters/c-1495.webp`, alt: "Young men with packs walking through the forest", stage: "threshold", year: 2023, seconds: 9 },
+  "rain-circle": { id: "rain-circle", src: `${G}/clips/c-0051.mp4`, poster: `${G}/posters/c-0051.webp`, alt: "The circle in the rain under the old growth", stage: "allies", year: 2019, seconds: 9 },
+  "shelters": { id: "shelters", src: `${G}/clips/c-1514.mp4`, poster: `${G}/posters/c-1514.webp`, alt: "Teams building their tarp shelters in the forest", stage: "camp", year: 2023, seconds: 9 },
+  "drone-kayaks": { id: "drone-kayaks", src: `${G}/clips/c-0134.mp4`, poster: `${G}/posters/c-0134.webp`, alt: "Drone over kayaks on the turquoise lake", stage: "trials", year: 2022, seconds: 9 },
+  "lanterns": { id: "lanterns", src: `${G}/clips/c-2179.mp4`, poster: `${G}/posters/c-2179.webp`, alt: "Lanterns on the shore at dusk", stage: "ordeal", year: 2023, seconds: 9 },
+  "arms-raised": { id: "arms-raised", src: `${G}/clips/c-1545.mp4`, poster: `${G}/posters/c-1545.webp`, alt: "Young men with their arms raised at the shore", stage: "reward", year: 2023, seconds: 9 },
+  "dust-run": { id: "dust-run", src: `${G}/clips/c-1614.mp4`, poster: `${G}/posters/c-1614.webp`, alt: "The game: running through the dust", stage: "roadback", year: 2023, seconds: 9 },
+  "misty-shore-walk": { id: "misty-shore-walk", src: `${G}/clips/c-0117.mp4`, poster: `${G}/posters/c-0117.webp`, alt: "A young man carries his pack along the misty shore", stage: "return", year: 2019, seconds: 9 },
+  "lantern-path": { id: "lantern-path", src: `${G}/clips/c-1598.mp4`, poster: `${G}/posters/c-1598.webp`, alt: "The lantern path along the shore at dusk", stage: "ordeal", year: 2023, seconds: 9 },
+  "bus-road": { id: "bus-road", src: `${G}/clips/c-1478.mp4`, poster: `${G}/posters/c-1478.webp`, alt: "The yellow bus arriving on the gravel road", stage: "call", year: 2023, seconds: 9 },
 };
 
 export const still = (id: keyof typeof STILLS | string) => STILLS[id as string];

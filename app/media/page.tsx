@@ -21,7 +21,7 @@ export default function MediaPage() {
         kicker="Photos & film · the weekend's own archive"
         lines={["Every frame", "is real."]}
         lede={`${stills} photographs and ${clips} short films, shot at YMAW weekends by the men who were there. Nothing staged, nothing stock. Walk it by chapter, or by year.`}
-        still={STILLS["fire-circle-2003"]}
+        still={STILLS["beach-fire-smoke"]}
         short
       >
         <p className="mt-6 max-w-[40rem] text-sm text-ash">The circle and the ceremony are never filmed. Young men appear here only from behind, at a distance, or with a release on file; if you see yourself and would rather not, email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a> and it comes down the same day.</p>

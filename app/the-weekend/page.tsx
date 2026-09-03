@@ -19,7 +19,7 @@ export default function TheWeekend() {
         kicker="The weekend · the field log"
         lines={["Hour by hour.", "Friday dusk to", "Sunday afternoon."]}
         lede="From the Society's own arc-of-the-weekend document. The map is never the territory: the men follow the energy of the young men, and this shifts. But it's close."
-        still={STILLS["kayaks"]}
+        still={STILLS["bus-forest"]}
       />
 
       <section className="bg-night py-6 text-bone">

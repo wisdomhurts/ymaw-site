@@ -2,7 +2,7 @@
 // Society's existing registration forms and lightly edited for the screen.
 // If the wording changes, bump the version so records say which text was signed.
 
-export const WAIVER_VERSION = "v2026-2";
+export const WAIVER_VERSION = "v2026-3";
 
 export const YM_AGREEMENTS = [
   "I understand that this weekend takes place in the wilderness and will be physically demanding at times.",
@@ -30,7 +30,7 @@ export const YM_WAIVER = [
   `We have no reservations about the Participant's physical fitness or health that would prevent him from participating in physically demanding activities. We have advised the Volunteers of any relevant physical condition or disability of the Participant (including food or other allergies).`,
   `We understand that the Young Men's Adventure Weekend 2026 takes place in a wilderness setting and includes such activities as hiking, campfires, games, using tools, swimming, and travelling to and from the site. We acknowledge the risks inherent in this setting and in these activities and recognize that serious personal injuries, damage to personal property or even death may occur. We agree to assume those risks and release the Society and the Volunteers from any responsibility.`,
   `Release and indemnification. We hereby release and discharge the Society and the Volunteers (and other persons authorized by them to help produce the Young Men's Adventure Weekend 2026) from all claims that we, the family, the Participant, or our personal representatives may have for any injury (including injury resulting in death) or disability sustained by the Participant, however caused. We release and indemnify the hosts, owners and occupiers of the site at which the event is held from liability for any and all loss, injury or damage the Participant or his parent or guardian may sustain, no matter how it is caused. We also release the Society, the Volunteers and other participants from any responsibility for loss of, or damage to, the Participant's personal property. We agree not to make any claim for any loss, injury or damage we, the Participant, or the parent or guardian may sustain in connection with the event, no matter how such loss, injury or damage may occur.`,
-  `Photographs and video. Photographs and video taken during the Young Men's Adventure Weekend 2026 are the property of the Young Men's Adventure Weekend Society of BC. How images of the Participant may be used is chosen separately below, and that choice can be changed at any time by emailing info@ymaw.com.`,
+  `Photographs and video. Photographs and video taken during the Young Men's Adventure Weekend 2026 are the property of the Young Men's Adventure Weekend Society of BC. A photo and video release is signed separately below.`,
 ];
 
 export const MEN_WAIVER_INTRO = `The Young Men's Adventure Weekend Society of BC (the "Society"), the body responsible for producing the Young Men's Adventure Weekend 2026, requires that you, as a volunteer, read and agree to the following:`;
@@ -45,22 +45,4 @@ export const MEN_WAIVER = [
   `I confirm that I have completed, or will complete before the weekend, a Criminal Record Check through the BC Criminal Records Review Program, and I understand I cannot attend without one.`,
 ];
 
-export const MEDIA_CHOICES = [
-  {
-    value: "full",
-    title: "Yes, photos and video",
-    line: "Images of him may be used by the Society on its website, social media and materials, to invite the next young man.",
-  },
-  {
-    value: "anonymous",
-    title: "Only where he isn't identifiable",
-    line: "Backs, silhouettes, hands, wide shots. Nothing a classmate would recognize.",
-  },
-  {
-    value: "none",
-    title: "No photos of him",
-    line: "He wears a coloured band and the camera works around him.",
-  },
-] as const;
-
-export type MediaChoice = (typeof MEDIA_CHOICES)[number]["value"];
+export const MEDIA_RELEASE = `Photographs and video are taken at the Young Men's Adventure Weekend by the production men. I agree that images and film of the participant taken at the weekend, and at its related events, are the property of the Young Men's Adventure Weekend Society of BC and may be used by the Society on its website, its social media and in its materials, to invite the next young man. The circle and the ceremony are never filmed. To ask for a specific image to be taken down, email info@ymaw.com.`;

@@ -23,7 +23,7 @@ export default async function ThankYou({ searchParams }: { searchParams: Promise
   return (
     <div className="bg-night text-bone">
       <section className="relative min-h-[70svh] overflow-hidden">
-        <div className="absolute inset-0"><Still s={STILLS["men-truck"]} sizes="100vw" className="brightness-[.45]" priority /></div>
+        <div className="absolute inset-0"><Still s={STILLS["men-line"]} sizes="100vw" className="brightness-[.45]" priority /></div>
         <div className="scrim-b absolute inset-x-0 bottom-0 h-3/4" />
         <div className="wrap relative flex min-h-[70svh] flex-col justify-end pb-12 pt-[calc(var(--nav-h)+3rem)]">
           <FireMark size={40} animate title="" />
