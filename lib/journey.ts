@@ -31,7 +31,7 @@ export const STATIONS: Station[] = [
       "His room. His phone. The same week, again. Nobody has asked anything of him that he couldn't do with one thumb.",
       "That's not a criticism of him. It's the world he was handed. It's where the story starts.",
     ],
-    media: { kind: "clip", id: "lake-dusk" },
+    media: { kind: "still", id: "lake-watch" },
   },
   {
     id: "call",
