@@ -103,9 +103,9 @@ export default function Home() {
       {/* The men */}
       <section className="relative overflow-hidden bg-night py-24 text-bone" aria-labelledby="men">
         <div className="wrap grid items-center gap-12 lg:grid-cols-2">
-          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Still s={STILLS["brad-dorian"]} sizes="(min-width:1024px) 50vw, 100vw" />
-            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-ash backdrop-blur">The founder and his son</p>
+          <Reveal className="relative aspect-[2/1] overflow-hidden rounded-2xl">
+            <Still s={STILLS["brad-points"]} sizes="(min-width:1024px) 50vw, 100vw" />
+            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-ash backdrop-blur">The founder</p>
           </Reveal>
           <div>
             <p className="mono text-ember">The men</p>
