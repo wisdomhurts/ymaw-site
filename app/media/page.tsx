@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import { Lines } from "@/components/Reveal";
 import { FACTS } from "@/lib/facts";
-import { STILLS } from "@/lib/media";
-import { BEST } from "@/lib/best";
 
 export const metadata: Metadata = {
   title: "Photos",
@@ -13,20 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function MediaPage() {
-  const count = BEST.length;
   return (
     <>
-      <PageHero
-        kicker="Photos · the weekend's own archive"
-        lines={["Every frame", "is real."]}
-        lede={`${count} photographs, shot at YMAW weekends by the men who were there. Nothing staged, nothing stock.`}
-        still={STILLS["beach-fire-smoke"]}
-        short
-      >
-        <p className="mt-6 max-w-[40rem] text-sm text-ash">The circle and the ceremony are never filmed. Young men appear here only from behind, at a distance, or with a release on file; if you see yourself and would rather not, email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a> and it comes down the same day.</p>
-      </PageHero>
-
-      <section className="bg-night pb-24 pt-10 text-bone">
+      <section className="bg-night pb-24 pt-[calc(var(--nav-h)+2.5rem)] text-bone">
+        <div className="wrap mb-6"><h1 className="mono text-ember">Photos</h1></div>
         <Gallery />
       </section>
 

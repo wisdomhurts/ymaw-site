@@ -8,22 +8,15 @@ import { PAIRS } from "@/lib/archive";
 
 export const metadata: Metadata = {
   title: "Since 1990",
-  description: "The archive of the Young Men's Adventure Weekend: the same moments across the years we have frames from, 2003 to this September, and the old rolls in between.",
+  description: "The Young Men's Adventure Weekend since 1990: the same moments, decades apart. 2003 beside 2023, 2006 beside 2024.",
 };
 
 export default function Since1990() {
   return (
     <>
-      <section className="relative overflow-hidden bg-night pb-10 pt-[calc(var(--nav-h)+4rem)] text-bone">
-        <div className="wrap">
-          <p className="mono text-ember">The archive</p>
-          <h1 className="t-chapter mt-3"><Lines lines={["Thirty-six Septembers.", "Same weekend."]} /></h1>
-          <p className="t-lede mt-5 max-w-[42rem] text-bone/85">Every photograph on this site was taken at a YMAW weekend. The first years were shot on film and most of it is gone. What survives is here, the same moments set beside each other decades apart.</p>
-        </div>
-      </section>
-
       {/* Then and now */}
-      <section className="bg-night pb-24 text-bone">
+      <section className="bg-night pb-24 pt-[calc(var(--nav-h)+2.5rem)] text-bone">
+        <div className="wrap mb-10"><h1 className="mono text-ember">Since 1990 · then and now</h1></div>
         <div className="wrap grid gap-20">
           {PAIRS.map((p) => {
             const then = STILLS[p.then], now = STILLS[p.now];

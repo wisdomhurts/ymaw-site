@@ -20,7 +20,7 @@ export const YoungMan = z.object({
   // him
   son_first: name,
   son_last: name,
-  son_age: z.coerce.number().int().min(FACTS.ages.min, `YMAW is for young men ${FACTS.ages.min}–${FACTS.ages.max}`).max(FACTS.ages.max, `YMAW is for young men ${FACTS.ages.min}–${FACTS.ages.max}`),
+  son_age: z.coerce.number().int().min(FACTS.agesAccepted.min, `YMAW is for young men ${FACTS.agesAccepted.min}–${FACTS.agesAccepted.max}`).max(FACTS.agesAccepted.max, `YMAW is for young men ${FACTS.agesAccepted.min}–${FACTS.agesAccepted.max}`),
   dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date of birth"),
   attended_before: z.enum(["yes", "no"]),
   times_attended: z.coerce.number().int().min(0).max(10).optional(),

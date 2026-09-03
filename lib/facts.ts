@@ -12,7 +12,8 @@ export const FACTS = {
   facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
   donateLink: "https://buy.stripe.com/3cseVq5ia73N5eUdQQ",
   region: "Squamish region, BC",
-  ages: { min: 11, max: 18 },
+  ages: { min: 12, max: 17 },          // what the site says
+  agesAccepted: { min: 11, max: 18 },  // what registration actually accepts
   priceCAD: 320,
   priceCents: 32000,
   event: "ymaw-2026",

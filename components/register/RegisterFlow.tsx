@@ -16,9 +16,9 @@ const HEARD = ["A man who's been", "A parent whose son went", "School or counsel
 const PROVINCES = ["BC", "AB", "SK", "MB", "ON", "QC", "NB", "NS", "PE", "NL", "YT", "NT", "NU", "Other"];
 const DEPTS = FACTS.departments.map((d) => d.name);
 
-// He must be 11 to 18 on the Friday of the weekend.
-const DOB_MIN = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.ages.max - 1); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); })();
-const DOB_MAX = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.ages.min); return d.toISOString().slice(0, 10); })();
+// The site says 12 to 17; registration accepts 11 to 18 on the Friday of the weekend.
+const DOB_MIN = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.agesAccepted.max - 1); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); })();
+const DOB_MAX = (() => { const d = new Date(FACTS.dates.start + "T12:00:00"); d.setFullYear(d.getFullYear() - FACTS.agesAccepted.min); return d.toISOString().slice(0, 10); })();
 
 function ageFrom(dob: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) return null;
@@ -91,7 +91,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
       if (name === "Him") {
         e = need(["son_first", "son_last", "dob", "attended_before"]);
         const a = ageFrom(d.dob);
-        if (d.dob && (a === null || a < FACTS.ages.min || a > FACTS.ages.max)) e.dob = `He needs to be ${FACTS.ages.min} to ${FACTS.ages.max} on ${FACTS.dates.label.split(",")[0]}.`;
+        if (d.dob && (a === null || a < FACTS.agesAccepted.min || a > FACTS.agesAccepted.max)) e.dob = `He needs to be ${FACTS.agesAccepted.min} to ${FACTS.agesAccepted.max} on ${FACTS.dates.label.split(",")[0]}.`;
       } else if (name === "His health") {
         e = need(["health_number", "doctor_name", "doctor_phone"]);
       } else if (name === "You") {
@@ -273,7 +273,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="His first name" name="son_first" value={d.son_first || ""} onChange={(v) => set("son_first", v)} required autoComplete="off" error={errs.son_first} half />
             <Field label="His last name" name="son_last" value={d.son_last || ""} onChange={(v) => set("son_last", v)} required autoComplete="off" error={errs.son_last} half />
-            <Field label="Date of birth" name="dob" type="date" value={d.dob || ""} onChange={(v) => set("dob", v)} required error={errs.dob} half hint={d.dob && ageFrom(d.dob) !== null ? `${ageFrom(d.dob)} on the Friday of the weekend` : `He must be ${FACTS.ages.min}–${FACTS.ages.max} on ${FACTS.dates.label.split(",")[0]}`} min={DOB_MIN} max={DOB_MAX} />
+            <Field label="Date of birth" name="dob" type="date" value={d.dob || ""} onChange={(v) => set("dob", v)} required error={errs.dob} half hint={d.dob && ageFrom(d.dob) !== null ? `${ageFrom(d.dob)} on the Friday of the weekend` : `He must be ${FACTS.agesAccepted.min}–${FACTS.agesAccepted.max} on ${FACTS.dates.label.split(",")[0]}`} min={DOB_MIN} max={DOB_MAX} />
             <YesNo label="Has he been to YMAW before?" value={d.attended_before || ""} onChange={(v) => set("attended_before", v)} error={errs.attended_before} />
             {d.attended_before === "yes" && <Field label="How many times?" name="times_attended" type="number" inputMode="numeric" value={d.times_attended || ""} onChange={(v) => set("times_attended", v)} half />}
             <Field label="Any wilderness experience?" name="wilderness_experience" value={d.wilderness_experience || ""} onChange={(v) => set("wilderness_experience", v)} textarea placeholder="Camping, scouts, hiking, none — all fine." />
