@@ -34,10 +34,14 @@ export async function ghlUpsertContact(c: GhlContact): Promise<{ ok: boolean; vi
   const { firstName, lastName } = splitName(c.name);
 
   if (key && locationId) {
+    const headers = { Authorization: `Bearer ${key}`, Version: "2021-07-28", "Content-Type": "application/json", Accept: "application/json" };
     try {
+      // Upsert WITHOUT tags: GHL's upsert replaces the tag list wholesale, and a
+      // person who joined the list last month must not lose that tag because
+      // they sent a question today. Tags are appended in a second call.
       const r = await fetch(`${API}/contacts/upsert`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${key}`, Version: "2021-07-28", "Content-Type": "application/json", Accept: "application/json" },
+        headers,
         body: JSON.stringify({
           locationId,
           email: c.email,
@@ -45,13 +49,20 @@ export async function ghlUpsertContact(c: GhlContact): Promise<{ ok: boolean; vi
           lastName,
           name: c.name && c.name !== "—" ? c.name : undefined,
           phone: c.phone || undefined,
-          tags: c.tags,
           source: c.source,
         }),
       });
       const j = (await r.json().catch(() => ({}))) as { contact?: { id?: string }; message?: string; error?: string };
       if (!r.ok) return { ok: false, via: "api", error: j.message || j.error || `ghl ${r.status}` };
-      return { ok: true, via: "api", id: j.contact?.id };
+      const id = j.contact?.id;
+      if (id && c.tags.length) {
+        const t = await fetch(`${API}/contacts/${id}/tags`, { method: "POST", headers, body: JSON.stringify({ tags: c.tags }) });
+        if (!t.ok) {
+          const tj = (await t.json().catch(() => ({}))) as { message?: string };
+          return { ok: false, via: "api", id, error: `tags: ${tj.message || t.status}` };
+        }
+      }
+      return { ok: true, via: "api", id };
     } catch (e) {
       return { ok: false, via: "api", error: String(e) };
     }
