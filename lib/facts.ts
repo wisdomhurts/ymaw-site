@@ -117,7 +117,7 @@ export const FACTS = {
     { name: "Jason Macloed", role: "Enrolment 2nd" },
     { name: "Dan Beck", role: "Finance & registration" },
     { name: "Raymond Wong", role: "Safety manager" },
-    { name: "Matthieu Francoeur", role: "Transport manager" },
+    { name: "Tim Bolan", role: "Transport manager" },
     { name: "Dorian Leslie", role: "Kitchen · Food Boss" },
     { name: "Brad Leslie", role: "Cofounder" },
   ],

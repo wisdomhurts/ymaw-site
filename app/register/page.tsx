@@ -22,7 +22,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
             <div className="scrim-b absolute inset-x-0 bottom-0 h-1/2" />
             <div className="absolute bottom-8 left-8 right-8 text-bone">
               <p className="mono text-ember">{FACTS.dates.label}</p>
-              <p className="display mt-2 text-[2.6rem] leading-none">Every hand goes up on Sunday.</p>
+              <p className="display mt-2 text-[2.6rem] leading-none">On Sunday he walks out between two lines of men.</p>
               <p className="mt-2 text-bone/75">${FACTS.priceCAD} CAD · {FACTS.region} · ages {FACTS.ages.min}–{FACTS.ages.max}</p>
             </div>
           </div>
