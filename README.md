@@ -56,16 +56,21 @@ Three spreadsheets live in the Drive folder **YMAW 2026 Registrations**: *Young 
 
 The script owns the header rows: if a column is missing it adds it at the end, so the sheets can be re-ordered freely and old rows keep their place.
 
-## Go-live checklist
+## Live since Sept 4, 2026
 
-1. Vercel project → Settings → Git → Production Branch = `next-2026` (or merge into `main`).
-2. Add the env vars above (Production + Preview).
-3. Stripe: unpause, add the webhook, copy the signing secret, test one $320 card payment in test mode, then swap to live keys.
-4. Resend: verify ymaw.com, send one test registration to yourself.
-5. Domains: add `ymaw.com` and `www.ymaw.com` to the Vercel project; point DNS (A `76.76.21.21`, CNAME `cname.vercel-dns.com`).
-6. Redirect old URLs: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` — configured in `next.config.ts`.
-7. Set `ADMIN_KEY`, open `/admin`, confirm the list loads.
-8. Print the field card once; hand the T-shirt SVGs to the shop.
+`https://ymaw.com` is the canonical address. `www.ymaw.com` and `ymaw.vercel.app` 308-redirect to it. DNS (Google nameservers): A `@` → `216.198.79.1`, CNAME `www` → `65711fde6896792c.vercel-dns-017.com`; the MX/TXT records are email and were left alone. Stripe is live on the Ymaw account (`acct_1Mz3b7…`) with webhook `ymaw-site-registrations` → `https://ymaw.com/api/stripe/webhook`. Not yet set: `RESEND_API_KEY` (no emails go out), `SHEETS_WEBHOOK_*` (sheets are not live yet).
+
+**Deploying.** The Vercel project `ymaw` is not git-connected. It builds from a one-file bootstrap: the install command clones `next-2026` from GitHub, then `next build`. So after pushing to `next-2026`, deploy with the same call every time (Vercel MCP `deploy_to_vercel`, project `ymaw`, target `production`, files `[BOOTSTRAP.md]`, projectSettings `{ framework: "nextjs", installCommand: "rm -rf /tmp/src && git clone --depth 1 --branch next-2026 https://github.com/wisdomhurts/ymaw-site /tmp/src && rm -rf /tmp/src/.git && cp -a /tmp/src/. . && npm install", buildCommand: "npm run build" }`). Two things bit us on Sept 4: the dashboard **Redeploy** button re-uploads only the bootstrap file and ships an empty site (404 everywhere), and omitting `framework: "nextjs"` from that call resets the project's Framework Preset to *Other*, which also ships an empty site. The project settings now carry both, so a dashboard Redeploy should work, but the call above is the known-good path.
+
+**Config check.** `GET /api/admin?key=…&diag=1` reports which services the running deployment can actually see (set / length / prefix, never values). Use it before blaming code.
+
+## Still to do
+
+1. Resend: verify ymaw.com, set `RESEND_API_KEY`, send one test registration to yourself.
+2. Google Sheets live feed (section above).
+3. Stripe → Payment methods → register `ymaw.com` for Apple Pay / Google Pay.
+4. Redirect old URLs: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` — configured in `next.config.ts`; check them once after cancelling WP Engine.
+5. Print the field card once; hand the T-shirt SVGs to the shop.
 
 ## Media
 
