@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { supabase, pushToSheet } from "@/lib/server";
+import { supabase, pushToSheet, sendMail, mailShell, SITE_URL } from "@/lib/server";
+import { FACTS } from "@/lib/facts";
 
 export const runtime = "nodejs";
 
@@ -14,7 +15,21 @@ function authorized(req: Request) {
 // GET /api/admin?key=…&diag=1          → which services are configured (never the values)
 export async function GET(req: Request) {
   if (!authorized(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (new URL(req.url).searchParams.get("diag")) {
+  const diag = new URL(req.url).searchParams.get("diag");
+  // ?diag=mail → send one test email to NOTIFY_EMAIL and report Resend's answer
+  // verbatim, plus which domains the Resend account has verified. This is how
+  // we learn whether info@ymaw.com can actually be reached.
+  if (diag === "mail") {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) return NextResponse.json({ error: "RESEND_API_KEY not set" }, { status: 503 });
+    const domains = await fetch("https://api.resend.com/domains", { headers: { Authorization: `Bearer ${key}` } })
+      .then(async (r) => ({ status: r.status, body: (await r.json().catch(() => ({}))) as { data?: { name: string; status: string; region?: string }[] } }))
+      .catch((e) => ({ status: 0, body: { error: String(e) } as unknown as { data?: [] } }));
+    const to = (process.env.NOTIFY_EMAIL || FACTS.email).split(",").map((s) => s.trim());
+    const sent = await sendMail({ to, subject: `YMAW site · test notification · ${new Date().toISOString().slice(0, 16)}`, html: mailShell("Notifications are live.", `<p>This is a test sent from ${SITE_URL}/api/admin?diag=mail. If you're reading it in ${to.join(", ")}, every form on the site reaches this inbox.</p>`) });
+    return NextResponse.json({ to, from: process.env.RESEND_FROM || "YMAW <onboarding@resend.dev>", sent, domains: domains.body.data?.map((d) => ({ name: d.name, status: d.status })) ?? domains.body });
+  }
+  if (diag) {
     const has = (k: string) => {
       const v = process.env[k];
       return v ? { set: true, length: v.length, prefix: v.slice(0, 8) } : { set: false };
