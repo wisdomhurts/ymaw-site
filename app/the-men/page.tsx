@@ -29,10 +29,10 @@ export default function TheMen() {
             <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-bone backdrop-blur">Brad Leslie, cofounder</p>
           </Reveal>
           <div>
-            <p className="mono text-flame">Since {FACTS.since}</p>
+            <p className="mono text-flame">The founders</p>
             <h2 className="t-h2 mt-3"><Lines lines={["Two men started it", "for every young man."]} /></h2>
             <div className="mt-5 grid gap-4 text-[1.05rem] text-ink/80">
-              <p>{FACTS.founders} founded the Young Men's Adventure Weekend in {FACTS.since}, not for their own sons but {FACTS.why}. Brad's son Dorian has been at more than thirty, and today helps carry it forward.</p>
+              <p>{FACTS.founders} founded the Young Men's Adventure Weekend in {FACTS.since}, not for their own sons but {FACTS.why}. Brad's son Dorian has been at more than thirty of them, and today helps carry it forward.</p>
               <p>Brad's reason hasn't changed: to make a difference in the world by supporting men and young men to be their best, to live lives of integrity and service, and to hold high standards for themselves and their communities.</p>
               <p>The weekend is produced by the {FACTS.society}, a volunteer non-profit with a board, a Production Team Manager for each weekend, and departments led by men who've held the role for years.</p>
             </div>
