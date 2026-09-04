@@ -39,7 +39,7 @@ See `.env.example`. The site runs without them in an honest demo mode (nothing s
 
 | Var | Where |
 |---|---|
-| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase → project **ymaw** → Settings → API. Schema already applied (`registrations`, `inquiries`; RLS on, no policies: service role only). |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase → project **ymaw** → Settings → API. Schema already applied (`registrations`, `inquiries`; RLS on, no policies: service role only). The table has check constraints that must agree with `lib/facts.ts`: `registrations_son_age_check` is 11–18 (= `FACTS.agesAccepted`; it was 12–17 until Sept 4, 2026 and silently rejected every 11- and 18-year-old at the payment step). If the accepted ages ever change, change the constraint too. |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Stripe → Developers. Add webhook endpoint `https://ymaw.com/api/stripe/webhook` for `checkout.session.completed` (and `checkout.session.async_payment_succeeded`). Apple Pay / Google Pay appear automatically in Checkout once the domain is registered in Stripe → Payment methods. |
 | `RESEND_API_KEY`, `RESEND_FROM`, `NOTIFY_EMAIL` | Resend. Verify `ymaw.com` (DNS) to send from info@ymaw.com; until then `onboarding@resend.dev` only delivers to the account owner. `NOTIFY_EMAIL` (info@ymaw.com) gets every form in full: each registration with every field and how it's being paid, each card payment when it lands, each contact-form message, each mailing-list signup. Reply-to is set to the person who wrote. |
 | `SHEETS_WEBHOOK_URL`, `SHEETS_WEBHOOK_SECRET` | Optional Google Sheet mirror, see below. |
