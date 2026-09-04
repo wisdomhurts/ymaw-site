@@ -292,6 +292,11 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
             <Field label="Doctor's name" name="doctor_name" value={d.doctor_name || ""} onChange={(v) => set("doctor_name", v)} required error={errs.doctor_name} half />
             <Field label="Doctor's phone" name="doctor_phone" type="tel" inputMode="tel" value={d.doctor_phone || ""} onChange={(v) => set("doctor_phone", v)} required error={errs.doctor_phone} half />
           </div>
+          {/* PIPA wants the purpose stated where the information is taken, not
+              buried on another page. It is also just the decent thing to do. */}
+          <p className="mt-5 text-sm text-[color:var(--muted)]">
+            This is the only part of the form that is medical. It goes to the safety team, it travels with them on paper for the weekend, and it is erased within ninety days after the weekend ends. What we keep, and for how long, is set out in our <Link href="/privacy" className="link">privacy notice</Link>.
+          </p>
         </section>
       )}
 
@@ -515,7 +520,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         )}
         <span className="ml-auto flex items-center gap-2 text-xs text-dust"><FireMark size={12} title="" /> Saved as you go on this device</span>
       </div>
-      {step === total - 1 && <p className="mt-4 text-xs text-dust">By continuing you agree that the signatures typed above are your own and are binding. <Link href="/faq" className="link">Questions</Link></p>}
+      {step === total - 1 && <p className="mt-4 text-xs text-dust">By continuing you agree that the signatures typed above are your own and are binding. We email you a PDF of everything you signed. <Link href="/privacy" className="link">Privacy notice</Link> · <Link href="/faq" className="link">Questions</Link></p>}
     </div>
   );
 }

@@ -5,6 +5,7 @@ export const FACTS = {
   name: "Young Men's Adventure Weekend",
   short: "YMAW",
   society: "Young Men's Adventure Weekend Society of BC",
+  incorporation: "S-40533",       // BC society registration, as on every paper form since 2014
   since: 1990,
   founder: "Brad Leslie",                       // cofounder, still on the team every year
   founders: "Brad Leslie and Andy Vine",        // the two men who started it in 1990

@@ -4,6 +4,11 @@
 
 export const WAIVER_VERSION = "v2026-3";
 
+// The privacy notice is versioned separately: it can change (a new processor, a
+// new retention period) without the waiver changing, and a record should say
+// which notice the person was shown.
+export const PRIVACY_VERSION = "p2026-1";
+
 export const YM_AGREEMENTS = [
   "I understand that this weekend takes place in the wilderness and will be physically demanding at times.",
   "I will not bring any illegal substances, drugs, alcohol, tobacco, weapons or electronics (phone, music player, games).",

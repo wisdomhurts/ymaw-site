@@ -35,7 +35,8 @@ export function makeToken() {
 export const clip = (v: unknown, n: number) => (v == null ? null : String(v).slice(0, n)) || null;
 
 /* ───────────── Email (Resend) ───────────── */
-type Mail = { to: string | string[]; subject: string; html: string; text?: string; replyTo?: string };
+type Attachment = { filename: string; content: Uint8Array | Buffer };
+type Mail = { to: string | string[]; subject: string; html: string; text?: string; replyTo?: string; attachments?: Attachment[] };
 
 export async function sendMail(m: Mail): Promise<{ ok: boolean; id?: string; error?: string }> {
   const key = process.env.RESEND_API_KEY;
@@ -45,7 +46,12 @@ export async function sendMail(m: Mail): Promise<{ ok: boolean; id?: string; err
     const r = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: m.to, subject: m.subject, html: m.html, text: m.text, reply_to: m.replyTo || FACTS.email }),
+      body: JSON.stringify({
+        from, to: m.to, subject: m.subject, html: m.html, text: m.text,
+        reply_to: m.replyTo || FACTS.email,
+        // Resend takes attachment content as base64.
+        attachments: m.attachments?.map((a) => ({ filename: a.filename, content: Buffer.from(a.content).toString("base64") })),
+      }),
     });
     const j = (await r.json().catch(() => ({}))) as { id?: string; message?: string };
     if (!r.ok) return { ok: false, error: j.message || `resend ${r.status}` };
@@ -80,9 +86,9 @@ export async function pushToSheet(row: Record<string, unknown>) {
 }
 
 /* ───────────── Notify the team ───────────── */
-export async function notifyTeam(subject: string, html: string, opts: { replyTo?: string } = {}) {
+export async function notifyTeam(subject: string, html: string, opts: { replyTo?: string; attachments?: Attachment[] } = {}) {
   const to = (process.env.NOTIFY_EMAIL || FACTS.email).split(",").map((s) => s.trim());
-  return sendMail({ to, subject, html: mailShell(subject, html), replyTo: opts.replyTo });
+  return sendMail({ to, subject, html: mailShell(subject, html), replyTo: opts.replyTo, attachments: opts.attachments });
 }
 
 const esc = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -101,7 +107,7 @@ export function recordTable(record: Record<string, unknown>, opts: { skip?: stri
     }
   };
   walk(record, "");
-  const skip = new Set(["id", "signer_ua", "sign_token", "sign_token_expires", "participant_signature", "guardian_signature", "emails", ...(opts.skip || [])]);
+  const skip = new Set(["id", "signer_ua", "participant_signer_ua", "sign_token", "sign_token_expires", "participant_signature", "guardian_signature", "emails", "legal_snapshot", ...(opts.skip || [])]);
   const keys = Object.keys(flat).filter((k) => !skip.has(k) && flat[k] !== null && flat[k] !== "" && flat[k] !== undefined);
   const first = (opts.order || []).filter((k) => keys.includes(k));
   const rest = keys.filter((k) => !first.includes(k));

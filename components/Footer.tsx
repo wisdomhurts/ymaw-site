@@ -82,6 +82,7 @@ export default function Footer() {
               {SOCIETY.map((h) => (
                 <li key={h}><Link className={LINK} href={h}>{LABEL[h]}</Link></li>
               ))}
+              <li><Link className={LINK} href="/privacy">Privacy</Link></li>
             </ul>
           </div>
 
@@ -121,7 +122,7 @@ export default function Footer() {
 
       <div className="hairline" />
       <div className="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5 text-xs text-dust">
-        <span>© {FACTS.year} {FACTS.society}</span>
+        <span>© {FACTS.year} {FACTS.society} · Incorporation No. {FACTS.incorporation}</span>
         <span className="mono flex flex-wrap items-center gap-3 text-[0.68rem]">
           <span className="text-ember">T.E.A.M.S.</span>
           <span aria-hidden className="h-px w-4 bg-white/20" />

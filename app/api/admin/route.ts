@@ -48,6 +48,34 @@ export async function GET(req: Request) {
   }
   const db = supabase();
   if (!db) return NextResponse.json({ error: "DB not configured" }, { status: 503 });
+
+  // ?purge=health → erase the medical file for weekends that are over.
+  //
+  // The health number, the medications and the doctor's details exist so the
+  // safety team can act on a mountain. Once a weekend has ended they serve no
+  // purpose, and BC's PIPA says information must be destroyed once the purpose
+  // it was collected for is done. The signed agreements, which the Society may
+  // need for years, are untouched. ?purge=health&dry=1 counts without erasing.
+  if (new URL(req.url).searchParams.get("purge") === "health") {
+    const dry = new URL(req.url).searchParams.get("dry") === "1";
+    const cutoff = new Date(Date.now() - 90 * 864e5).toISOString();
+    const sel = await db
+      .from("registrations")
+      .select("ref, event, created_at")
+      .neq("event", FACTS.event)
+      .lt("created_at", cutoff)
+      .not("health_number", "is", null);
+    if (sel.error) return NextResponse.json({ error: sel.error.message }, { status: 500 });
+    const refs = sel.data.map((r) => r.ref as string);
+    if (dry || !refs.length) return NextResponse.json({ dry: true, would_purge: refs.length, refs });
+    const upd = await db
+      .from("registrations")
+      .update({ health_number: null, medical_notes: null, medications: null, doctor_name: null, doctor_phone: null, health_purged_at: new Date().toISOString() })
+      .in("ref", refs);
+    if (upd.error) return NextResponse.json({ error: upd.error.message }, { status: 500 });
+    return NextResponse.json({ purged: refs.length, refs });
+  }
+
   const q = await db.from("registrations").select("*").order("created_at", { ascending: false }).limit(1000);
   if (q.error) return NextResponse.json({ error: q.error.message }, { status: 500 });
   const rows = q.data.map((r) => ({ ...r, health_number: r.health_number ? "•••" + String(r.health_number).slice(-3) : null }));

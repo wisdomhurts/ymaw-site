@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { Registration, type YoungManT, type ManT, type SponsorT } from "@/lib/schema";
 import { FACTS } from "@/lib/facts";
-import { WAIVER_VERSION, YM_AGREEMENTS, MEN_AGREEMENTS } from "@/lib/legal";
+import { WAIVER_VERSION, PRIVACY_VERSION, YM_AGREEMENTS, MEN_AGREEMENTS } from "@/lib/legal";
+import { buildSnapshot, hashSnapshot } from "@/lib/legal-record";
+import { signedRecordPdfFor } from "@/lib/signed-pdf";
 import { supabase, stripe, makeRef, makeToken, sendMail, mailShell, notifyTeam, pushToSheet, recordTable, paymentLine, SITE_URL } from "@/lib/server";
 
 export const runtime = "nodejs";
@@ -43,6 +45,11 @@ export async function POST(req: Request) {
   let lineName = "";
   let signToken: string | null = null;
 
+  // The exact wording put in front of this person, captured now. A version
+  // string alone would leave the record depending on a file in a repository.
+  const snapshot = buildSnapshot(d.role);
+  const legal = { legal_snapshot: snapshot, legal_hash: hashSnapshot(snapshot), privacy_version: PRIVACY_VERSION };
+
   if (d.role === "young_man") {
     const y = d as YoungManT;
     payer_email = y.parent_email;
@@ -61,6 +68,7 @@ export async function POST(req: Request) {
       emergency_name: y.emergency_name, emergency_relationship: y.emergency_relationship, emergency_phone: y.emergency_phone, emergency_alt_phone: y.emergency_alt_phone || null,
       heard_from: y.heard_from || null, sponsor_name: y.sponsor_name || null, sponsor_phone: y.sponsor_phone || null,
       consent_waiver: true, waiver_version: WAIVER_VERSION, consented_at: now, guardian_signature: y.guardian_signature,
+      ...legal,
       photo_consent: true, media_consent: "full",
       participant_email: y.participant_email || null,
       participant_initials: signedHere ? y.participant_initials : null,
@@ -85,6 +93,7 @@ export async function POST(req: Request) {
       wilderness_experience: m.wilderness_experience || null,
       emergency_name: m.emergency_name, emergency_phone: m.emergency_phone,
       consent_waiver: true, waiver_version: WAIVER_VERSION, consented_at: now, guardian_signature: m.signature,
+      ...legal,
       participant_initials: m.initials, participant_signature: m.signature, participant_signed_at: now,
       photo_consent: true, media_consent: "full",
       signer_ip: ip, signer_ua: ua,
@@ -101,7 +110,8 @@ export async function POST(req: Request) {
     row = {
       ref, event: FACTS.event, role: "sponsor", registrant_type: "sponsor", headcount: s.seats,
       parent_name: s.name, parent_email: s.email, parent_phone: s.phone || "",
-      consent_waiver: true, waiver_version: WAIVER_VERSION, consented_at: now,
+      consent_waiver: false, photo_consent: false, waiver_version: WAIVER_VERSION, consented_at: now,
+      ...legal,
       payment_method: s.payment_method, payment_status: "pending", amount_cents: amount, currency: "CAD",
       details: { for_whom: s.for_whom || null, message: s.message || null },
     };
@@ -171,6 +181,11 @@ export async function POST(req: Request) {
     }
   })();
 
+  // The copy of what was signed. Built from the row we just stored, so the
+  // family's copy and the Society's copy are the same document. If it fails to
+  // render, the registration still goes through.
+  const signedPdf = await signedRecordPdfFor({ ...row, id, created_at: now });
+
   // Confirmation to the payer (card path gets its receipt after the webhook).
   const payNote =
     d.payment_method === "etransfer"
@@ -192,8 +207,10 @@ export async function POST(req: Request) {
          ${payNote}
          ${d.role === "young_man" ? `<p>The bus: Langley (McDonald's, 20394 88 Ave) Friday 3:00 pm, or Burnaby (Christine Sinclair Community Centre, south lot) Friday 4:00 pm. Return Sunday afternoon at the same stop.</p><p>What to bring, printable: <a href="${SITE_URL}/what-to-bring" style="color:#e8652a">${SITE_URL}/what-to-bring</a></p>` : ""}
          ${d.role === "man" ? `<p>Criminal record check: <a href="${FACTS.crc.portal}" style="color:#e8652a">${FACTS.crc.portal}</a>, access code <strong>${FACTS.crc.code}</strong>. Load is Thursday, the weekend is ${FACTS.dates.label}. The every-other-Thursday production meetings will be in your inbox.</p>` : ""}
-         <p>Thank you for ${who}.</p>`,
+         <p>Thank you for ${who}.</p>
+         ${signedPdf ? `<p style="font-size:13px;color:#a9a89c">Attached: the full text of everything you signed, with the time and reference. Keep it.</p>` : ""}`,
       ),
+      attachments: signedPdf ? [signedPdf] : undefined,
     }),
   );
   // The team gets everything: who, the full form, and how the money is coming.
@@ -213,7 +230,7 @@ export async function POST(req: Request) {
        <p style="margin:18px 0 6px;font:12px/1.4 Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#a9a89c">Everything on the form</p>
        ${recordTable({ ref, ...row, created_at: now }, { order: ["ref", "role", "son_first", "son_last", "son_age", "dob", "parent_name", "relationship", "parent_email", "parent_phone"] })}
        <p style="margin-top:18px"><a href="${SITE_URL}/admin" style="color:#e8652a">Open /admin</a> · Supabase → registrations → ${ref}</p>`,
-      { replyTo: payer_email },
+      { replyTo: payer_email, attachments: signedPdf ? [signedPdf] : undefined },
     ),
   );
 
@@ -232,5 +249,6 @@ function flatten(row: Record<string, unknown>) {
     } else out[k] = Array.isArray(v) ? v.join("; ") : v;
   }
   delete out.health_number; // keep the health number out of the sheet
+  delete out["legal_snapshot.documents"]; // the full waiver text belongs in the PDF and the row, not a spreadsheet cell
   return out;
 }
