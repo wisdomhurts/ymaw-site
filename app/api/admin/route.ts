@@ -11,8 +11,25 @@ function authorized(req: Request) {
 }
 
 // GET /api/admin?key=… [&format=csv]  → registrations for the event
+// GET /api/admin?key=…&diag=1          → which services are configured (never the values)
 export async function GET(req: Request) {
   if (!authorized(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (new URL(req.url).searchParams.get("diag")) {
+    const has = (k: string) => {
+      const v = process.env[k];
+      return v ? { set: true, length: v.length, prefix: v.slice(0, 8) } : { set: false };
+    };
+    return NextResponse.json({
+      supabase: has("SUPABASE_URL").set && has("SUPABASE_SERVICE_ROLE_KEY").set,
+      stripe_secret_key: has("STRIPE_SECRET_KEY"),
+      stripe_webhook_secret: has("STRIPE_WEBHOOK_SECRET"),
+      resend: has("RESEND_API_KEY").set,
+      sheets_webhook: has("SHEETS_WEBHOOK_URL").set && has("SHEETS_WEBHOOK_SECRET").set,
+      site_url: process.env.PUBLIC_SITE_URL || null,
+      notify_email: process.env.NOTIFY_EMAIL || null,
+      env: process.env.VERCEL_ENV || null,
+    });
+  }
   const db = supabase();
   if (!db) return NextResponse.json({ error: "DB not configured" }, { status: 503 });
   const q = await db.from("registrations").select("*").order("created_at", { ascending: false }).limit(1000);
