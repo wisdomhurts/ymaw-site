@@ -41,8 +41,9 @@ See `.env.example`. The site runs without them in an honest demo mode (nothing s
 |---|---|
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase → project **ymaw** → Settings → API. Schema already applied (`registrations`, `inquiries`; RLS on, no policies: service role only). |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Stripe → Developers. Add webhook endpoint `https://ymaw.com/api/stripe/webhook` for `checkout.session.completed` (and `checkout.session.async_payment_succeeded`). Apple Pay / Google Pay appear automatically in Checkout once the domain is registered in Stripe → Payment methods. |
-| `RESEND_API_KEY`, `RESEND_FROM`, `NOTIFY_EMAIL` | Resend. Verify `ymaw.com` (DNS) to send from info@ymaw.com; until then `onboarding@resend.dev` only delivers to the account owner. |
+| `RESEND_API_KEY`, `RESEND_FROM`, `NOTIFY_EMAIL` | Resend. Verify `ymaw.com` (DNS) to send from info@ymaw.com; until then `onboarding@resend.dev` only delivers to the account owner. `NOTIFY_EMAIL` (info@ymaw.com) gets every form in full: each registration with every field and how it's being paid, each card payment when it lands, each contact-form message, each mailing-list signup. Reply-to is set to the person who wrote. |
 | `SHEETS_WEBHOOK_URL`, `SHEETS_WEBHOOK_SECRET` | Optional Google Sheet mirror, see below. |
+| `GHL_API_KEY` + `GHL_LOCATION_ID`, or `GHL_WEBHOOK_URL` | GoHighLevel, the Society's mailing list. Every mailing-list signup (homepage, FAQ, Support) and every contact-form message is upserted as a GHL contact with tags (`ymaw-mailing-list`, `rising-the-man-within`, `the-forged-circle`, `ymaw-inquiry-<kind>`). API path: Settings → Private Integrations → token with `contacts.write`, plus the Location ID. Webhook path: a workflow with an Inbound Webhook trigger; we POST `email, name, first_name, last_name, phone, tags, source, lists, where`. |
 | `ADMIN_KEY` | Any long random string. Unlocks `/admin`. |
 | `PUBLIC_SITE_URL` | `https://ymaw.com` (preview deploys can leave it unset). |
 
@@ -66,11 +67,12 @@ The script owns the header rows: if a column is missing it adds it at the end, s
 
 ## Still to do
 
-1. Resend: verify ymaw.com, set `RESEND_API_KEY`, send one test registration to yourself.
-2. Google Sheets live feed (section above).
-3. Stripe → Payment methods → register `ymaw.com` for Apple Pay / Google Pay.
-4. Redirect old URLs: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` — configured in `next.config.ts`; check them once after cancelling WP Engine.
-5. Print the field card once; hand the T-shirt SVGs to the shop.
+1. Resend: sign up as info@ymaw.com, set `RESEND_API_KEY` (team notifications work at once), verify ymaw.com (three DNS records) so parents and young men get their emails too.
+2. GHL: paste `GHL_API_KEY` + `GHL_LOCATION_ID` (or `GHL_WEBHOOK_URL`) so the mailing-list forms feed the CRM.
+3. Google Sheets live feed (section above).
+4. Stripe → Payment methods → register `ymaw.com` for Apple Pay / Google Pay.
+5. Redirect old URLs: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` — configured in `next.config.ts`; check them once after cancelling WP Engine.
+6. Print the field card once; hand the T-shirt SVGs to the shop.
 
 ## Media
 

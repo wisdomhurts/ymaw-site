@@ -80,7 +80,47 @@ export async function pushToSheet(row: Record<string, unknown>) {
 }
 
 /* ───────────── Notify the team ───────────── */
-export async function notifyTeam(subject: string, html: string) {
+export async function notifyTeam(subject: string, html: string, opts: { replyTo?: string } = {}) {
   const to = (process.env.NOTIFY_EMAIL || FACTS.email).split(",").map((s) => s.trim());
-  return sendMail({ to, subject, html: mailShell(subject, html) });
+  return sendMail({ to, subject, html: mailShell(subject, html), replyTo: opts.replyTo });
+}
+
+const esc = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// Every field of a record as a two-column table for the team email. Nested
+// objects (details, address) are flattened to "details.address.city". The
+// health number is the one thing that never goes into an email: last three
+// digits only, the rest lives in Supabase and /admin.
+export function recordTable(record: Record<string, unknown>, opts: { skip?: string[]; order?: string[] } = {}) {
+  const flat: Record<string, unknown> = {};
+  const walk = (obj: Record<string, unknown>, prefix: string) => {
+    for (const [k, v] of Object.entries(obj)) {
+      const key = prefix ? `${prefix}.${k}` : k;
+      if (v && typeof v === "object" && !Array.isArray(v)) walk(v as Record<string, unknown>, key);
+      else flat[key] = v;
+    }
+  };
+  walk(record, "");
+  const skip = new Set(["id", "signer_ua", "sign_token", "sign_token_expires", "participant_signature", "guardian_signature", "emails", ...(opts.skip || [])]);
+  const keys = Object.keys(flat).filter((k) => !skip.has(k) && flat[k] !== null && flat[k] !== "" && flat[k] !== undefined);
+  const first = (opts.order || []).filter((k) => keys.includes(k));
+  const rest = keys.filter((k) => !first.includes(k));
+  const rows = [...first, ...rest].map((k) => {
+    let v = flat[k];
+    if (k === "health_number") v = "•••" + String(v).slice(-3) + " (full number in /admin)";
+    else if (Array.isArray(v)) v = v.join("; ");
+    else if (typeof v === "boolean") v = v ? "Yes" : "No";
+    else if (/_at$/.test(k) && typeof v === "string") v = v.replace("T", " ").slice(0, 16) + " UTC";
+    else if (k === "amount_cents") v = `$${(Number(v) / 100).toFixed(2)} CAD`;
+    const label = k.replace(/^details\./, "").replace(/[._]/g, " ");
+    return `<tr><td style="padding:6px 10px 6px 0;color:#a9a89c;vertical-align:top;white-space:nowrap;font-size:13px">${esc(label)}</td><td style="padding:6px 0;vertical-align:top">${esc(v)}</td></tr>`;
+  });
+  return `<table style="border-collapse:collapse;width:100%;font-size:15px;line-height:1.4">${rows.join("")}</table>`;
+}
+
+// One line the team can read at a glance: who, what, how much, how it's being paid.
+export function paymentLine(r: { payment_method?: string | null; payment_status?: string | null; amount_cents?: number | null; ref?: string }) {
+  const amt = r.amount_cents != null ? `$${(Number(r.amount_cents) / 100).toFixed(0)} CAD` : "";
+  const method = r.payment_method === "card" ? "card (Stripe)" : r.payment_method === "etransfer" ? `e-transfer to ${FACTS.email}, message ${r.ref}` : r.payment_method === "aid" ? "work-to-earn / assistance requested" : r.payment_method || "";
+  return `${amt} · ${method} · status: ${r.payment_status || "pending"}`;
 }

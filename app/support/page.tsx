@@ -97,7 +97,7 @@ export default function Support() {
               <p className="mono text-flame">Two newsletters</p>
               <h3 className="t-h3 mt-2">Stay in the circle.</h3>
               <p className="mt-2 text-sm text-ink/70"><strong>Rising the Man Within</strong> for families and young men: fireside stories, the monthly gatherings, the weekend. <strong>The Forged Circle</strong> for the men: the board, the roster, the work. Say which, or both.</p>
-              <div className="mt-4"><NewsletterForm /></div>
+              <div className="mt-4"><NewsletterForm where="support" /></div>
             </div>
           </div>
           <div>

@@ -6,7 +6,9 @@ export const FACTS = {
   short: "YMAW",
   society: "Young Men's Adventure Weekend Society of BC",
   since: 1990,
-  founder: "Brad Leslie",
+  founder: "Brad Leslie",                       // cofounder, still on the team every year
+  founders: "Brad Leslie and Andy Vine",        // the two men who started it in 1990
+  why: "for every young man who needed it, and for the betterment of mankind",
   email: "info@ymaw.com",
   instagram: "https://www.instagram.com/youngmensadventure/",
   facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
@@ -48,6 +50,11 @@ export const FACTS = {
   },
   // From the Society's own site and outreach documents.
   completed: "more than a thousand young men",
+  // The Society's two newsletters (the list itself lives in GHL).
+  newsletters: [
+    { name: "Rising the Man Within", who: "families and young men", line: "fireside stories, the monthly gatherings, the weekend" },
+    { name: "The Forged Circle", who: "the men", line: "the board, the roster, the work" },
+  ],
   // T.E.A.M.S. — the five values the men coach the young men in, from the
   // Society's "T.E.A.M.S. Core Values for Coaching Young Men". Definitions verbatim.
   teams: [
@@ -112,7 +119,7 @@ export const FACTS = {
     { name: "Raymond Wong", role: "Safety manager" },
     { name: "Matthieu Francoeur", role: "Transport manager" },
     { name: "Dorian Leslie", role: "Kitchen · Food Boss" },
-    { name: "Brad Leslie", role: "Founder" },
+    { name: "Brad Leslie", role: "Cofounder" },
   ],
   standards: [
     "Safety. We are all responsible for our own safety and the safety of others.",

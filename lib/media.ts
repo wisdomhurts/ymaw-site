@@ -84,7 +84,7 @@ export const STILLS: Record<string, Still> = {
   "group-2024": { id: "group-2024", src: `${G}/stills/p-y2024-0445.webp`, srcSmall: `${G}/stills/p-y2024-0445-m.webp`, alt: "The 2024 weekend, everyone, under the trees", stage: "return", year: 2024 },
   "tarp-forest": { id: "tarp-forest", src: `${G}/stills/p-y2024-0196.webp`, srcSmall: `${G}/stills/p-y2024-0196-m.webp`, alt: "A tarp shelter going up in the forest", stage: "camp", year: 2024 },
   "mossy-trail": { id: "mossy-trail", src: `${G}/stills/p-y2019-0044.webp`, srcSmall: `${G}/stills/p-y2019-0044-m.webp`, alt: "The mossy trail through the old growth", stage: "threshold", year: 2019 },
-  "brad-points": { id: "brad-points", src: `${S}/brad-points.webp`, srcSmall: `${S}/brad-points-m.webp`, alt: "The founder, mid-sentence, one finger raised, a young man in a cap listening", stage: "men", faces: true },
+  "brad-points": { id: "brad-points", src: `${S}/brad-points.webp`, srcSmall: `${S}/brad-points-m.webp`, alt: "Brad Leslie, cofounder, mid-sentence, one finger raised, a young man in a cap listening", stage: "men", faces: true },
   "creek-quest": { id: "creek-quest", src: `${G}/stills/p-ymawphotos-0020.webp`, srcSmall: `${G}/stills/p-ymawphotos-0020-m.webp`, alt: "A young man leaps the creek rocks on a Quest, his team behind him", stage: "trials", year: 0 },
   "kayaks-lined": { id: "kayaks-lined", src: `${G}/stills/p-y2019-0192.webp`, srcSmall: `${G}/stills/p-y2019-0192-m.webp`, alt: "Orange kayaks lined up on the shore, young men at the water", stage: "trials", year: 2019 },
   "raft-2003": { id: "raft-2003", src: `${G}/stills/p-extra-0084.webp`, srcSmall: `${G}/stills/p-extra-0084-m.webp`, alt: "Two young men pole a raft they built across the lake, 2003", stage: "trials", year: 2003 },

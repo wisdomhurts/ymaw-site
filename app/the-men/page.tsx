@@ -26,13 +26,13 @@ export default function TheMen() {
         <div className="wrap grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <Reveal className="relative aspect-[2/1] overflow-hidden rounded-2xl">
             <Still s={STILLS["brad-points"]} sizes="(min-width:1024px) 55vw, 100vw" />
-            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-bone backdrop-blur">Brad Leslie, founder</p>
+            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-bone backdrop-blur">Brad Leslie, cofounder</p>
           </Reveal>
           <div>
             <p className="mono text-flame">Since {FACTS.since}</p>
-            <h2 className="t-h2 mt-3"><Lines lines={["A father started it", "for his son."]} /></h2>
+            <h2 className="t-h2 mt-3"><Lines lines={["Two men started it", "for every young man."]} /></h2>
             <div className="mt-5 grid gap-4 text-[1.05rem] text-ink/80">
-              <p>{FACTS.founder} founded the Young Men's Adventure Weekend in {FACTS.since}, for his own son and for the next generation. He has been at every one since. His son Dorian has been at more than twenty, and today helps carry it forward.</p>
+              <p>{FACTS.founders} founded the Young Men's Adventure Weekend in {FACTS.since}, not for their own sons but {FACTS.why}. Brad has been at every one since. His son Dorian has been at more than twenty, and today helps carry it forward.</p>
               <p>Brad's reason hasn't changed: to make a difference in the world by supporting men and young men to be their best, to live lives of integrity and service, and to hold high standards for themselves and their communities.</p>
               <p>The weekend is produced by the {FACTS.society}, a volunteer non-profit with a board, a Production Team Manager for each weekend, and departments led by men who've held the role for years.</p>
             </div>

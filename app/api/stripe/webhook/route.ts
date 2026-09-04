@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { stripe, supabase, sendMail, mailShell, notifyTeam, pushToSheet } from "@/lib/server";
+import { stripe, supabase, sendMail, mailShell, notifyTeam, pushToSheet, recordTable, SITE_URL } from "@/lib/server";
 import { FACTS } from "@/lib/facts";
 
 export const runtime = "nodejs";
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
           stripe_payment_intent: typeof s.payment_intent === "string" ? s.payment_intent : null,
         })
         .eq("id", s.client_reference_id)
-        .select("ref, parent_email, parent_name, son_first, role, amount_cents")
+        .select("ref, parent_email, parent_name, parent_phone, son_first, son_last, role, amount_cents, headcount")
         .single();
       if (upd.error) {
         console.error("mark-paid failed", upd.error);
@@ -50,7 +50,25 @@ export async function POST(req: Request) {
             `<p>We received $${(r.amount_cents / 100).toFixed(0)} CAD for ${who}. Reference <strong>${r.ref}</strong>.</p><p>${FACTS.dates.label}. See you at the bus.</p>`,
           ),
         }),
-        notifyTeam(`Paid · ${r.ref}`, `<p>${r.parent_name} paid $${(r.amount_cents / 100).toFixed(0)} by card (${r.role}).</p>`),
+        notifyTeam(
+          `Paid · ${r.ref} · ${r.parent_name} · $${(r.amount_cents / 100).toFixed(0)}`,
+          `<p style="font-size:18px"><strong>${r.parent_name} paid $${(r.amount_cents / 100).toFixed(2)} CAD by card</strong> for ${who}.</p>
+           ${recordTable({
+             ref: r.ref,
+             role: r.role,
+             for: r.role === "young_man" ? `${r.son_first} ${r.son_last}` : r.role === "sponsor" ? `${r.headcount ?? 1} seat(s)` : r.parent_name,
+             payer: r.parent_name,
+             email: r.parent_email,
+             phone: r.parent_phone,
+             amount_cents: r.amount_cents,
+             currency: (s.currency || "cad").toUpperCase(),
+             paid_at: paidAt,
+             stripe_payment_intent: typeof s.payment_intent === "string" ? s.payment_intent : null,
+             stripe_checkout_session: s.id,
+             card_email_on_receipt: s.customer_details?.email || null,
+           })}
+           <p style="margin-top:18px"><a href="https://dashboard.stripe.com/payments/${typeof s.payment_intent === "string" ? s.payment_intent : ""}" style="color:#e8652a">Open in Stripe</a> · <a href="${SITE_URL}/admin" style="color:#e8652a">/admin</a></p>`,
+        ),
         pushToSheet({ kind: "update", ref: r.ref, payment_status: "paid", paid_at: paidAt }),
       ]);
     }

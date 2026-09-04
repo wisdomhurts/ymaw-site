@@ -6,6 +6,7 @@ import Teams from "@/components/Teams";
 import Reveal, { Lines } from "@/components/Reveal";
 import { Still } from "@/components/Media";
 import FireMark from "@/components/FireMark";
+import NewsletterForm from "@/components/NewsletterForm";
 import { V } from "@/components/Providers";
 import { FACTS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
@@ -105,7 +106,7 @@ export default function Home() {
         <div className="wrap grid items-center gap-12 lg:grid-cols-2">
           <Reveal className="relative aspect-[2/1] overflow-hidden rounded-2xl">
             <Still s={STILLS["brad-points"]} sizes="(min-width:1024px) 50vw, 100vw" />
-            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-ash backdrop-blur">The founder</p>
+            <p className="mono absolute bottom-3 left-3 rounded-full bg-night/70 px-3 py-1 text-ash backdrop-blur">Brad Leslie, cofounder</p>
           </Reveal>
           <div>
             <p className="mono text-ember">The men</p>
@@ -113,7 +114,7 @@ export default function Home() {
               <Lines lines={["Volunteers.", "Every one of them."]} />
             </h2>
             <p className="mt-5 max-w-[38rem] text-bone/80">
-              {FACTS.founder} started this in {FACTS.since} for his own son and for the next generation. Thirty-six years on,
+              {FACTS.founders} started this in {FACTS.since}, {FACTS.why}. Thirty-six years on,
               the men who produce the weekend still do it for nothing but the young men. Fathers, tradesmen, teachers, men
               who came through the weekend themselves. Criminal record checks, the buddy system, and a code they hold each other to.
             </p>
@@ -125,6 +126,21 @@ export default function Home() {
               <Link href="/register?role=man" className="btn btn-ghost">Join the production team</Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Mailing list */}
+      <section className="bg-cedar py-16 text-bone" aria-labelledby="list">
+        <div className="wrap grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div>
+            <p className="mono text-ember">Stay in the circle</p>
+            <h2 id="list" className="t-h2 mt-3"><Lines lines={["A few emails a year.", "Nothing you'd unsubscribe from."]} /></h2>
+            <p className="mt-4 max-w-[34rem] text-bone/75">
+              <strong className="text-bone">{FACTS.newsletters[0].name}</strong> for {FACTS.newsletters[0].who}: {FACTS.newsletters[0].line}.{" "}
+              <strong className="text-bone">{FACTS.newsletters[1].name}</strong> for {FACTS.newsletters[1].who}: {FACTS.newsletters[1].line}. Pick one or both.
+            </p>
+          </div>
+          <NewsletterForm where="homepage" />
         </div>
       </section>
 

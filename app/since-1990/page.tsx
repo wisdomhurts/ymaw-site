@@ -54,7 +54,7 @@ export default function Since1990() {
             <h2 className="t-h2 mt-3"><Lines lines={["Men who came", "as young men."]} /></h2>
           </div>
           <div className="grid gap-4 text-[1.05rem] text-ink/80">
-            <p>{FACTS.founder} started this in {FACTS.since} for his son. That son is on the production team today. So are other men who first arrived on the bus at thirteen, sat in the circle, walked out between the lines, and years later stood in the line themselves.</p>
+            <p>{FACTS.founders} started this in {FACTS.since}, {FACTS.why}. A founder's son is on the production team today. So are other men who first arrived on the bus at thirteen, sat in the circle, walked out between the lines, and years later stood in the line themselves.</p>
             <p>The Society counts {FACTS.completed} through the weekend. It has inspired other weekends across North America. Its own count of what matters is simpler: how many come back, as young men, as fathers, as men on the team.</p>
             <p>If you came as a young man and want to write one line for the young man walking out this September, email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a>. Your name goes on the site only if you want it there.</p>
           </div>

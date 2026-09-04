@@ -6,7 +6,6 @@ import gsap from "gsap";
 import { STILLS } from "@/lib/media";
 import { FACTS } from "@/lib/facts";
 import { Still } from "./Media";
-import FireMark from "./FireMark";
 import { useSite, type Voice } from "./Providers";
 
 export default function Hero() {
@@ -48,8 +47,7 @@ export default function Hero() {
       <div className="scrim-t absolute inset-x-0 top-0 h-[40%]" />
 
       <div className="wrap relative flex min-h-[100svh] flex-col justify-end pb-10 pt-[calc(var(--nav-h)+2.5rem)]">
-        <div className="mb-auto flex items-center gap-3 pt-6" data-hero-fade>
-          <FireMark size={30} animate title="" />
+        <div className="mb-auto pt-6" data-hero-fade>
           <p className="mono text-ash">{FACTS.region} · {FACTS.dates.label} · ages {FACTS.ages.min}–{FACTS.ages.max}</p>
         </div>
 

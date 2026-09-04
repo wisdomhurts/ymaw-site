@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Registration, type YoungManT, type ManT, type SponsorT } from "@/lib/schema";
 import { FACTS } from "@/lib/facts";
 import { WAIVER_VERSION, YM_AGREEMENTS, MEN_AGREEMENTS } from "@/lib/legal";
-import { supabase, stripe, makeRef, makeToken, sendMail, mailShell, notifyTeam, pushToSheet, SITE_URL } from "@/lib/server";
+import { supabase, stripe, makeRef, makeToken, sendMail, mailShell, notifyTeam, pushToSheet, recordTable, paymentLine, SITE_URL } from "@/lib/server";
 
 export const runtime = "nodejs";
 
@@ -196,7 +196,26 @@ export async function POST(req: Request) {
       ),
     }),
   );
-  after.push(notifyTeam(`New ${d.role.replace("_", " ")} registration · ${ref}`, `<p><strong>${payer_name}</strong> (${payer_email}) · ${d.role} · ${d.payment_method} · $${(amount / 100).toFixed(0)}</p><p>${d.role === "young_man" ? `Young man: ${(d as YoungManT).son_first} ${(d as YoungManT).son_last}, ${(d as YoungManT).son_age}. Media release: signed. His signature: ${signToken ? "pending (link sent)" : "done"}.` : ""}</p><p>Supabase → registrations → ${ref}</p>`));
+  // The team gets everything: who, the full form, and how the money is coming.
+  const roleLabel = d.role === "young_man" ? "young man" : d.role === "man" ? "production man" : "sponsor";
+  const headline =
+    d.role === "young_man"
+      ? `${(d as YoungManT).son_first} ${(d as YoungManT).son_last}, ${(d as YoungManT).son_age}, registered by ${payer_name}`
+      : d.role === "man"
+        ? `${payer_name} joined the production team`
+        : `${payer_name} sponsored ${(d as SponsorT).seats} seat${(d as SponsorT).seats > 1 ? "s" : ""}`;
+  after.push(
+    notifyTeam(
+      `New ${roleLabel} · ${ref} · ${payer_name}`,
+      `<p style="font-size:18px"><strong>${headline}</strong></p>
+       <p><strong>Payment:</strong> ${paymentLine({ payment_method: d.payment_method, payment_status: String(row.payment_status), amount_cents: amount, ref })}${stripeUrl ? " · Checkout opened; a second email follows when it's paid." : ""}</p>
+       ${d.role === "young_man" ? `<p><strong>Signatures:</strong> guardian signed · media release signed · his part ${signToken ? "pending (link emailed to him)" : "signed on the spot"}.</p>` : ""}
+       <p style="margin:18px 0 6px;font:12px/1.4 Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#a9a89c">Everything on the form</p>
+       ${recordTable({ ref, ...row, created_at: now }, { order: ["ref", "role", "son_first", "son_last", "son_age", "dob", "parent_name", "relationship", "parent_email", "parent_phone"] })}
+       <p style="margin-top:18px"><a href="${SITE_URL}/admin" style="color:#e8652a">Open /admin</a> · Supabase → registrations → ${ref}</p>`,
+      { replyTo: payer_email },
+    ),
+  );
 
   const results = await Promise.allSettled(after);
   const emails = { confirmation: results[results.length - 2]?.status, team: results[results.length - 1]?.status, sign_link: signToken ? results[1]?.status : "n/a" };
