@@ -43,10 +43,15 @@ export default function FAQ() {
         <div className="wrap grid gap-3">
           {QA.map(([tag, q, a]) => (
             <details key={q} id={q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")} className="group scroll-mt-24 rounded-2xl border border-ink/10 open:border-ink/25 target:border-flame target:[&>summary]:text-flame">
-              <summary className="flex cursor-pointer list-none items-center gap-4 p-5">
-                <span className="mono w-20 flex-none text-flame">{tag}</span>
-                <span className="display flex-1 text-[1.5rem] leading-none">{q}</span>
-                <span className="text-ink/40 transition-transform group-open:rotate-45" aria-hidden>+</span>
+              {/* On a phone the tag sits above the question; squeezing both onto
+                  one line cost the question half its width and wrapped it badly. */}
+              <summary className="flex cursor-pointer list-none items-start gap-4 p-5 sm:items-center">
+                <span className="mono hidden w-20 flex-none text-flame sm:block">{tag}</span>
+                <span className="flex-1">
+                  <span className="mono block text-flame sm:hidden">{tag}</span>
+                  <span className="display mt-1 block text-[1.5rem] leading-none sm:mt-0">{q}</span>
+                </span>
+                <span className="mt-1 text-ink/40 transition-transform group-open:rotate-45 sm:mt-0" aria-hidden>+</span>
               </summary>
               <p className="px-5 pb-6 text-ink/80 sm:pl-[6.5rem]">{a}</p>
             </details>

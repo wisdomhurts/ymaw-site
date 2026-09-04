@@ -30,11 +30,19 @@ export const metadata: Metadata = {
     description: "Not a summer camp. A rite of passage. September 11–13, 2026, Squamish region, BC.",
     url: SITE,
     siteName: "YMAW",
-    images: [{ url: "/media/gallery/stills/p-y2019-0231.webp", width: 1800, height: 1350, alt: "Dusk. Everyone in a circle around the fire by the lake" }],
+    // JPG at 1.91:1, not WebP: WhatsApp, iMessage, Facebook and LinkedIn all
+    // render this one, and most families first meet the weekend as a link
+    // someone texted them.
+    images: [{ url: "/og.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Fifty young men and men in a circle around a fire by the lake, Squamish region" }],
     locale: "en_CA",
     type: "website",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: "YMAW · Young Men's Adventure Weekend",
+    description: "Not a summer camp. A rite of passage. September 11–13, 2026, Squamish region, BC.",
+    images: ["/og.jpg"],
+  },
   icons: { icon: "/favicon.svg" },
 };
 
