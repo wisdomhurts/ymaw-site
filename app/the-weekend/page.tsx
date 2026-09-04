@@ -5,61 +5,75 @@ import Reveal, { Lines } from "@/components/Reveal";
 import { Still } from "@/components/Media";
 import { FACTS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
-import { SCHEDULE } from "@/lib/schedule";
+import { ARC } from "@/lib/arc";
 
 export const metadata: Metadata = {
   title: "The Weekend",
-  description: "The Young Men's Adventure Weekend hour by hour: Friday's bus and hike in, Saturday's Quests and circle, Sunday's acknowledgments, the game and the walk out.",
+  description: "How the Young Men's Adventure Weekend runs, in six parts: the bus north, the hike in and camp, the Quests, the circle, the acknowledgments and the game, the walk out and the bus home.",
 };
 
 export default function TheWeekend() {
   return (
     <>
       <PageHero
-        kicker="The weekend · the field log"
-        lines={["Hour by hour.", "Friday dusk to", "Sunday afternoon."]}
-        still={STILLS["bus-forest"]}
+        kicker="The weekend · how it runs"
+        lines={["Six parts.", "Three days."]}
+        still={STILLS["single-file"]}
+        short
       />
 
       <section className="bg-night py-6 text-bone">
         <div className="wrap flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-ash">
-          <span><span className="text-ember">●</span> Separation</span>
-          <span><span className="text-ember">●</span> Trial</span>
-          <span><span className="text-ember">●</span> Return</span>
+          <span><span className="text-ember">●</span> Friday · Separation</span>
+          <span><span className="text-ember">●</span> Saturday · Trial</span>
+          <span><span className="text-ember">●</span> Sunday · Return</span>
           <span className="ml-auto">{FACTS.dates.label} · {FACTS.region}</span>
         </div>
       </section>
 
-      {SCHEDULE.map((day, di) => (
-        <section key={day.day} className={`${di % 2 === 0 ? "bg-night text-bone" : "bg-paper text-ink"} py-16`} data-surface={di % 2 === 0 ? undefined : "paper"}>
-          <div className="wrap grid gap-10 lg:grid-cols-[1fr_2fr]">
-            <div className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start">
-              <p className={`mono ${di % 2 === 0 ? "text-ember" : "text-flame"}`}>{day.sub}</p>
-              <h2 className="t-chapter mt-2">{day.day}</h2>
-              <p className={`mt-3 max-w-[24rem] text-sm ${di % 2 === 0 ? "text-ash" : "text-ink/60"}`}>
-                {di === 0 && "Leave what's known: home, friends, routine. Board the bus and head into the wilderness."}
-                {di === 1 && "Challenges at the Quest stations test mind and body. By evening the focus shifts from effort to depth."}
-                {di === 2 && "Connection, acknowledgment, and a gradual return to the world he left, witnessed by his shadows."}
-              </p>
+      {ARC.map((b, i) => {
+        const paper = i % 2 === 1;
+        const s = STILLS[b.still];
+        return (
+          <section key={b.name} className={`${paper ? "bg-paper text-ink" : "bg-night text-bone"} py-16 sm:py-20`} data-surface={paper ? "paper" : undefined}>
+            <div className={`wrap grid items-center gap-10 lg:grid-cols-2 ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+              <Reveal className="relative aspect-[3/2] overflow-hidden rounded-2xl bg-char">
+                {s && <Still s={s} sizes="(min-width:1024px) 50vw, 100vw" />}
+              </Reveal>
+              <div>
+                <p className={`mono ${paper ? "text-flame" : "text-ember"}`}>{String(i + 1).padStart(2, "0")} · {b.when} · {b.name}</p>
+                <h2 className="t-h2 mt-3 max-w-[16ch]"><Lines lines={[b.title]} /></h2>
+                <div className={`mt-5 grid max-w-[36rem] gap-4 text-[1.05rem] ${paper ? "text-ink/80" : "text-bone/80"}`}>
+                  {b.body.map((p) => <p key={p}>{p}</p>)}
+                </div>
+              </div>
             </div>
-            <ol className={`relative grid gap-0 border-l ${di % 2 === 0 ? "border-white/15" : "border-ink/15"}`}>
-              {day.hours.map((h, i) => (
-                <Reveal key={h.t + h.what} as="li" delay={Math.min(i * 30, 240)} className="relative grid gap-3 py-5 pl-8 sm:grid-cols-[7rem_1fr]">
-                  <span className={`absolute -left-[5px] top-7 h-[9px] w-[9px] rounded-full ${h.mark ? "bg-ember ring-4 ring-ember/25" : di % 2 === 0 ? "bg-white/40" : "bg-ink/40"}`} />
-                  <span className="mono pt-1">{h.t}</span>
-                  <div>
-                    <p className={`display text-[1.6rem] leading-none ${h.mark ? (di % 2 === 0 ? "text-ember" : "text-flame") : ""}`}>{h.what}</p>
-                    {h.note && <p className={`mt-2 max-w-[38rem] text-[0.98rem] ${di % 2 === 0 ? "text-bone/70" : "text-ink/70"}`}>{h.note}</p>}
-                    {h.still && STILLS[h.still] && (
-                      <div className="mt-4 aspect-[16/9] max-w-[38rem] overflow-hidden rounded-xl"><Still s={STILLS[h.still]} sizes="(min-width:1024px) 40vw, 100vw" /></div>
-                    )}
-                  </div>
-                </Reveal>
-              ))}
-            </ol>
+          </section>
+        );
+      })}
+
+      <section className="bg-cedar py-14 text-bone">
+        <div className="wrap grid gap-6 sm:grid-cols-3">
+          <div>
+            <p className="mono text-ember">Friday · out</p>
+            <p className="display mt-2 text-2xl leading-none">Langley 3:00 pm</p>
+            <p className="mt-1 text-sm text-bone/70">McDonald's, 20394 88 Ave</p>
+            <p className="display mt-4 text-2xl leading-none">Burnaby 4:00 pm</p>
+            <p className="mt-1 text-sm text-bone/70">Christine Sinclair Community Centre, south lot, 3713 Kensington Ave</p>
           </div>
-        </section>
-      ))}
+          <div>
+            <p className="mono text-ember">Sunday · back</p>
+            <p className="display mt-2 text-2xl leading-none">Burnaby after 1:30 pm</p>
+            <p className="display mt-4 text-2xl leading-none">Langley after 2:30 pm</p>
+            <p className="mt-1 text-sm text-bone/70">The men text as the bus gets close.</p>
+          </div>
+          <div>
+            <p className="mono text-ember">In his bag</p>
+            <p className="mt-2 text-sm text-bone/80">Packed lunch, full water bottle, sleeping bag and mat, clothes for cold and wet. No phone. The whole list fits on one card.</p>
+            <Link href="/what-to-bring" className="btn btn-ghost btn-sm mt-4">What to bring</Link>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-night py-20 text-bone">
         <div className="wrap grid gap-8 lg:grid-cols-2 lg:items-end">

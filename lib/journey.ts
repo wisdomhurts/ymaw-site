@@ -40,7 +40,7 @@ export const STATIONS: Station[] = [
     when: "Friday, 3:00 pm",
     title: "Someone sent you here.",
     him: [
-      "A father, an uncle, a coach, a man who went once and never forgot it. He didn't send you a link to a summer camp. He sent you to a bus.",
+      "A father, an uncle, a coach, a man who went once and never forgot it. He didn't send you a link to a summer camp. He sent you on a journey. Not every journey starts with a ship. Yours starts at a bus.",
       "It leaves Friday afternoon. Langley, then Burnaby, then north. You can say no. Most young men who say yes are a little scared. That's allowed.",
     ],
     you: [
@@ -56,7 +56,7 @@ export const STATIONS: Station[] = [
     when: "Friday, dusk",
     title: "Your phone spends the weekend in your bag.",
     him: [
-      "Everyone survives this. Including you.",
+      "Everyone survives this. Including you. There's no screen-time limit because there are no screens: a phone on a rough trail or a worksite is the distraction that gets you or another man hurt, so it's checked in when you arrive.",
       "The bus stops where the road stops. You hike in with your gear, and it's getting dark. It's physical work. It should feel a little risky. That's the point. On the other side of that trail is a world run by men, and for three days you're in it.",
     ],
     you: [
@@ -105,7 +105,7 @@ export const STATIONS: Station[] = [
     when: "Saturday",
     title: "The Quests ask for more than you think you have.",
     him: [
-      "Stations in the forest and at the water. Nerve, strength, wits. Some of it you'll be good at. Some of it you'll be bad at in front of everyone. Your team can't finish without you and you can't finish without them.",
+      "Stations in the forest and at the water, and they will test your nerve, your strength and your wits. Some of it you'll be good at. Some of it you'll be bad at, in front of everyone. For all of it you need your team: they can't finish without you and you can't finish without them. In life it's rarely what you do. It's how you do it.",
       "Lunch is at the stations. The afternoon is yours: the water, the games, the part that is actually a camp.",
     ],
     you: [
@@ -121,8 +121,8 @@ export const STATIONS: Station[] = [
     when: "Saturday night",
     title: "What is said in the circle stays in the circle.",
     him: [
-      "Saturday night the men sit with you around the fire, and the work changes from your body to whatever you've been carrying. Nobody makes you speak. Nobody ever has.",
-      "We won't describe it here, because it's yours. We'll tell you this: the young men who came before you say it was the part that mattered.",
+      "By Saturday night the woods go quiet. The men sit with you around the fire, close to silent, thinking about the day, their own lives, and maybe yours. The work changes from your body to whatever you've been carrying. Nobody makes you speak. Nobody ever has.",
+      "We won't describe it here, because it's yours. The young men who came before you say it was the part that mattered. This is really why you came.",
     ],
     you: [
       "Saturday evening the focus shifts from physical and mental effort to emotional depth. In the Society's words, the young men are invited to empty their emotional buckets and discover the resilience that's been within them all along.",
@@ -139,10 +139,10 @@ export const STATIONS: Station[] = [
     title: "Your shadow has been watching you all weekend.",
     him: [
       "Sunday morning he tells you what he saw. Not what you should be. What you already were, out there, when you thought nobody was looking. He gives you something to keep.",
-      "Then you get your shirt. Everyone signs it. Then you write down what you're taking home.",
+      "Then you get your shirt. Then you write down what you're taking home.",
     ],
     you: [
-      "On Sunday, in front of his team, each young man is acknowledged by the shadows who watched him all weekend, for what he actually brought. He receives a gift and a t-shirt his team signs.",
+      "On Sunday, in front of his team, each young man is acknowledged by the shadows who watched him all weekend, for what he actually brought. He receives a gift and his shirt.",
       "Then Future Plans: he writes down, in his own words, what he's claiming and where he's going. Ask him about it. He may show you.",
     ],
     media: { kind: "clip", id: "arms-raised" },

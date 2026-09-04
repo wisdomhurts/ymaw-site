@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/server";
+import { supabase, pushToSheet } from "@/lib/server";
 
 export const runtime = "nodejs";
 
@@ -41,7 +41,8 @@ export async function POST(req: Request) {
     if (b.payment_status === "paid") patch.paid_at = new Date().toISOString();
   }
   if (typeof b.notes === "string") patch.notes = b.notes.slice(0, 2000);
-  const upd = await db.from("registrations").update(patch).eq("id", b.id).select("id, payment_status").single();
+  const upd = await db.from("registrations").update(patch).eq("id", b.id).select("id, ref, payment_status").single();
   if (upd.error) return NextResponse.json({ error: upd.error.message }, { status: 500 });
+  await pushToSheet({ kind: "update", ref: upd.data.ref, ...patch });
   return NextResponse.json({ ok: true, row: upd.data });
 }

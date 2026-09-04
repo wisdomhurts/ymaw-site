@@ -28,8 +28,16 @@ const NOBODY = [
   "Nobody films the circle or the ceremony. The photos and film the men take are how the next young man finds this; if one of you ever bothers you, say so and it comes down.",
 ];
 
+const FOR_YOU = [
+  ["This is about you.", "Who you are and who you want to become. Not about the adults in your life, and not for them. The world is full of people you can't control. You have a say in how exactly one of them operates."],
+  ["Nothing here gets reported.", "No interrogations. Nobody phones your parents or your teachers. What you say and do here stays here, unless your actual life is at risk."],
+  ["Not a clinic. Not therapy.", "No doctor's office, no couch. This is men doing what men do, closer to a coach and an athlete than anything else, built to bring out your best self."],
+  ["Tools you'll actually use.", "For your own head: managing your thoughts and your temper, getting out of a friend group that's dragging you down, building habits that hold in the real world."],
+  ["Your life, run by you.", "Figure out what you want out of it, become the man you want to be, and learn to talk to adults on your own terms. The more you run your own life, and the more responsibly you run it, the less anyone else will try to run it for you."],
+  ["A place you earn.", "Like it or not, every man earns his place in the world or quits. You're young, not less than. You're like a new man on his first job: you learn, you get good, and you end up respected, working shoulder to shoulder with men to get the job done."],
+];
+
 const HOME = [
-  ["A shirt your whole team signed.", "You'll keep it longer than you think."],
   ["Something a man gave you.", "Your shadow watched you all weekend. On Sunday he tells you what he saw, and gives you something to remember it by."],
   ["A line you wrote yourself.", "At Future Plans you write down what you're claiming and where you're going. It's yours."],
   ["Knots. Fire. An axe you're allowed to use.", "Skills men taught you because you asked."],
@@ -57,6 +65,22 @@ export default function HisPath() {
             <p>A bus takes you and a bunch of other young men north into the Squamish wilderness on a Friday afternoon. The men are already there. They built the camp that morning. They paid to be here, just like you. Most of them have done this for years; some of them did it as young men.</p>
             <p>For three days you live in a world run by men who take you seriously. You'll work with your hands, compete, fail, eat a lot, sleep outside, and sit around a fire at night. On Sunday you'll be acknowledged in front of your team for what you actually brought, and then you'll walk out between two lines of men and get back on the bus.</p>
             <p>This has happened since {FACTS.since}. {FACTS.completed.charAt(0).toUpperCase() + FACTS.completed.slice(1)} have done it.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* What's in it for you */}
+      <section className="bg-char py-20 text-bone">
+        <div className="wrap">
+          <p className="mono text-ember">What's in it for you</p>
+          <h2 className="t-h2 mt-3 max-w-[16ch]"><Lines lines={["Straight talk,", "young man to man."]} /></h2>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+            {FOR_YOU.map(([h, p], i) => (
+              <Reveal key={h} delay={i * 50} className="bg-char p-7">
+                <h3 className="t-h3">{h}</h3>
+                <p className="mt-3 text-bone/75">{p}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -95,6 +119,7 @@ export default function HisPath() {
                 <li key={l} className="flex gap-4 text-[1.05rem] text-bone/85"><span className="mt-2 h-2 w-2 flex-none rounded-full bg-ember" />{l}</li>
               ))}
             </ul>
+            <p className="serif mt-8 text-[1.5rem] text-ember">But you get out what you put in.</p>
           </div>
         </div>
       </section>
@@ -129,7 +154,7 @@ export default function HisPath() {
         <div className="wrap">
           <p className="mono text-flame">What you come home with</p>
           <h2 className="t-h2 mt-3 max-w-[16ch]"><Lines lines={["The one who comes home", "isn't the one who left."]} /></h2>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {HOME.map(([h, p], i) => (
               <Reveal key={h} delay={i * 50} className="rounded-2xl border border-ink/10 p-6">
                 <h3 className="display text-2xl leading-none">{h}</h3>

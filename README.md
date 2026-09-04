@@ -9,15 +9,16 @@ app/                      routes (App Router)
   page.tsx                The Threshold: hero, two doors, the ten-station journey, countdown, manifesto, men, register
   his-path/               the young man's door (second person)
   bringing-him/           the family's door
-  the-weekend/            hour-by-hour field log (lib/schedule.ts)
-  since-1990/             the archive timeline (lib/archive.ts)
+  the-weekend/            the weekend in six parts (lib/arc.ts; the hour-by-hour clock is kept in lib/schedule.ts)
+  since-1990/             then-and-now pairs (lib/archive.ts)
   the-men/                departments, the 2026 team, values, Man Code, the fourteen standards
   support/  faq/  what-to-bring/   (what-to-bring is the printable field card; lib/packing.ts)
   register/               3 roles · components/register/RegisterFlow.tsx
   register/sign/[token]/  the young man's own signing link
   thank-you/              "the walk out" confirmation (card / e-transfer / assistance)
   admin/                  key-protected list, mark paid, notes, CSV export
-  api/register            validates (zod), stores in Supabase, Stripe Checkout, emails, sheet
+  api/register            validates (zod), stores in Supabase, Stripe Checkout, emails, sheet row
+  scripts/sheets-webhook.gs  Apps Script that receives sheet rows/updates (see Google Sheets below)
   api/stripe/webhook      checkout.session.completed → payment_status = paid → receipt
   api/sign                GET (token info) / POST (his initials + signature)
   api/inquire             questions / partners / aid / media
@@ -45,26 +46,15 @@ See `.env.example`. The site runs without them in an honest demo mode (nothing s
 | `ADMIN_KEY` | Any long random string. Unlocks `/admin`. |
 | `PUBLIC_SITE_URL` | `https://ymaw.com` (preview deploys can leave it unset). |
 
-## Google Sheet mirror (optional, 5 minutes)
+## Google Sheets (live registrations, 5 minutes)
 
-Open the sheet **YMAW 2026 Registrations** → Extensions → Apps Script → paste:
+Three spreadsheets live in the Drive folder **YMAW 2026 Registrations**: *Young Men*, *Production Men*, *Sponsors*. The site pushes every new registration into the right one, and later changes (paid by card, admin status/notes, the young man signing) update the row by Ref. Health numbers never leave the site.
 
-```js
-const SECRET = "choose-a-secret";           // same as SHEETS_WEBHOOK_SECRET
-function doPost(e) {
-  const body = JSON.parse(e.postData.contents || "{}");
-  if (body.secret !== SECRET) return ContentService.createTextOutput("no");
-  const sh = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  const row = body.row || {};
-  let header = sh.getLastRow() ? sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0] : [];
-  const keys = Object.keys(row).filter(k => !header.includes(k));
-  if (keys.length) { header = header.concat(keys); sh.getRange(1, 1, 1, header.length).setValues([header]); }
-  sh.appendRow(header.map(h => row[h] == null ? "" : String(row[h])));
-  return ContentService.createTextOutput("ok");
-}
-```
+1. Open **YMAW 2026 · Young Men** → Extensions → Apps Script → paste `scripts/sheets-webhook.gs` → set `SECRET` to something long.
+2. Deploy → New deployment → Web app → Execute as **Me**, access **Anyone** → copy the web app URL.
+3. Vercel → env vars: `SHEETS_WEBHOOK_URL` = that URL, `SHEETS_WEBHOOK_SECRET` = the same secret → Redeploy.
 
-Deploy → New deployment → Web app → Execute as **Me**, access **Anyone** → copy the URL into `SHEETS_WEBHOOK_URL`. Health numbers are never sent to the sheet.
+The script owns the header rows: if a column is missing it adds it at the end, so the sheets can be re-ordered freely and old rows keep their place.
 
 ## Go-live checklist
 

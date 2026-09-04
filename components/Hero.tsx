@@ -85,7 +85,7 @@ export default function Hero() {
           >
             <span className="mono text-ember">Door two</span>
             <span className="display mt-1.5 block text-[2.2rem] leading-none sm:text-[2.6rem]">I'm bringing him.</span>
-            <span className="mt-2 block text-bone/75">See exactly what happens, hour by hour, and who's responsible.</span>
+            <span className="mt-2 block text-bone/75">See exactly what happens, start to finish, and who's responsible.</span>
             <span className="mt-4 inline-flex items-center gap-2 text-sm text-ash transition-colors group-hover:text-bone">
               Show me <Arrow />
             </span>

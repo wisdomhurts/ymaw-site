@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { supabase, notifyTeam } from "@/lib/server";
+import { supabase, notifyTeam, pushToSheet } from "@/lib/server";
 import { YM_AGREEMENTS } from "@/lib/legal";
 
 export const runtime = "nodejs";
@@ -40,6 +40,9 @@ export async function POST(req: Request) {
     .maybeSingle();
   if (upd.error) return NextResponse.json({ error: "Couldn't save. Try again." }, { status: 500 });
   if (!upd.data) return NextResponse.json({ error: "Already signed, or the link isn't valid." }, { status: 409 });
-  await notifyTeam(`Signed · ${upd.data.ref}`, `<p>${upd.data.son_first} signed his agreements (registered by ${upd.data.parent_name}).</p>`);
+  await Promise.allSettled([
+    notifyTeam(`Signed · ${upd.data.ref}`, `<p>${upd.data.son_first} signed his agreements (registered by ${upd.data.parent_name}).</p>`),
+    pushToSheet({ kind: "update", ref: upd.data.ref, participant_signed_at: new Date().toISOString() }),
+  ]);
   return NextResponse.json({ ok: true, ref: upd.data.ref, first: upd.data.son_first });
 }

@@ -18,7 +18,7 @@ const SAFETY = [
   ["A safety team, first aid, and a plan.", "A designated safety manager, first-aid trained men at the Quest stations and the water, an emergency plan, and your emergency contact on paper before the bus leaves."],
   ["No drugs, alcohol, or tobacco.", "Not at the weekend, not in the 24 hours before it. For the men as much as the young men."],
   ["Confidentiality.", "What your son says in the circle stays there. What he chooses to tell you afterwards is his to decide."],
-  ["Fathers on the team step back.", "If you volunteer, you trust the process and let your son have the weekend without you hovering. It's one of the men's fourteen standards."],
+  ["Fathers on the team step back.", "If you volunteer, your son belongs to his team and his shadows for the weekend, not to you: you're placed on another team, and you don't hover. It's one of the men's fourteen standards, and other men give him the weekend while you give it to someone else's son."],
 ];
 
 const COVERS = [
@@ -76,7 +76,7 @@ export default function BringingHim() {
               </Reveal>
             ))}
           </div>
-          <p className="mt-6 max-w-[48rem] text-sm text-ash">The full list of the men's fourteen standards, and the Man Code they live by, is on <Link className="link" href="/the-men">The Men</Link>. Ask any of them about it at the bus stop; they'll be glad you did.</p>
+          <p className="mt-6 max-w-[48rem] text-sm text-ash">The full list of the men's fourteen standards, and the Man Code they live by, is on <Link className="link" href="/the-men">The Men</Link>. Thinking of coming as a father? <Link className="link" href="/faq#i-m-a-father-can-i-come">Here's how that works</Link>. Ask any of them about it at the bus stop; they'll be glad you did.</p>
         </div>
       </section>
 
@@ -112,8 +112,8 @@ export default function BringingHim() {
           <div>
             <p className="mono text-ember">How the weekend runs</p>
             <h2 className="t-h2 mt-3"><Lines lines={["Friday dusk", "to Sunday lunch."]} /></h2>
-            <p className="mt-5 max-w-[34rem] text-bone/80">The bus, the hike in, teams and shelters Friday night. Morning circle, breakfast, the Quests all day Saturday, the summer-camp afternoon, dinner, then the circle. Sunday: Future Plans, the acknowledgments, the game, the walk out, the bus. The full field log, hour by hour, with a real frame from each hour, is on its own page.</p>
-            <Link href="/the-weekend" className="btn btn-bone mt-7">The weekend, hour by hour</Link>
+            <p className="mt-5 max-w-[34rem] text-bone/80">The bus, the hike in, teams and shelters Friday night. Morning circle, breakfast, the Quests all day Saturday, the summer-camp afternoon, dinner, then the circle. Sunday: Future Plans, the acknowledgments, the game, the walk out, the bus. The whole shape of it, in six parts with a real frame from each, is on its own page.</p>
+            <Link href="/the-weekend" className="btn btn-bone mt-7">How the weekend runs</Link>
           </div>
         </div>
       </section>

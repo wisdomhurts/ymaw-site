@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Lines } from "@/components/Reveal";
+import OpenHash from "@/components/OpenHash";
 import InquiryForm from "@/components/InquiryForm";
 import { FACTS } from "@/lib/facts";
 
@@ -23,7 +24,7 @@ const QA: [string, string, string][] = [
   ["Faith", "Is it religious?", "No. It's non-denominational. There's no creed. There are five values the men coach by, T.E.A.M.S.: truthful, excellence, accountable, mindful, service. And the men hold themselves to a code. Families of every faith and none send young men."],
   ["Pictures", "Will he be photographed?", "Yes. The men photograph and film the weekend, and a photo and video release is part of registration; it's how the next young man finds this. Everything on this website was taken at a real weekend. The circle and the ceremony are never filmed, and if a particular frame of him ever bothers you, email us and it comes down the same day."],
   ["Signing", "Why does he have to sign something?", "Because four of the agreements are his: the wilderness is demanding, he won't bring what he shouldn't, he'll look after himself and others, and he knows what happens if he doesn't. He signs them on your phone, or from a link we email him. It's the first act of the weekend."],
-  ["Men", "I'm a father. Can I come?", "Yes, as a production man, with a criminal record check and the same fee. One of the men's fourteen standards is written for you: trust the process, let your son have the weekend without you hovering. Fathers on the team are usually placed away from their sons' teams."],
+  ["Men", "I'm a father. Can I come?", "Yes, and many do. You come as a production man like everyone else: the Thursday meetings, the criminal record check, the same $320, the load and the strike. The one difference is a standard written for you: trust the process. For the weekend your son belongs to his team and his shadows, not to you. You're placed away from his team, you're not his shadow, you don't sit with him in the circle, and you don't check on him. Other men give your son the weekend; you give it to somebody else's son. Most fathers say it was harder than they expected and the best thing they did."],
   ["After", "What happens after?", "He comes home tired and, often, different. The Society hosts gatherings for the men through the year. Many families come back the next September; many fathers end up on the team. Ask at the bus stop."],
 ];
 
@@ -37,9 +38,10 @@ export default function FAQ() {
         </div>
       </section>
       <section className="bg-paper pb-20 text-ink" data-surface="paper">
+        <OpenHash />
         <div className="wrap grid gap-3">
           {QA.map(([tag, q, a]) => (
-            <details key={q} className="group rounded-2xl border border-ink/10 open:border-ink/25">
+            <details key={q} id={q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")} className="group scroll-mt-24 rounded-2xl border border-ink/10 open:border-ink/25 target:border-flame target:[&>summary]:text-flame">
               <summary className="flex cursor-pointer list-none items-center gap-4 p-5">
                 <span className="mono w-20 flex-none text-flame">{tag}</span>
                 <span className="display flex-1 text-[1.5rem] leading-none">{q}</span>

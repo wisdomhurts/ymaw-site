@@ -58,7 +58,17 @@ export default function Support() {
           <div>
             <p className="mono text-ember">Work-to-earn</p>
             <h2 className="t-h2 mt-3"><Lines lines={["He earns", "his own seat."]} /></h2>
-            <p className="mt-4 text-bone/80">A young man whose family can't cover the fee can earn his enrolment through community service. It isn't charity; it's part of the initiation. He takes responsibility for his own journey before the bus ever leaves. A community organisation can provide the service hours; the Society provides the seat.</p>
+            <p className="mt-4 text-bone/80">A young man whose family can't cover the fee can earn his seat instead of being given it. It isn't charity; it's the first part of the initiation. He takes responsibility for his own journey before the bus ever leaves.</p>
+            <ol className="mt-6 grid gap-3">
+              {[
+                ["Register him and choose assistance", "at the end of the form. Nothing to pay. A man from the enrolment team calls within a few days."],
+                ["Agree on the work", "on that call: community service hours with an organisation near him, a school, a church, a community group, the Society's own load day. The man and the young man set the hours together."],
+                ["He does the hours, he gets the seat", "and the Society covers the $320. He arrives at the bus having already paid his way, and every man there knows it."],
+              ].map(([h, p], i) => (
+                <li key={h} className="flex gap-4 text-bone/80"><span className="display text-2xl leading-none text-ember">{i + 1}</span><span><b className="text-bone">{h}</b> {p}</span></li>
+              ))}
+            </ol>
+            <p className="mt-4 text-sm text-ash">If his family's situation is simpler than that, a sponsored seat covers him with no hours and no fuss. Both are chosen the same way, at the end of registration.</p>
           </div>
           <div>
             <p className="mono text-ember">Partners</p>

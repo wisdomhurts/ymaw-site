@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { stripe, supabase, sendMail, mailShell, notifyTeam } from "@/lib/server";
+import { stripe, supabase, sendMail, mailShell, notifyTeam, pushToSheet } from "@/lib/server";
 import { FACTS } from "@/lib/facts";
 
 export const runtime = "nodejs";
@@ -39,6 +39,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "DB update failed" }, { status: 500 });
       }
       const r = upd.data;
+      const paidAt = new Date().toISOString();
       const who = r.role === "young_man" ? `${r.son_first}'s seat` : r.role === "man" ? "your place on the team" : "your sponsored seat";
       await Promise.allSettled([
         sendMail({
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
           ),
         }),
         notifyTeam(`Paid · ${r.ref}`, `<p>${r.parent_name} paid $${(r.amount_cents / 100).toFixed(0)} by card (${r.role}).</p>`),
+        pushToSheet({ kind: "update", ref: r.ref, payment_status: "paid", paid_at: paidAt }),
       ]);
     }
   }

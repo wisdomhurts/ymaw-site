@@ -113,11 +113,9 @@ export default function TheMen() {
             <p className="t-quote mt-6">“{FACTS.manCode.line}”</p>
           </div>
           <div>
-            <p className="mono text-flame">Core values of the Man Code</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {FACTS.manCode.virtues.map((v) => <span key={v} className="rounded-full border border-ink/15 px-3 py-1 text-sm">{v}</span>)}
-            </div>
-            <p className="mt-6 text-sm text-ink/60">Over the weekend, the young men are invited to create their own shared standards to live by. As men, we already hold ourselves to high standards. This is a chance to raise them.</p>
+            <p className="mono text-flame">Their own standards</p>
+            <p className="mt-6 text-[1.05rem] text-ink/80">On Friday night, before anything else happens, the young men write the standards they'll hold each other to for the weekend. Nobody hands them a list. The men hold themselves to the Code and the fourteen standards; the young men hold themselves to what they wrote.</p>
+            <p className="mt-4 text-sm text-ink/60">As men, we already hold ourselves to high standards. The weekend is a chance to raise them.</p>
           </div>
         </div>
       </section>
