@@ -4,7 +4,6 @@ import { FACTS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
 import { Still } from "@/components/Media";
 import FireMark from "@/components/FireMark";
-import ShareButton from "@/components/ShareButton";
 
 export const metadata: Metadata = { title: "The walk out", robots: { index: false } };
 
@@ -58,8 +57,8 @@ export default async function ThankYou({ searchParams }: { searchParams: Promise
           )}
           {path === "aid" && (
             <div className="card p-6">
-              <p className="mono text-ember">Assistance requested</p>
-              <p className="mt-2">A man from the enrolment team will call or write within a couple of days. Nothing else to do right now. Money is never the reason a young man stays home.</p>
+              <p className="mono text-ember">Communication</p>
+              <p className="mt-2">A man from the enrolment team will call or write within a couple of days. Nothing else to do right now.</p>
             </div>
           )}
           {needsSign && (
@@ -93,11 +92,6 @@ export default async function ThankYou({ searchParams }: { searchParams: Promise
         </div>
 
         <div className="grid content-start gap-5">
-          <div className="card p-6">
-            <p className="mono text-ember">Who will you bring?</p>
-            <p className="mt-2">Most young men arrive because a man they know told their parents. Send this to a dad.</p>
-            <div className="mt-4"><ShareButton text={`This is the weekend I wish I'd had. Young Men's Adventure Weekend, ${FACTS.dates.label}, Squamish. Ages 12–17.`} url="https://ymaw.com" /></div>
-          </div>
           <div className="card p-6">
             <p className="mono text-ember">Reach a man</p>
             <p className="mt-2"><a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a></p>
