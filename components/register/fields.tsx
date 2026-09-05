@@ -26,7 +26,7 @@ export function Field({
   );
 }
 
-export function Select({ label, name, value, onChange, options, required, error, half }: { label: string; name: string; value: string; onChange: (v: string) => void; options: string[]; required?: boolean; error?: string; half?: boolean }) {
+export function Select({ label, name, value, onChange, options, required, error, half, hint }: { label: string; name: string; value: string; onChange: (v: string) => void; options: string[]; required?: boolean; error?: string; half?: boolean; hint?: string }) {
   const id = `f-${name}`;
   return (
     <div className={`field ${half ? "sm:col-span-1" : "sm:col-span-2"}`}>
@@ -35,6 +35,7 @@ export function Select({ label, name, value, onChange, options, required, error,
         <option value="">Choose…</option>
         {options.map((o) => <option key={o} value={o}>{o}</option>)}
       </select>
+      {hint && !error && <p className="text-xs text-dust">{hint}</p>}
       {error && <p className="text-sm text-flame">{error}</p>}
     </div>
   );

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FACTS } from "@/lib/facts";
+import { FACTS, STOPS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
 import { Still } from "@/components/Media";
 import FireMark from "@/components/FireMark";
@@ -72,7 +72,7 @@ export default async function ThankYou({ searchParams }: { searchParams: Promise
             <div className="card p-6">
               <p className="mono text-ember">The bus</p>
               <ul className="mt-2 grid gap-2">
-                {FACTS.stops.map((s) => (
+                {STOPS.map((s) => (
                   <li key={s.town}><strong>{s.town}</strong> · {s.place}, {s.address} · <span className="text-ember">{s.depart}</span> · back {s.return}</li>
                 ))}
               </ul>

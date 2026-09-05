@@ -35,6 +35,7 @@ export const FACTS = {
       address: "20394 88 Ave, Langley",
       depart: "Friday 3:00 pm",
       return: "Sunday after 2:30 pm",
+      listed: true,
     },
     {
       town: "Burnaby",
@@ -42,8 +43,22 @@ export const FACTS = {
       address: "3713 Kensington Ave, Burnaby",
       depart: "Friday 4:00 pm",
       return: "Sunday after 1:30 pm",
+      listed: true,
+    },
+    {
+      town: "Squamish",
+      place: "Confirmed by email before the weekend",
+      address: "Squamish",
+      depart: "Friday, time by email",
+      return: "Sunday afternoon",
+      // Offered on the form so a Squamish family can choose it and land on the
+      // Squamish roster, but kept out of the published bus listing: Transport
+      // sets the place and the time with those families directly.
+      listed: false,
     },
   ],
+  // Youth sizes for the young men who need them; adult for everyone else.
+  shirtSizes: ["YS", "YM", "YL", "XS", "S", "M", "L", "XL", "2XL", "3XL"],
   crc: {
     portal: "https://justice.gov.bc.ca/eCRC/",
     code: "W3LVWMAYTG",
@@ -113,7 +128,7 @@ export const FACTS = {
     { name: "Jeffery Woods", role: "Production Team Manager" },
     { name: "Cameron Tsoi-A-Sue", role: "S1 · second in command" },
     { name: "Bryan Wadsworth", role: "Enrolment manager" },
-    { name: "Jason Macloed", role: "Enrolment 2nd" },
+    { name: "Jason Macleod", role: "Enrolment 2nd" },
     { name: "Dan Beck", role: "Finance & registration" },
     { name: "Raymond Wong", role: "Safety manager" },
     { name: "Tim Bolan", role: "Transport manager" },
@@ -137,6 +152,14 @@ export const FACTS = {
     "By modelling accountability to the young men and to each other, we cultivate trust and mutual respect.",
   ],
 } as const;
+
+/** The stops the site actually offers. A stop stays out of the footer, the
+ *  packing list and the registration form until Transport has agreed it. */
+// STOPS is what the site publishes — a place and a time a parent can rely on.
+// PICKUPS is what the form offers, which includes a stop whose time Transport
+// arranges directly with the families who choose it.
+export const STOPS = FACTS.stops.filter((s) => s.listed);
+export const PICKUPS = FACTS.stops.map((s) => s.town);
 
 export const NAV = [
   { href: "/his-path", label: "His Path" },

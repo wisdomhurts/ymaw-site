@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FACTS, NAV } from "@/lib/facts";
+import { FACTS, NAV, STOPS } from "@/lib/facts";
 import FireMark from "./FireMark";
 
 // Every page ends here, so the footer does three jobs: it forks the two
@@ -110,7 +110,7 @@ export default function Footer() {
         {/* What a parent scrolls to the bottom looking for. */}
         <div className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-[auto_1fr_1fr] lg:items-start lg:gap-12">
           <Head>The bus</Head>
-          {FACTS.stops.map((s) => (
+          {STOPS.map((s) => (
             <div key={s.town}>
               <p className="display text-2xl leading-none">{s.town}</p>
               <p className="mt-2 text-sm text-ash">{s.place}, {s.address.replace(/,\s*[^,]+$/, "")}</p>

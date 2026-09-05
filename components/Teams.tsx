@@ -4,12 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { FACTS } from "@/lib/facts";
 import { useSite } from "./Providers";
 
-const BEAT = 4200; // ms per letter
+// Twice what it was. Four seconds was enough to see a letter light up and not
+// enough to read the definition and the question under it, which is the part
+// that matters.
+const BEAT = 8400; // ms per letter
 
 /**
  * T.E.A.M.S. — one letter lights at a time, each with the value and the
  * question the men actually ask. The sixth beat is the word itself: Team.
- * It advances on its own once it is on screen, and any letter can be tapped.
+ * It advances on its own once it is on screen, pauses while anyone is
+ * reading it, and stops for good the moment a letter is tapped.
  * Reduced motion: all five, static.
  */
 export default function Teams() {
@@ -18,6 +22,8 @@ export default function Teams() {
   const [i, setI] = useState(0);
   const [live, setLive] = useState(false);
   const [held, setHeld] = useState(false);
+  // Reading is not idleness: hovering or tabbing into the panel holds the beat.
+  const [resting, setResting] = useState(false);
   const values = FACTS.teams;
   const n = values.length + 1; // five letters, then the team
 
@@ -30,10 +36,10 @@ export default function Teams() {
   }, [reduced]);
 
   useEffect(() => {
-    if (reduced || !live || held) return;
+    if (reduced || !live || held || resting) return;
     const t = setInterval(() => setI((k) => (k + 1) % n), BEAT);
     return () => clearInterval(t);
-  }, [reduced, live, held, n]);
+  }, [reduced, live, held, resting, n]);
 
   const pick = (k: number) => { setI(k); setHeld(true); };
 
@@ -64,10 +70,19 @@ export default function Teams() {
   }
 
   return (
-    <section ref={root} className="relative bg-cedar py-24 text-bone" aria-label="The five values, T.E.A.M.S.">
+    <section
+      ref={root}
+      className="relative bg-cedar py-24 text-bone"
+      aria-label="The five values, T.E.A.M.S."
+      onMouseEnter={() => setResting(true)}
+      onMouseLeave={() => setResting(false)}
+      onFocusCapture={() => setResting(true)}
+      onBlurCapture={() => setResting(false)}
+    >
       <div className="wrap grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <p className="mono text-ember">{him ? "Five words the men will ask you about" : "Five values the men coach by"}</p>
+          <p className="mt-1 text-sm text-bone/45">Tap a letter to hold it.</p>
           {/* the letters */}
           <div className="mt-5 flex items-end gap-[0.06em]" role="tablist" aria-label="T.E.A.M.S.">
             {values.map((v, k) => (
@@ -100,9 +115,18 @@ export default function Teams() {
             </button>
           </div>
           {/* the beats */}
-          <div className="mt-8 flex gap-2" aria-hidden>
+          <div className="mt-8 flex gap-2">
             {Array.from({ length: n }).map((_, k) => (
-              <button key={k} type="button" tabIndex={-1} onClick={() => pick(k)} className="h-[3px] flex-1 cursor-pointer rounded-full transition-colors duration-500" style={{ background: k <= i ? "#E8652A" : "rgba(241,236,225,.15)" }} />
+              <button
+                key={k}
+                type="button"
+                onClick={() => pick(k)}
+                aria-label={k < values.length ? `Show ${values[k].name}` : "Show Team"}
+                aria-current={k === i}
+                className="group flex-1 cursor-pointer bg-transparent py-2 focus:outline-none"
+              >
+                <span className="block h-[3px] rounded-full transition-colors duration-500 group-hover:bg-bone group-focus-visible:bg-bone" style={{ background: k <= i ? "#E8652A" : "rgba(241,236,225,.15)" }} />
+              </button>
             ))}
           </div>
         </div>

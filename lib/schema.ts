@@ -1,6 +1,6 @@
 // Shared registration schema (client + server), with zod.
 import { z } from "zod";
-import { FACTS } from "./facts";
+import { FACTS, PICKUPS } from "./facts";
 
 const phone = z.string().trim().min(7, "Add a phone number").max(40);
 const email = z.string().trim().email("That email doesn't look right").max(160);
@@ -24,6 +24,10 @@ export const YoungMan = z.object({
   dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date of birth"),
   attended_before: z.enum(["yes", "no"]),
   times_attended: z.coerce.number().int().min(0).max(10).optional(),
+  shirt_size: z.enum(FACTS.shirtSizes, { message: "Pick a shirt size" }),
+  // Which stop he boards at, so the men on that bus have a list with his name
+  // on it. Validated against the stops actually being run this year.
+  pickup: z.string().refine((v) => (PICKUPS as string[]).includes(v), "Choose where he gets on the bus"),
   wilderness_experience: long,
   dietary: long,
   medical_notes: long,
@@ -79,6 +83,7 @@ export const Man = z.object({
   dietary: long,
   attended_before: z.enum(["yes", "no"]),
   times_attended: z.coerce.number().int().min(0).max(40).optional(),
+  shirt_size: z.enum(FACTS.shirtSizes, { message: "Pick a shirt size" }),
   wilderness_experience: long,
   departments: z.array(z.string().max(40)).max(8).optional(),
   skills: long,

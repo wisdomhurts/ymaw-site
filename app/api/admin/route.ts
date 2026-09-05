@@ -13,6 +13,7 @@ function authorized(req: Request) {
 
 // GET /api/admin?key=… [&format=csv]  → registrations for the event
 // GET /api/admin?key=…&diag=1          → which services are configured (never the values)
+// GET /api/admin?key=…&roster=1        → the printable bus sheet, one page per stop
 export async function GET(req: Request) {
   if (!authorized(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const diag = new URL(req.url).searchParams.get("diag");
@@ -74,6 +75,121 @@ export async function GET(req: Request) {
       .in("ref", refs);
     if (upd.error) return NextResponse.json({ error: upd.error.message }, { status: 500 });
     return NextResponse.json({ purged: refs.length, refs });
+  }
+
+  // ?roster=1 → the bus sheet, one page per pickup, ready to print.
+  //
+  // A production man standing in a parking lot at 3pm needs paper: who is
+  // getting on here, is he actually here, and who do I phone if he isn't.
+  // Nothing else. The health file stays out of it — the safety men carry that
+  // separately — but a young man with an allergy, a medication or a diet is
+  // flagged so the man at the door knows to check.
+  if (new URL(req.url).searchParams.get("roster") === "1") {
+    const sel = await db
+      .from("registrations")
+      .select("ref, son_first, son_last, son_age, shirt_size, pickup, parent_name, parent_phone, emergency_name, emergency_relationship, emergency_phone, dietary, medical_notes, medications, payment_status")
+      .eq("role", "young_man")
+      .eq("event", FACTS.event)
+      .order("son_last", { ascending: true });
+    if (sel.error) return NextResponse.json({ error: sel.error.message }, { status: 500 });
+    type R = Record<string, unknown>;
+    const rows = sel.data as R[];
+    const esc = (v: unknown) =>
+      String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string);
+    const stops = FACTS.stops;
+    const groups: { town: string; place: string; address: string; depart: string; ret: string; men: R[] }[] = stops.map((s) => ({
+      town: s.town, place: s.place, address: s.address, depart: s.depart, ret: s.return, men: rows.filter((r) => r.pickup === s.town),
+    }));
+    const orphans = rows.filter((r) => !stops.some((s) => s.town === r.pickup));
+    if (orphans.length) groups.push({ town: "No stop chosen", place: "Phone the parent before Friday", address: "", depart: "—", ret: "—", men: orphans });
+
+    const flags = (r: R) => {
+      const f: string[] = [];
+      if (r.medications) f.push("M");
+      if (r.dietary) f.push("D");
+      if (r.medical_notes) f.push("!");
+      return f.join(" ");
+    };
+
+    const sheet = (g: (typeof groups)[number]) => `
+    <section class="stop">
+      <header>
+        <div>
+          <p class="kicker">${esc(FACTS.short)} ${FACTS.year} · Bus roster</p>
+          <h1>${esc(g.town)}</h1>
+          <p class="place">${esc(g.place)}${g.address ? " · " + esc(g.address) : ""}</p>
+        </div>
+        <div class="when">
+          <p><span>Departs</span> ${esc(g.depart)}</p>
+          <p><span>Returns</span> ${esc(g.ret)}</p>
+          <p class="count"><span>On this bus</span> ${g.men.length}</p>
+        </div>
+      </header>
+      ${g.men.length === 0 ? `<p class="empty">Nobody registered for this stop yet.</p>` : `
+      <table>
+        <thead><tr><th class="tick">On</th><th>Young man</th><th class="num">Age</th><th class="num">Shirt</th><th>Who to call</th><th>If no answer</th><th class="num">Flags</th></tr></thead>
+        <tbody>
+          ${g.men
+            .map(
+              (r) => `<tr>
+            <td class="tick"><span class="box"></span></td>
+            <td class="who"><strong>${esc(r.son_first)} ${esc(r.son_last)}</strong><br><span class="ref">${esc(r.ref)}</span>${r.payment_status !== "paid" ? ` <span class="unpaid">unpaid</span>` : ""}</td>
+            <td class="num">${esc(r.son_age)}</td>
+            <td class="num">${esc(r.shirt_size) || "—"}</td>
+            <td>${esc(r.parent_name)}<br><span class="tel">${esc(r.parent_phone)}</span></td>
+            <td>${esc(r.emergency_name)}${r.emergency_relationship ? ` <span class="rel">(${esc(r.emergency_relationship)})</span>` : ""}<br><span class="tel">${esc(r.emergency_phone)}</span></td>
+            <td class="num flag">${flags(r)}</td>
+          </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>`}
+      <footer>
+        <p>M · medication &nbsp; D · diet &nbsp; ! · medical note or allergy. The full file is with the safety team.</p>
+        <p>Anyone missing at departure: phone the parent, then ${esc(FACTS.email)}. Do not leave a young man in a parking lot.</p>
+        <p class="signoff">On board <span class="rule short"></span> of ${g.men.length} &nbsp;·&nbsp; Checked by <span class="rule"></span> &nbsp;·&nbsp; Time <span class="rule short"></span></p>
+      </footer>
+    </section>`;
+
+    const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>${esc(FACTS.short)} ${FACTS.year} bus roster</title>
+<meta name="robots" content="noindex">
+<style>
+  @page { size: letter portrait; margin: 14mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: #111; background: #fff; font: 12px/1.45 ui-sans-serif, system-ui, "Helvetica Neue", Arial, sans-serif; }
+  .stop { padding: 22px 26px 0; max-width: 60rem; margin: 0 auto; }
+  .stop + .stop { border-top: 2px solid #111; margin-top: 34px; }
+  @media print { .stop + .stop { break-before: page; border-top: 0; margin-top: 0; } }
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; border-bottom: 2px solid #111; padding-bottom: 10px; }
+  .kicker { margin: 0; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #666; }
+  h1 { margin: 4px 0 2px; font-size: 30px; line-height: 1; letter-spacing: -.01em; }
+  .place { margin: 0; color: #444; }
+  .when { text-align: right; white-space: nowrap; }
+  .when p { margin: 0 0 2px; }
+  .when span { display: inline-block; min-width: 5.5em; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #666; }
+  .count { margin-top: 6px !important; font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+  th { text-align: left; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #666; font-weight: 600; padding: 0 8px 6px; border-bottom: 1px solid #bbb; }
+  td { padding: 9px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr { break-inside: avoid; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th.tick, td.tick { width: 34px; text-align: center; }
+  .box { display: inline-block; width: 15px; height: 15px; border: 1.5px solid #111; border-radius: 2px; }
+  .who strong { font-size: 13px; }
+  .ref { font-size: 10px; letter-spacing: .08em; color: #777; }
+  .rel { color: #777; }
+  .tel { font-variant-numeric: tabular-nums; color: #333; }
+  .flag { font-weight: 700; letter-spacing: .1em; }
+  .empty { margin: 18px 0; color: #777; font-style: italic; }
+  footer { margin-top: 12px; padding: 10px 0 20px; border-top: 1px solid #ddd; color: #666; font-size: 10.5px; }
+  footer p { margin: 0 0 3px; }
+  .unpaid { display: inline-block; margin-top: 2px; padding: 0 4px; border: 1px solid #111; border-radius: 2px; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+  .signoff { margin-top: 12px !important; color: #111; font-size: 11px; }
+  .rule { display: inline-block; width: 12em; border-bottom: 1px solid #111; }
+  .rule.short { width: 4em; }
+</style></head><body>${groups.map(sheet).join("")}</body></html>`;
+    return new NextResponse(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
   }
 
   const q = await db.from("registrations").select("*").order("created_at", { ascending: false }).limit(1000);

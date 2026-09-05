@@ -8,7 +8,7 @@ import { Still } from "@/components/Media";
 import FireMark from "@/components/FireMark";
 import NewsletterForm from "@/components/NewsletterForm";
 import { V } from "@/components/Providers";
-import { FACTS } from "@/lib/facts";
+import { FACTS, STOPS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
 
 export default function Home() {
@@ -54,7 +54,7 @@ export default function Home() {
             </p>
           </div>
           <Reveal className="grid gap-3">
-            {FACTS.stops.map((s) => (
+            {STOPS.map((s) => (
               <div key={s.town} className="card p-5">
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="display text-3xl">{s.town}</span>

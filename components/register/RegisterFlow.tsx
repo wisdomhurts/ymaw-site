@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { FACTS } from "@/lib/facts";
+import { FACTS, STOPS, PICKUPS } from "@/lib/facts";
 import { YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, MEDIA_RELEASE, WITNESS_ATTESTATION, WAIVER_VERSION } from "@/lib/legal";
 import { Field, Select, YesNo, Choice, Check, Agreement, Signature, StepHead } from "./fields";
 import FireMark from "../FireMark";
@@ -12,6 +12,8 @@ type D = Record<string, string>;
 const KEY = "ymaw:reg:v2";
 
 const RELATIONSHIPS = ["Mother", "Father", "Step-parent", "Legal guardian", "Grandparent", "Other family", "Other"];
+// An emergency contact is usually not a parent — that is the point of one.
+const EMERGENCY_RELATIONSHIPS = ["Mother", "Father", "Step-parent", "Grandparent", "Aunt", "Uncle", "Sibling (adult)", "Family friend", "Neighbour", "Coach or teacher", "Other"];
 const HEARD = ["A man who's been", "A parent whose son went", "School or counsellor", "Coach or club", "Instagram or Facebook", "Search", "Flyer or poster", "Other"];
 const PROVINCES = ["BC", "AB", "SK", "MB", "ON", "QC", "NB", "NS", "PE", "NL", "YT", "NT", "NU", "Other"];
 const DEPTS = FACTS.departments.map((d) => d.name);
@@ -108,7 +110,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
     const name = steps[step];
     if (role === "young_man") {
       if (name === "Him") {
-        e = need(["son_first", "son_last", "dob", "attended_before"]);
+        e = need(["son_first", "son_last", "dob", "attended_before", "shirt_size", "pickup"]);
         const a = ageFrom(d.dob);
         if (d.dob && (a === null || a < FACTS.agesAccepted.min || a > FACTS.agesAccepted.max)) e.dob = `He needs to be ${FACTS.agesAccepted.min} to ${FACTS.agesAccepted.max} on ${FACTS.dates.label.split(",")[0]}.`;
       } else if (name === "His health") {
@@ -135,7 +137,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
       }
     } else if (role === "man") {
       if (name === "You") {
-        e = need(["first", "last", "email", "phone", "street", "city", "province", "postal", "attended_before", "emergency_name", "emergency_phone"]);
+        e = need(["first", "last", "email", "phone", "street", "city", "province", "postal", "attended_before", "shirt_size", "emergency_name", "emergency_phone"]);
         if (d.email && !emailOk(d.email)) e.email = "That email doesn't look right";
       } else if (name === "Vehicle") {
         e = need(["driveToSite"]);
@@ -181,6 +183,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
         role, son_first: d.son_first, son_last: d.son_last, son_age: ageFrom(d.dob), dob: d.dob,
         attended_before: d.attended_before, times_attended: d.times_attended ? Number(d.times_attended) : undefined,
         wilderness_experience: d.wilderness_experience || "", dietary: d.dietary || "", medical_notes: d.medical_notes || "", medications: d.medications || "",
+        shirt_size: d.shirt_size, pickup: d.pickup,
         health_number: d.health_number, doctor_name: d.doctor_name, doctor_phone: d.doctor_phone,
         parent_name: d.parent_name, relationship: d.relationship, parent_email: d.parent_email, parent_phone: d.parent_phone, address,
         emergency_name: d.emergency_name, emergency_relationship: d.emergency_relationship, emergency_phone: d.emergency_phone, emergency_alt_phone: d.emergency_alt_phone || "",
@@ -200,6 +203,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
         role, first: d.first, last: d.last, email: d.email, phone: d.phone, address, dietary: d.dietary || "",
         attended_before: d.attended_before, times_attended: d.times_attended ? Number(d.times_attended) : undefined,
         wilderness_experience: d.wilderness_experience || "", departments: DEPTS.filter((x) => d[`dept:${x}`] === "1"), skills: d.skills || "",
+        shirt_size: d.shirt_size,
         emergency_name: d.emergency_name, emergency_phone: d.emergency_phone,
         vehicle: { make: d.vehicle_make || "", year: d.vehicle_year || "", fourByFour: d.fourByFour || undefined, driveToSite: d.driveToSite || undefined, passengers: d.passengers || "" },
         initials: MEN_AGREEMENTS.map((_, i) => d[`m_init${i}`]), crc_status: d.crc_status, consent_waiver: true, signature: d.signature,
@@ -340,6 +344,11 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <YesNo label="Has he been to YMAW before?" value={d.attended_before || ""} onChange={(v) => set("attended_before", v)} error={errs.attended_before} />
             {d.attended_before === "yes" && <Field label="How many times?" name="times_attended" type="number" inputMode="numeric" value={d.times_attended || ""} onChange={(v) => set("times_attended", v)} half />}
             <Field label="Any wilderness experience?" name="wilderness_experience" value={d.wilderness_experience || ""} onChange={(v) => set("wilderness_experience", v)} textarea placeholder="Camping, scouts, hiking, none — all fine." />
+            <Select label="Shirt size" name="shirt_size" value={d.shirt_size || ""} onChange={(v) => set("shirt_size", v)} options={[...FACTS.shirtSizes]} required error={errs.shirt_size} half hint="Youth sizes start YS. Every young man gets one." />
+            <Select label="Where does he get on the bus?" name="pickup" value={d.pickup || ""} onChange={(v) => set("pickup", v)} options={[...PICKUPS]} required error={errs.pickup} half />
+            <p className="-mt-1 text-xs text-dust sm:col-span-2">
+              {STOPS.map((st) => `${st.town} — ${st.place}, ${st.address}, ${st.depart}`).join(" · ")}. He comes back to the same stop on Sunday. For Squamish, Transport emails you the place and the time.
+            </p>
           </div>
         </section>
       )}
@@ -375,7 +384,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <h2 className="t-h3 mt-4 sm:col-span-2">Emergency contact</h2>
             <p className="-mt-2 text-sm text-[color:var(--muted)] sm:col-span-2">Someone other than you, in case you can't be reached over the weekend.</p>
             <Field label="Name" name="emergency_name" value={d.emergency_name || ""} onChange={(v) => set("emergency_name", v)} required error={errs.emergency_name} half />
-            <Field label="Relationship to him" name="emergency_relationship" value={d.emergency_relationship || ""} onChange={(v) => set("emergency_relationship", v)} required error={errs.emergency_relationship} half />
+            <Select label="Relationship to him" name="emergency_relationship" value={d.emergency_relationship || ""} onChange={(v) => set("emergency_relationship", v)} options={EMERGENCY_RELATIONSHIPS} required error={errs.emergency_relationship} half />
             <Field label="Phone" name="emergency_phone" type="tel" inputMode="tel" value={d.emergency_phone || ""} onChange={(v) => set("emergency_phone", v)} required error={errs.emergency_phone} half />
             <Field label="Second phone" name="emergency_alt_phone" type="tel" inputMode="tel" value={d.emergency_alt_phone || ""} onChange={(v) => set("emergency_alt_phone", v)} half />
             <h2 className="t-h3 mt-4 sm:col-span-2">Two more things</h2>
@@ -498,7 +507,8 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
               </div>
               <p className="text-xs text-dust">First weekend? You'll likely be a shadow. It's the best seat in the house.</p>
             </div>
-            <Field label="Dietary requirements" name="dietary" value={d.dietary || ""} onChange={(v) => set("dietary", v)} />
+            <Field label="Dietary requirements" name="dietary" value={d.dietary || ""} onChange={(v) => set("dietary", v)} half />
+            <Select label="Shirt size" name="shirt_size" value={d.shirt_size || ""} onChange={(v) => set("shirt_size", v)} options={[...FACTS.shirtSizes]} required error={errs.shirt_size} half />
             <Field label="Emergency contact name" name="emergency_name" value={d.emergency_name || ""} onChange={(v) => set("emergency_name", v)} required error={errs.emergency_name} half />
             <Field label="Emergency contact phone" name="emergency_phone" type="tel" inputMode="tel" value={d.emergency_phone || ""} onChange={(v) => set("emergency_phone", v)} required error={errs.emergency_phone} half />
           </div>
@@ -529,7 +539,12 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             {MEN_AGREEMENTS.map((t, i) => <Agreement key={i} n={i + 1} text={t} initials={d[`m_init${i}`] || ""} onChange={(v) => setInit("m_init", i, v)} error={errs[`m_init${i}`]} />)}
           </div>
           <h2 className="t-h3 mt-8">Criminal record check</h2>
-          <p className="mt-2 text-sm text-[color:var(--muted)]">Every man on site has one. BC residents: the online portal takes ten minutes with the Society's access code <span className="mono text-ember">{FACTS.crc.code}</span> at <a className="link" href={FACTS.crc.portal} target="_blank" rel="noopener">{FACTS.crc.portal}</a>. Outside BC: your local police station, with the Society's letter (email us).</p>
+          <p className="mt-2 text-sm text-[color:var(--muted)]">Every man on site has one. BC residents: the online portal takes ten minutes. Outside BC: your local police station, with the Society's letter (email us).</p>
+          <div className="mt-4 rounded-2xl border border-ember/40 bg-ember/5 p-5">
+            <p className="mono text-ember">The Society&rsquo;s access code</p>
+            <p className="mono mt-2 select-all text-[clamp(1.6rem,5vw,2.4rem)] font-bold leading-none tracking-[0.12em] text-[color:var(--fg)]">{FACTS.crc.code}</p>
+            <p className="mt-3 text-sm text-[color:var(--muted)]">Enter it at <a className="link" href={FACTS.crc.portal} target="_blank" rel="noopener">{FACTS.crc.portal}</a>. Tap the code to select it.</p>
+          </div>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <Choice on={d.crc_status === "done"} onClick={() => set("crc_status", "done")} title="Done" line="I have a current CRC on file with the Society, or I've just submitted one." />
             <Choice on={d.crc_status === "will"} onClick={() => set("crc_status", "will")} title="I'll do it this week" line="I understand I can't attend without it." />

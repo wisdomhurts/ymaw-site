@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import Reveal, { Lines } from "@/components/Reveal";
 import PrintButton from "@/components/PrintButton";
 import FireMark from "@/components/FireMark";
-import { FACTS } from "@/lib/facts";
+import { FACTS, STOPS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
 import { PACKING, LEAVE_HOME, CONFISCATION } from "@/lib/packing";
 
@@ -80,7 +80,7 @@ export default function WhatToBring() {
               <Reveal className="rounded-2xl border border-ink/15 p-6 print:rounded-lg print:p-4">
                 <h2 className="display text-[2rem] leading-none print:text-2xl">The bus</h2>
                 <ul className="mt-3 grid gap-3">
-                  {FACTS.stops.map((s) => (
+                  {STOPS.map((s) => (
                     <li key={s.town}>
                       <p className="font-bold">{s.town} · <span className="text-flame">{s.depart}</span></p>
                       <p className="text-sm text-ink/70">{s.place}, {s.address}</p>
