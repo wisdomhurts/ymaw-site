@@ -20,9 +20,13 @@ const OLD_SITE: [string, string][] = [
   ["/category/press-release", "/since-1990"],
   ["/category/uncategorized", "/"],
   ["/hello-world", "/"],
+  // The parents' page was "Bringing Him" until September 2026. You don't
+  // bring him; you put him on a bus and drive away, which is the whole
+  // emotional content of the page.
+  ["/bringing-him", "/sending-him"],
   // the static prototype that briefly lived here
   ["/weekend.html", "/the-weekend"],
-  ["/why.html", "/bringing-him"],
+  ["/why.html", "/sending-him"],
   ["/team.html", "/the-men"],
   ["/faq.html", "/faq"],
   ["/donate.html", "/support"],

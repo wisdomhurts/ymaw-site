@@ -8,7 +8,7 @@ import { FACTS } from "@/lib/facts";
 import { STILLS } from "@/lib/media";
 
 export const metadata: Metadata = {
-  title: "Bringing Him",
+  title: "Sending Him",
   description: `For parents and guardians: why the Young Men's Adventure Weekend exists, how it's kept safe, what $${FACTS.priceCAD} covers, how the weekend runs, and what to expect Sunday night.`,
 };
 
@@ -37,11 +37,11 @@ const SUNDAY = [
   "Many families come back. Many fathers end up on the production team. The men will tell you how.",
 ];
 
-export default function BringingHim() {
+export default function SendingHim() {
   return (
     <>
       <PageHero
-        kicker="Bringing him · for parents and guardians"
+        kicker="Sending him · for parents and guardians"
         lines={["He needs this", "now."]}
         lede="Plain, unhurried, specific. Why the weekend exists, who is responsible for him, what the money covers, how the three days run, and what to expect when he gets off the bus."
         still={STILLS["lake-watch"]}

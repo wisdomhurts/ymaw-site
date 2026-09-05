@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
-/** Who is reading: the young man, or the person bringing him. */
+/** Who is reading: the young man, or the person sending him. */
 export type Voice = "him" | "you";
 
 type Ctx = {

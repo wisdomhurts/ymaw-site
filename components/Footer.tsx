@@ -14,7 +14,7 @@ const LINK = "inline-block text-ash transition-colors duration-200 hover:text-bo
 // Nine links in one column left the row lopsided and told the reader nothing;
 // split in two it says what the site actually is: his journey, and the Society.
 const LABEL: Record<string, string> = { ...Object.fromEntries(NAV.map((n) => [n.href, n.label])), "/what-to-bring": "What to bring" };
-const TRAIL = ["/his-path", "/bringing-him", "/the-weekend", "/what-to-bring"];
+const TRAIL = ["/his-path", "/sending-him", "/the-weekend", "/what-to-bring"];
 const SOCIETY = ["/since-1990", "/the-men", "/media", "/faq", "/support"];
 
 function Head({ children }: { children: React.ReactNode }) {

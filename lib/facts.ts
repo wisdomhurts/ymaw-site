@@ -140,7 +140,7 @@ export const FACTS = {
 
 export const NAV = [
   { href: "/his-path", label: "His Path" },
-  { href: "/bringing-him", label: "Bringing Him" },
+  { href: "/sending-him", label: "Sending Him" },
   { href: "/the-weekend", label: "The Weekend" },
   { href: "/media", label: "Photos" },
   { href: "/since-1990", label: "Since 1990" },

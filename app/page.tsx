@@ -95,7 +95,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/bringing-him" className="btn btn-ink">For the person bringing him</Link>
+            <Link href="/sending-him" className="btn btn-ink">For the person sending him</Link>
             <Link href="/the-weekend" className="btn btn-ghost" style={{ borderColor: "rgba(22,17,12,.2)" }}>How the weekend runs</Link>
           </div>
         </div>

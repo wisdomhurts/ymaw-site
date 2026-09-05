@@ -82,7 +82,7 @@ export default function Hero() {
             className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-5 text-left backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-ember/70 hover:bg-white/10"
           >
             <span className="mono text-ember">Door two</span>
-            <span className="display mt-1.5 block text-[2.2rem] leading-none sm:text-[2.6rem]">I'm bringing him.</span>
+            <span className="display mt-1.5 block text-[2.2rem] leading-none sm:text-[2.6rem]">I'm sending him.</span>
             <span className="mt-2 block text-bone/75">See exactly what happens, start to finish, and who's responsible.</span>
             <span className="mt-4 inline-flex items-center gap-2 text-sm text-ash transition-colors group-hover:text-bone">
               Show me <Arrow />
@@ -93,7 +93,7 @@ export default function Hero() {
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ash" data-hero-fade>
           <Link href="/register" className="btn btn-ember">Register · ${FACTS.priceCAD} CAD</Link>
           <Link href="/his-path" className="link">Read his path</Link>
-          <Link href="/bringing-him" className="link">Read about bringing him</Link>
+          <Link href="/sending-him" className="link">Read about sending him</Link>
         </div>
       </div>
 

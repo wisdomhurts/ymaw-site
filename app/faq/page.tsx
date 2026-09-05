@@ -61,7 +61,7 @@ export default function FAQ() {
           <div>
             <h2 className="t-h2"><Lines lines={["Still a question?", "Ask a man."]} /></h2>
             <p className="mt-4 text-ink/75">Or email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a>. A man from the team writes back, not a bot.</p>
-            <div className="mt-6 flex flex-wrap gap-3"><Link href="/register" className="btn btn-ink">Register</Link><Link href="/bringing-him" className="btn btn-ghost" style={{ borderColor: "rgba(22,17,12,.2)" }}>Bringing him</Link></div>
+            <div className="mt-6 flex flex-wrap gap-3"><Link href="/register" className="btn btn-ink">Register</Link><Link href="/sending-him" className="btn btn-ghost" style={{ borderColor: "rgba(22,17,12,.2)" }}>Sending him</Link></div>
             <div className="mt-10 rounded-2xl border border-ink/10 p-6">
               <p className="mono text-flame">Stay in the circle</p>
               <h3 className="t-h3 mt-2">Join the mailing list.</h3>
