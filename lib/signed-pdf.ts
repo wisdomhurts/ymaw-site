@@ -172,7 +172,7 @@ export async function signedRecordPdf(r: SignedRecord): Promise<Uint8Array> {
   y -= 4;
   text(
     "Signatures on this record were typed by the signer. Under British Columbia's Electronic Transactions Act a signature in electronic form has the same effect as one on paper." +
-      (r.sameDeviceWitness ? " The witness signed on the same device as the registrant, so the two signatures share a connection and a moment." : ""),
+      (r.sameDeviceWitness ? " The witness signed from the same connection as the registrant, so that signature is not independent evidence of the registrant" + String.fromCharCode(8217) + "s." : ""),
     { size: 7.5, color: MUTED, gap: 6 },
   );
 
@@ -230,12 +230,19 @@ const PAY: Record<string, string> = { card: "Card, through Stripe", etransfer: "
 
 // The witness row reads differently depending on how it was taken, because the
 // two are not equally good evidence and the record should not pretend they are.
+// Choosing "send them a link" does not by itself make the witness independent:
+// they might open it on the same phone. The record reports the connection it
+// actually saw.
+function sameConnection(row: Row): boolean {
+  return row.witness_mode === "here" || (!!row.witness_signer_ip && row.witness_signer_ip === row.signer_ip);
+}
+
 function witnessSignature(row: Row): SignedRecord["signatures"] {
   const mode = row.witness_mode;
   if (!mode || mode === "none") {
     return [{ label: "Witness", name: null, signed_at: null, ip: null, pending: "No witness. A witness is optional and none was named; this does not affect the signatures above." }];
   }
-  const label = mode === "here" ? "Witness, present at signing" : "Witness, signing from their own device";
+  const label = mode === "here" ? "Witness, present at signing" : sameConnection(row) ? "Witness, signing on their own link" : "Witness, signing from their own device";
   if (!row.witness_signed_at) {
     return [{ label, name: null, signed_at: null, ip: null, pending: `${row.witness_name || "A witness"} was named and sent a link, and has not signed yet.` }];
   }
@@ -255,7 +262,7 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       ref: String(row.ref), role, snapshot, legal_hash: String(row.legal_hash || ""),
       subject: `${row.son_first} ${row.son_last}`,
       submitted_at: String(row.created_at || row.consented_at || new Date().toISOString()),
-      sameDeviceWitness: row.witness_mode === "here",
+      sameDeviceWitness: sameConnection(row),
       facts: [
         ["Young man", `${row.son_first} ${row.son_last}, age ${row.son_age}, born ${row.dob}`],
         ["Parent or guardian", `${row.parent_name} (${row.relationship})`],
@@ -279,7 +286,7 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       ref: String(row.ref), role, snapshot, legal_hash: String(row.legal_hash || ""),
       subject: `${row.son_first} ${row.son_last}`,
       submitted_at: String(row.created_at || row.consented_at || new Date().toISOString()),
-      sameDeviceWitness: row.witness_mode === "here",
+      sameDeviceWitness: sameConnection(row),
       facts: [
         ["Volunteer", `${row.son_first} ${row.son_last}`],
         ["Contact", `${row.parent_email} · ${row.parent_phone}`],

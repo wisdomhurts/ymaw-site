@@ -154,7 +154,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
       if (name === "You") {
         e = need(["name", "email", "seats"]);
         if (d.email && !emailOk(d.email)) e.email = "That email doesn't look right";
-        if (!(parseFloat(d.amount) >= 10)) e.amount = "Amount";
+        if (!(parseFloat(donating ? d.donate_amount || "" : d.amount) >= 10)) e.amount = donating ? "How much would you like to give?" : "Amount";
       } else if (name === "Payment") {
         if (!d.payment_method) e.payment_method = "Choose how you'd like to pay";
       }
@@ -210,7 +210,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
       };
     } else {
       payload = {
-        role, name: d.name, email: d.email, phone: d.phone || "", seats: Number(d.seats || 1), amount_cents: Math.round(parseFloat(d.amount) * 100),
+        role, name: d.name, email: d.email, phone: d.phone || "", seats: donating ? 1 : Number(d.seats || 1), amount_cents: Math.round(parseFloat(donating ? d.donate_amount || "0" : d.amount) * 100),
         for_whom: d.for_whom || "", message: d.message || "", payment_method: d.payment_method, website: d.website || "",
       };
     }
@@ -246,7 +246,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
 
   const name = steps[step];
   const total = steps.length;
-  const price = role === "sponsor" ? parseFloat(d.amount || "0") : FACTS.priceCAD;
+  const price = role === "sponsor" ? parseFloat((donating ? d.donate_amount : d.amount) || "0") : FACTS.priceCAD;
 
   /* ───────── shared blocks ───────── */
   const AddressBlock = (
@@ -571,8 +571,8 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <Field label="Your name" name="name" value={d.name || ""} onChange={(v) => set("name", v)} required autoComplete="name" error={errs.name} half />
             <Field label="Email" name="email" type="email" inputMode="email" value={d.email || ""} onChange={(v) => set("email", v)} required autoComplete="email" error={errs.email} half />
             <Field label="Phone" name="phone" type="tel" inputMode="tel" value={d.phone || ""} onChange={(v) => set("phone", v)} half />
-            <Field label="Seats" name="seats" type="number" inputMode="numeric" value={d.seats || "1"} onChange={(v) => { set("seats", v); const n = parseInt(v || "1", 10); if (n > 0) set("amount", String(n * FACTS.priceCAD)); }} required min="1" max="20" half />
-            <Field label="Amount (CAD)" name="amount" type="number" inputMode="decimal" value={d.amount || ""} onChange={(v) => set("amount", v)} required error={errs.amount} half hint="Edit for a partial seat or a bigger gift." />
+            {!donating && <Field label="Seats" name="seats" type="number" inputMode="numeric" value={d.seats || "1"} onChange={(v) => { set("seats", v); const n = parseInt(v || "1", 10); if (n > 0) set("amount", String(n * FACTS.priceCAD)); }} required min="1" max="20" half />}
+            <Field label="Amount (CAD)" name="amount" type="number" inputMode="decimal" value={donating ? (d.donate_amount ?? "") : d.amount || ""} onChange={(v) => set(donating ? "donate_amount" : "amount", v)} required error={errs.amount} half hint={donating ? "Any amount. Every dollar goes to the weekend." : "Edit for a partial seat or a bigger gift."} />
             <Field label="Who is it for?" name="for_whom" value={d.for_whom || ""} onChange={(v) => set("for_whom", v)} textarea placeholder="A young man you know (his name and a parent's contact), or 'whoever needs it most'." />
             <Field label="A line for him, if you'd like" name="message" value={d.message || ""} onChange={(v) => set("message", v)} textarea placeholder="Men who went once write the best ones." />
           </div>
