@@ -65,7 +65,7 @@ export default function FAQ() {
             <div className="mt-10 rounded-2xl border border-ink/10 p-6">
               <p className="mono text-flame">Stay in the circle</p>
               <h3 className="t-h3 mt-2">Join the mailing list.</h3>
-              <p className="mt-2 text-sm text-ink/70">The weekend, the monthly gatherings, the stories. Pick a list or both.</p>
+              <p className="mt-2 text-sm text-ink/70">The weekend, the monthly gatherings, the stories. A few times a year, never more.</p>
               <div className="mt-4"><NewsletterForm where="faq" /></div>
             </div>
           </div>

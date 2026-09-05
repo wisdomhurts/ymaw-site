@@ -136,8 +136,7 @@ export default function Home() {
             <p className="mono text-ember">Stay in the circle</p>
             <h2 id="list" className="t-h2 mt-3"><Lines lines={["A few emails a year.", "Nothing you'd unsubscribe from."]} /></h2>
             <p className="mt-4 max-w-[34rem] text-bone/75">
-              <strong className="text-bone">{FACTS.newsletters[0].name}</strong> for {FACTS.newsletters[0].who}: {FACTS.newsletters[0].line}.{" "}
-              <strong className="text-bone">{FACTS.newsletters[1].name}</strong> for {FACTS.newsletters[1].who}: {FACTS.newsletters[1].line}. Pick one or both.
+              <strong className="text-bone">{FACTS.newsletters[0].name}</strong>: {FACTS.newsletters[0].line}. A few times a year, never more.
             </p>
           </div>
           <NewsletterForm where="homepage" />

@@ -36,6 +36,8 @@ export type SignedRecord = {
     pending?: string;
   }[];
   facts: [string, string][];
+  /** True when the witness signed on the registrant's own device. */
+  sameDeviceWitness?: boolean;
 };
 
 const dt = (iso: string | null) =>
@@ -169,7 +171,8 @@ export async function signedRecordPdf(r: SignedRecord): Promise<Uint8Array> {
   }
   y -= 4;
   text(
-    "Signatures on this record were typed by the signer. Under British Columbia's Electronic Transactions Act a signature in electronic form has the same effect as one on paper.",
+    "Signatures on this record were typed by the signer. Under British Columbia's Electronic Transactions Act a signature in electronic form has the same effect as one on paper." +
+      (r.sameDeviceWitness ? " The witness signed on the same device as the registrant, so the two signatures share a connection and a moment." : ""),
     { size: 7.5, color: MUTED, gap: 6 },
   );
 
@@ -178,7 +181,9 @@ export async function signedRecordPdf(r: SignedRecord): Promise<Uint8Array> {
     // Enough room that a heading is never stranded above a single clause.
     room(120);
     rule(14);
-    const who = d.signed_by === "guardian" ? "Signed by the parent or guardian" : d.signed_by === "participant" ? "Signed by the young man" : "Signed by the volunteer";
+    const NAMES = { guardian: "the parent or guardian", participant: "the young man", volunteer: "the volunteer", witness: "the witness" };
+    const parties = d.signed_by.map((k) => NAMES[k]);
+    const who = "Signed by " + (parties.length > 1 ? `${parties.slice(0, -1).join(", ")} and ${parties[parties.length - 1]}` : parties[0]);
     heading(who, d.title);
     if (d.intro) text(d.intro, { size: 9.5, gap: 8 });
     if (d.body) text(d.body, { size: 9.5, gap: 4 });
@@ -223,6 +228,20 @@ const str = (v: unknown) => (v == null ? null : String(v));
 const money = (c: unknown) => `$${((Number(c) || 0) / 100).toFixed(2)} CAD`;
 const PAY: Record<string, string> = { card: "Card, through Stripe", etransfer: "Interac e-transfer", aid: "Financial assistance requested" };
 
+// The witness row reads differently depending on how it was taken, because the
+// two are not equally good evidence and the record should not pretend they are.
+function witnessSignature(row: Row): SignedRecord["signatures"] {
+  const mode = row.witness_mode;
+  if (!mode || mode === "none") {
+    return [{ label: "Witness", name: null, signed_at: null, ip: null, pending: "No witness. A witness is optional and none was named; this does not affect the signatures above." }];
+  }
+  const label = mode === "here" ? "Witness, present at signing" : "Witness, signing from their own device";
+  if (!row.witness_signed_at) {
+    return [{ label, name: null, signed_at: null, ip: null, pending: `${row.witness_name || "A witness"} was named and sent a link, and has not signed yet.` }];
+  }
+  return [{ label, name: str(row.witness_signature), signed_at: str(row.witness_signed_at), ip: str(row.witness_signer_ip) }];
+}
+
 export function buildSignedRecord(row: Row): SignedRecord | null {
   const role = String(row.role) as SignedRecord["role"];
   const snapshot = row.legal_snapshot as LegalSnapshot | null;
@@ -236,6 +255,7 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       ref: String(row.ref), role, snapshot, legal_hash: String(row.legal_hash || ""),
       subject: `${row.son_first} ${row.son_last}`,
       submitted_at: String(row.created_at || row.consented_at || new Date().toISOString()),
+      sameDeviceWitness: row.witness_mode === "here",
       facts: [
         ["Young man", `${row.son_first} ${row.son_last}, age ${row.son_age}, born ${row.dob}`],
         ["Parent or guardian", `${row.parent_name} (${row.relationship})`],
@@ -246,8 +266,9 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       signatures: [
         { label: "Parent or guardian", name: str(row.guardian_signature), signed_at: str(row.consented_at), ip: str(row.signer_ip) },
         row.participant_signed_at
-          ? { label: "The young man, for his own agreements", name: str(row.participant_signature), signed_at: str(row.participant_signed_at), ip: str(row.participant_signer_ip) || str(row.signer_ip), initials }
-          : { label: "The young man, for his own agreements", name: null, signed_at: null, ip: null, pending: "Not yet signed. A link was emailed to him; his seat is confirmed when he signs." },
+          ? { label: row.participant_consent_waiver ? "The young man, for his agreements and the release" : "The young man, for his own agreements", name: str(row.participant_signature), signed_at: str(row.participant_signed_at), ip: str(row.participant_signer_ip) || str(row.signer_ip), initials }
+          : { label: "The young man, for his agreements and the release", name: null, signed_at: null, ip: null, pending: "Not yet signed. A link was emailed to him; his seat is confirmed when he signs." },
+        ...witnessSignature(row),
       ],
     };
   }
@@ -258,6 +279,7 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       ref: String(row.ref), role, snapshot, legal_hash: String(row.legal_hash || ""),
       subject: `${row.son_first} ${row.son_last}`,
       submitted_at: String(row.created_at || row.consented_at || new Date().toISOString()),
+      sameDeviceWitness: row.witness_mode === "here",
       facts: [
         ["Volunteer", `${row.son_first} ${row.son_last}`],
         ["Contact", `${row.parent_email} · ${row.parent_phone}`],
@@ -268,6 +290,7 @@ export function buildSignedRecord(row: Row): SignedRecord | null {
       ],
       signatures: [
         { label: "Volunteer", name: str(row.guardian_signature), signed_at: str(row.consented_at), ip: str(row.signer_ip), initials },
+        ...witnessSignature(row),
       ],
     };
   }

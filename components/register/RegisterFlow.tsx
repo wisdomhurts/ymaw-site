@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { FACTS } from "@/lib/facts";
-import { YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, MEDIA_RELEASE, WAIVER_VERSION } from "@/lib/legal";
+import { YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, MEDIA_RELEASE, WITNESS_ATTESTATION, WAIVER_VERSION } from "@/lib/legal";
 import { Field, Select, YesNo, Choice, Check, Agreement, Signature, StepHead } from "./fields";
 import FireMark from "../FireMark";
 
@@ -30,7 +30,10 @@ function ageFrom(dob: string) {
   return a;
 }
 
-export default function RegisterFlow({ initialRole, canceledRef }: { initialRole?: string; canceledRef?: string }) {
+export default function RegisterFlow({ initialRole, canceledRef, intent }: { initialRole?: string; canceledRef?: string; intent?: string }) {
+  // A donation and a sponsorship are the same transaction on the same Stripe
+  // account; only the words around them differ.
+  const donating = intent === "donate";
   const [role, setRole] = useState<Role | null>(
     initialRole === "young-man" ? "young_man" : initialRole === "man" ? "man" : initialRole === "sponsor" ? "sponsor" : null,
   );
@@ -84,6 +87,22 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
   };
   const emailOk = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v || "");
 
+  // A witness is optional, but a half-filled one is not: if you name someone,
+  // we need enough to actually reach or record them.
+  const witnessErrors = (): Record<string, string> => {
+    const e: Record<string, string> = {};
+    if (d.witness_mode === "here") {
+      if (!d.witness_name?.trim()) e.witness_name = "Their name";
+      if (!d.witness_signature?.trim()) e.witness_signature = "Ask them to type their name";
+    }
+    if (d.witness_mode === "link") {
+      if (!d.witness_name?.trim()) e.witness_name = "Their name";
+      if (!d.witness_email?.trim()) e.witness_email = "Where do we send it?";
+      else if (!emailOk(d.witness_email)) e.witness_email = "That email doesn't look right";
+    }
+    return e;
+  };
+
   const validate = (): boolean => {
     let e: Record<string, string> = {};
     const name = steps[step];
@@ -100,6 +119,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
       } else if (name === "His part") {
         if (d.participant_mode === "here") {
           YM_AGREEMENTS.forEach((_, i) => { if (!d[`ym_init${i}`]?.trim()) e[`ym_init${i}`] = "Initials"; });
+          if (d.participant_consent_waiver !== "1") e.participant_consent_waiver = "He needs to agree to the release too";
           if (!d.participant_signature?.trim()) e.participant_signature = "He types his name here";
           else if (d.son_first && !d.participant_signature.toLowerCase().includes(d.son_first.trim().toLowerCase().split(" ")[0])) e.participant_signature = `His signature should include his name, ${d.son_first}.`;
         } else if (d.participant_email && !emailOk(d.participant_email)) e.participant_email = "That email doesn't look right";
@@ -109,6 +129,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         if (d.consent_media !== "1") e.consent_media = "Please agree to the photo and video release";
         if (!d.guardian_signature?.trim()) e.guardian_signature = "Type your full name";
         else if (d.parent_name && d.guardian_signature.trim().toLowerCase() !== d.parent_name.trim().toLowerCase()) e.guardian_signature = `Type your name exactly as above: ${d.parent_name}.`;
+        Object.assign(e, witnessErrors());
       } else if (name === "Payment") {
         if (!d.payment_method) e.payment_method = "Choose how you'd like to pay";
       }
@@ -125,6 +146,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         if (d.consent_waiver !== "1") e.consent_waiver = "Please confirm the release and waiver";
         if (!d.signature?.trim()) e.signature = "Type your full name";
         else if (d.first && !d.signature.toLowerCase().includes(d.first.trim().toLowerCase())) e.signature = `Your signature should include your name, ${d.first}.`;
+        Object.assign(e, witnessErrors());
       } else if (name === "Payment") {
         if (!d.payment_method) e.payment_method = "Choose how you'd like to pay";
       }
@@ -167,6 +189,9 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         participant_initials: d.participant_mode === "here" ? YM_AGREEMENTS.map((_, i) => d[`ym_init${i}`]) : undefined,
         participant_signature: d.participant_mode === "here" ? d.participant_signature : undefined,
         participant_email: d.participant_email || "",
+        participant_consent_waiver: d.participant_mode === "here" ? d.participant_consent_waiver === "1" : undefined,
+        witness_mode: d.witness_mode || "none",
+        witness_name: d.witness_name || "", witness_email: d.witness_email || "", witness_signature: d.witness_signature || "",
         consent_medical: true, consent_waiver: true, consent_media: true, guardian_signature: d.guardian_signature,
         payment_method: d.payment_method, aid_note: d.aid_note || "", website: d.website || "",
       };
@@ -178,6 +203,9 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         emergency_name: d.emergency_name, emergency_phone: d.emergency_phone,
         vehicle: { make: d.vehicle_make || "", year: d.vehicle_year || "", fourByFour: d.fourByFour || undefined, driveToSite: d.driveToSite || undefined, passengers: d.passengers || "" },
         initials: MEN_AGREEMENTS.map((_, i) => d[`m_init${i}`]), crc_status: d.crc_status, consent_waiver: true, signature: d.signature,
+        witness_mode: d.witness_mode || "none",
+        witness_name: d.witness_name || "", witness_email: d.witness_email || "", witness_signature: d.witness_signature || "",
+
         payment_method: d.payment_method, aid_note: d.aid_note || "", website: d.website || "",
       };
     } else {
@@ -230,6 +258,41 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
         <Field label="Postal code" name="postal" value={d.postal || ""} onChange={(v) => set("postal", v.toUpperCase())} required autoComplete="postal-code" error={errs.postal} half />
       </div>
     </>
+  );
+
+  /* A witness, as the paper forms had. Offered, never required: a parent alone
+     at ten at night can still finish, and the record says so plainly. Someone
+     in the room signs here; someone elsewhere gets their own link, which is the
+     only version that produces evidence independent of this device. */
+  const WitnessBlock = (
+    <div className="mt-8 rounded-2xl border border-[color:var(--line)] p-5 sm:p-6">
+      <p className="mono text-ember">Witness · optional</p>
+      <h3 className="t-h3 mt-2">Is anyone with you?</h3>
+      <p className="mt-2 text-sm text-[color:var(--muted)]">
+        The paper forms had a witness line. You don't need one, and skipping it changes nothing about your registration. If someone watched you sign, their name makes the record stronger.
+      </p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <Choice on={!d.witness_mode || d.witness_mode === "none"} onClick={() => set("witness_mode", "none")} title="No witness" line="Carry on. Nothing is missing." />
+        <Choice on={d.witness_mode === "here"} onClick={() => set("witness_mode", "here")} title="They're here" line="They sign on this device, now." />
+        <Choice on={d.witness_mode === "link"} onClick={() => set("witness_mode", "link")} title="Send them a link" line="They sign from their own phone." />
+      </div>
+      {(d.witness_mode === "here" || d.witness_mode === "link") && (
+        <div className="mt-5 grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Their full name" name="witness_name" value={d.witness_name || ""} onChange={(v) => set("witness_name", v)} required error={errs.witness_name} half />
+            {d.witness_mode === "link" && <Field label="Their email" name="witness_email" type="email" inputMode="email" value={d.witness_email || ""} onChange={(v) => set("witness_email", v)} required error={errs.witness_email} half />}
+          </div>
+          {d.witness_mode === "here" ? (
+            <>
+              <div className="legal"><p>{WITNESS_ATTESTATION.replace("the person named above", d.parent_name || d.first || "the person named above")}</p></div>
+              <Signature label={`Their signature${d.witness_name ? `, ${d.witness_name}` : ""}`} value={d.witness_signature || ""} onChange={(v) => set("witness_signature", v)} hint="Hand them the phone. This is their name, not yours." error={errs.witness_signature} />
+            </>
+          ) : (
+            <p className="text-sm text-[color:var(--muted)]">We email them a link. They read one short statement, type their name, and they're done — no account, no form, no obligation. Your registration is complete either way.</p>
+          )}
+        </div>
+      )}
+    </div>
   );
 
   const PaymentBlock = (
@@ -357,8 +420,17 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
                   <Agreement key={i} n={i + 1} text={t} initials={d[`ym_init${i}`] || ""} onChange={(v) => setInit("ym_init", i, v)} error={errs[`ym_init${i}`]} />
                 ))}
               </div>
+              <div className="mt-8">
+                <h3 className="t-h3">The release and waiver</h3>
+                <p className="mt-2 text-sm text-[color:var(--muted)]">Your parent is agreeing to this for you. You sign it too, because it is about you and you should know what it says.</p>
+                <div className="legal mt-3">
+                  <p>{YM_WAIVER_INTRO}</p>
+                  {YM_WAIVER.map((p, i) => <p key={i}><strong>{i + 1}.</strong> {p}</p>)}
+                </div>
+                <div className="mt-3"><Check checked={d.participant_consent_waiver === "1"} onChange={(v) => set("participant_consent_waiver", v ? "1" : "")} error={errs.participant_consent_waiver}>I have read the release and waiver and I agree to it.</Check></div>
+              </div>
               <div className="mt-6">
-                <Signature label="Your signature" value={d.participant_signature || ""} onChange={(v) => set("participant_signature", v)} hint="Type your full name. That's your word." error={errs.participant_signature} />
+                <Signature label="Your signature" value={d.participant_signature || ""} onChange={(v) => set("participant_signature", v)} hint="Type your full name. That's your word, for everything above." error={errs.participant_signature} />
               </div>
               <p className="mt-6 text-sm text-[color:var(--muted)]">Done. Hand it back.</p>
             </div>
@@ -391,6 +463,8 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
               <div className="mt-3"><Check checked={d.consent_media === "1"} onChange={(v) => set("consent_media", v ? "1" : "")} error={errs.consent_media}>I agree to the photo and video release.</Check></div>
             </div>
             <Signature label={`Your signature, ${d.parent_name || "parent or guardian"}`} value={d.guardian_signature || ""} onChange={(v) => set("guardian_signature", v)} error={errs.guardian_signature} />
+
+            {WitnessBlock}
           </div>
         </section>
       )}
@@ -474,6 +548,7 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
           </div>
           <div className="mt-4"><Check checked={d.consent_waiver === "1"} onChange={(v) => set("consent_waiver", v ? "1" : "")} error={errs.consent_waiver}>I have read the release and waiver and I agree to it.</Check></div>
           <div className="mt-6"><Signature label={`Your signature, ${d.first || ""} ${d.last || ""}`} value={d.signature || ""} onChange={(v) => set("signature", v)} error={errs.signature} /></div>
+          <div className="mt-8">{WitnessBlock}</div>
         </section>
       )}
 
@@ -487,7 +562,11 @@ export default function RegisterFlow({ initialRole, canceledRef }: { initialRole
       {/* ───────── SPONSOR ───────── */}
       {role === "sponsor" && name === "You" && (
         <section>
-          <StepHead kicker="Sponsor · 1 of 2" title="Send a young man." lede="A seat is $320. Sponsor one you know, or one you don't, or part of one." />
+          <StepHead
+            kicker={donating ? "Donate · 1 of 2" : "Sponsor · 1 of 2"}
+            title={donating ? "Give what you can." : "Send a young man."}
+            lede={donating ? `Gear, food, the bus, and seats for young men whose families can't cover the fee. A whole seat is $${FACTS.priceCAD}; any amount helps.` : `A seat is $${FACTS.priceCAD}. Sponsor one you know, or one you don't, or part of one.`}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Your name" name="name" value={d.name || ""} onChange={(v) => set("name", v)} required autoComplete="name" error={errs.name} half />
             <Field label="Email" name="email" type="email" inputMode="email" value={d.email || ""} onChange={(v) => set("email", v)} required autoComplete="email" error={errs.email} half />

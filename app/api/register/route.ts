@@ -8,6 +8,28 @@ import { supabase, stripe, makeRef, makeToken, sendMail, mailShell, notifyTeam, 
 
 export const runtime = "nodejs";
 
+type WitnessInput = { witness_mode?: string; witness_name?: string; witness_email?: string; witness_signature?: string };
+
+// A witness in the room signs on the same device, so their evidence is only as
+// independent as that device. A witness on a link signs from their own, and
+// that is the version worth having — so it is the one that gets a token.
+let pendingWitnessToken: string | null = null;
+function witnessRow(d: WitnessInput, now: string) {
+  const mode = d.witness_mode && d.witness_mode !== "none" ? d.witness_mode : null;
+  if (!mode) return { witness_mode: "none" };
+  const here = mode === "here";
+  pendingWitnessToken = here ? null : makeToken();
+  return {
+    witness_mode: mode,
+    witness_name: d.witness_name?.trim() || null,
+    witness_email: d.witness_email?.trim() || null,
+    witness_signature: here ? d.witness_signature?.trim() || null : null,
+    witness_signed_at: here ? now : null,
+    witness_token: pendingWitnessToken,
+    witness_token_expires: pendingWitnessToken ? new Date(Date.now() + 30 * 864e5).toISOString() : null,
+  };
+}
+
 function bad(msg: string, status = 400) {
   return NextResponse.json({ error: msg }, { status });
 }
@@ -31,6 +53,7 @@ export async function POST(req: Request) {
   const ua = req.headers.get("user-agent")?.slice(0, 300) || null;
   const ref = makeRef();
   const now = new Date().toISOString();
+  pendingWitnessToken = null;
   const db = supabase();
 
   // Demo mode: nothing configured yet — answer honestly, store nothing.
@@ -74,8 +97,12 @@ export async function POST(req: Request) {
       participant_initials: signedHere ? y.participant_initials : null,
       participant_signature: signedHere ? y.participant_signature : null,
       participant_signed_at: signedHere ? now : null,
+      participant_consent_waiver: signedHere ? !!y.participant_consent_waiver : false,
+      ...witnessRow(y, now),
       sign_token: signToken, sign_token_expires: signToken ? new Date(Date.now() + 30 * 864e5).toISOString() : null,
       signer_ip: ip, signer_ua: ua,
+      witness_signer_ip: (d as YoungManT).witness_mode === "here" ? ip : null,
+      witness_signer_ua: (d as YoungManT).witness_mode === "here" ? ua : null,
       payment_method: y.payment_method, payment_status: y.payment_method === "aid" ? "aid_requested" : "pending",
       amount_cents: amount, currency: "CAD",
       details: { address: y.address, aid_note: y.aid_note || null, agreements: YM_AGREEMENTS, participant_mode: y.participant_mode },
@@ -95,8 +122,11 @@ export async function POST(req: Request) {
       consent_waiver: true, waiver_version: WAIVER_VERSION, consented_at: now, guardian_signature: m.signature,
       ...legal,
       participant_initials: m.initials, participant_signature: m.signature, participant_signed_at: now,
+      ...witnessRow(m, now),
       photo_consent: true, media_consent: "full",
       signer_ip: ip, signer_ua: ua,
+      witness_signer_ip: (d as ManT).witness_mode === "here" ? ip : null,
+      witness_signer_ua: (d as ManT).witness_mode === "here" ? ua : null,
       payment_method: m.payment_method, payment_status: m.payment_method === "aid" ? "aid_requested" : "pending",
       amount_cents: amount, currency: "CAD",
       details: { address: m.address, vehicle: m.vehicle, departments: m.departments || [], skills: m.skills || null, crc_status: m.crc_status, aid_note: m.aid_note || null, agreements: MEN_AGREEMENTS },
@@ -143,6 +173,26 @@ export async function POST(req: Request) {
            <p style="margin:24px 0"><a href="${link}" style="background:#e8652a;color:#0a0d11;font-weight:800;padding:14px 22px;border-radius:999px;text-decoration:none;display:inline-block">Read and sign my part</a></p>
            <p style="font-size:13px;color:#a9a89c">This link is yours alone and works for 30 days. Reference ${ref}.</p>`,
         ),
+      }),
+    );
+  }
+
+  if (pendingWitnessToken) {
+    const w = d as YoungManT | ManT;
+    const link = `${SITE_URL}/register/witness/${pendingWitnessToken}`;
+    const signerName = d.role === "young_man" ? (d as YoungManT).parent_name : `${(d as ManT).first} ${(d as ManT).last}`;
+    after.push(
+      sendMail({
+        to: w.witness_email!,
+        subject: `${signerName} asked you to witness a YMAW registration`,
+        html: mailShell(
+          "One minute, and you're done.",
+          `<p>${signerName} has registered ${d.role === "young_man" ? `${(d as YoungManT).son_first} for` : "as a volunteer for"} the Young Men's Adventure Weekend, ${FACTS.dates.label}, and named you as a witness.</p>
+           <p>You are not agreeing to anything and you take on no obligation. You are confirming one thing: that you saw them sign.</p>
+           <p style="margin:24px 0"><a href="${link}" style="background:#e8652a;color:#0a0d11;font-weight:800;padding:14px 22px;border-radius:999px;text-decoration:none;display:inline-block">Read it and sign</a></p>
+           <p style="font-size:13px;color:#a9a89c">This link works for 30 days. Reference ${ref}. If you don't know why you received this, ignore it and tell us at ${FACTS.email}.</p>`,
+        ),
+        replyTo: payer_email,
       }),
     );
   }

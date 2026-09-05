@@ -56,7 +56,7 @@ export default function Privacy() {
               {FACTS.society}, incorporated in British Columbia, No. {FACTS.incorporation}. We are a volunteer non-profit. Nobody here is paid, including the men who handle your registration.
             </p>
             <p>
-              Questions about your information, or a request to see or change it, go to the Society's privacy officer at <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a>.
+              Questions about your information, or a request to see or change it, go to <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a> and a man from the team answers.
             </p>
           </Section>
 

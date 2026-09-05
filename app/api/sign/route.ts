@@ -23,12 +23,16 @@ const Body = z.object({
   token: z.string().min(16),
   initials: z.array(z.string().trim().min(1).max(6)).length(YM_AGREEMENTS.length),
   signature: z.string().trim().min(2).max(120),
+  // The paper forms had him sign the Release and Waiver page alongside his
+  // parent. His signature covers both, and this is the record that he was
+  // shown the release rather than only his own four lines.
+  consent_waiver: z.literal(true),
 });
 
 // POST /api/sign → records the young man's initials and signature
 export async function POST(req: Request) {
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return NextResponse.json({ error: "Initial every line and sign your name." }, { status: 400 });
+  if (!parsed.success) return NextResponse.json({ error: "Initial every line, agree to the release, and sign your name." }, { status: 400 });
   const { token, initials, signature } = parsed.data;
   const db = supabase();
   if (!db) return NextResponse.json({ ok: true, demo: true });
@@ -39,7 +43,7 @@ export async function POST(req: Request) {
   // erase where and on what his parent signed, days earlier.
   const upd = await db
     .from("registrations")
-    .update({ participant_initials: initials, participant_signature: signature, participant_signed_at: signedAt, participant_signer_ip: ip, participant_signer_ua: ua })
+    .update({ participant_initials: initials, participant_signature: signature, participant_signed_at: signedAt, participant_signer_ip: ip, participant_signer_ua: ua, participant_consent_waiver: true })
     .eq("sign_token", token)
     .is("participant_signed_at", null)
     .select("*")
@@ -51,7 +55,7 @@ export async function POST(req: Request) {
   // The record is only complete now, so both copies of the PDF are reissued
   // with his signature on them.
   const pdf = await signedRecordPdfFor(row);
-  const note = `<p>${row.son_first} read and initialled his four agreements and signed his name.</p><p>Registered by ${row.parent_name}. Reference <strong>${row.ref}</strong>.</p>`;
+  const note = `<p>${row.son_first} read and initialled his four agreements, agreed to the release and waiver, and signed his name.</p><p>Registered by ${row.parent_name}. Reference <strong>${row.ref}</strong>.</p>`;
 
   await Promise.allSettled([
     notifyTeam(`Signed · ${row.ref} · ${row.son_first}`, note + (pdf ? `<p style="font-size:13px;color:#a9a89c">Attached: the complete signed record, now with both signatures.</p>` : ""), { attachments: pdf ? [pdf] : undefined }),

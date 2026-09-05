@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: `Register a young man (${FACTS.ages.min}–${FACTS.ages.max}), join the production team, or sponsor a seat. ${FACTS.dates.label}, ${FACTS.region}. $${FACTS.priceCAD} CAD.`,
 };
 
-export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ role?: string; canceled?: string; ref?: string }> }) {
+export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ role?: string; canceled?: string; ref?: string; intent?: string }> }) {
   const sp = await searchParams;
   return (
     <div className="bg-paper text-ink" data-surface="paper">
@@ -30,7 +30,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
 
         <div className="wrap-narrow w-full py-[calc(var(--nav-h)+2rem)] lg:px-10">
           <Suspense>
-            <RegisterFlow initialRole={sp.role} canceledRef={sp.canceled ? sp.ref : undefined} />
+            <RegisterFlow initialRole={sp.role} canceledRef={sp.canceled ? sp.ref : undefined} intent={sp.intent} />
           </Suspense>
         </div>
 

@@ -11,14 +11,15 @@ import { createHash } from "node:crypto";
 import {
   WAIVER_VERSION, PRIVACY_VERSION,
   YM_AGREEMENTS, MEN_AGREEMENTS, MEDICAL_CONSENT, MEDIA_RELEASE,
-  YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO,
+  YM_WAIVER, YM_WAIVER_INTRO, MEN_WAIVER, MEN_WAIVER_INTRO, WITNESS_ATTESTATION,
 } from "./legal";
 
 export type LegalDoc = {
   id: string;
   title: string;
-  /** Who put their name to this document. */
-  signed_by: "guardian" | "participant" | "volunteer";
+  /** Everyone who put their name to this document. The release is signed by
+   *  the guardian AND the young man, as it was on the paper forms. */
+  signed_by: ("guardian" | "participant" | "volunteer" | "witness")[];
   intro?: string;
   body?: string;
   clauses?: readonly string[];
@@ -37,15 +38,17 @@ export function buildSnapshot(role: "young_man" | "man" | "sponsor"): LegalSnaps
   const documents: LegalDoc[] =
     role === "young_man"
       ? [
-          { id: "ym_agreements", title: "The young man's agreements", signed_by: "participant", initialled: true, clauses: YM_AGREEMENTS },
-          { id: "medical_consent", title: "Consent to medical treatment", signed_by: "guardian", body: MEDICAL_CONSENT },
-          { id: "release_waiver", title: "Release and waiver of liability", signed_by: "guardian", intro: YM_WAIVER_INTRO, clauses: YM_WAIVER },
-          { id: "media_release", title: "Photo and video release", signed_by: "guardian", body: MEDIA_RELEASE },
+          { id: "ym_agreements", title: "The young man's agreements", signed_by: ["participant"], initialled: true, clauses: YM_AGREEMENTS },
+          { id: "medical_consent", title: "Consent to medical treatment", signed_by: ["guardian"], body: MEDICAL_CONSENT },
+          { id: "release_waiver", title: "Release and waiver of liability", signed_by: ["guardian", "participant"], intro: YM_WAIVER_INTRO, clauses: YM_WAIVER },
+          { id: "media_release", title: "Photo and video release", signed_by: ["guardian"], body: MEDIA_RELEASE },
+          { id: "witness", title: "Witness", signed_by: ["witness"], body: WITNESS_ATTESTATION },
         ]
       : role === "man"
         ? [
-            { id: "men_agreements", title: "The standards", signed_by: "volunteer", initialled: true, clauses: MEN_AGREEMENTS },
-            { id: "men_release_waiver", title: "Release and waiver of liability", signed_by: "volunteer", intro: MEN_WAIVER_INTRO, clauses: MEN_WAIVER },
+            { id: "men_agreements", title: "The standards", signed_by: ["volunteer"], initialled: true, clauses: MEN_AGREEMENTS },
+            { id: "men_release_waiver", title: "Release and waiver of liability", signed_by: ["volunteer"], intro: MEN_WAIVER_INTRO, clauses: MEN_WAIVER },
+            { id: "witness", title: "Witness", signed_by: ["witness"], body: WITNESS_ATTESTATION },
           ]
         : // A sponsor buys a seat. He signs nothing, and the record should not
           // pretend otherwise.

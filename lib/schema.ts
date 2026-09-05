@@ -49,10 +49,19 @@ export const YoungMan = z.object({
   participant_initials: z.array(z.string().trim().min(1).max(6)).optional(),
   participant_signature: z.string().trim().max(120).optional(),
   participant_email: z.string().trim().email().max(160).optional().or(z.literal("")),
+  // He signs the release itself, not only his own four agreements — as he did
+  // on every paper form the Society has used.
+  participant_consent_waiver: z.boolean().optional(),
   // your consents
   consent_medical: z.literal(true, { message: "Please confirm the medical consent" }),
   consent_waiver: z.literal(true, { message: "Please confirm the release and waiver" }),
   consent_media: z.literal(true, { message: "Please agree to the photo and video release" }),
+  // A witness is offered, never required: a parent alone at ten at night can
+  // still finish, and the record says plainly that nobody witnessed it.
+  witness_mode: z.enum(["none", "here", "link"]).optional(),
+  witness_name: z.string().trim().max(120).optional().or(z.literal("")),
+  witness_email: z.string().trim().email().max(160).optional().or(z.literal("")),
+  witness_signature: z.string().trim().max(120).optional().or(z.literal("")),
   guardian_signature: z.string().trim().min(2, "Type your full name as your signature").max(120),
   // payment
   payment_method: z.enum(["card", "etransfer", "aid"]),
@@ -85,6 +94,12 @@ export const Man = z.object({
   initials: z.array(z.string().trim().min(1).max(6)).length(5, "Initial each agreement"),
   crc_status: z.enum(["done", "will"]),
   consent_waiver: z.literal(true, { message: "Please confirm the release and waiver" }),
+  // A witness is offered, never required: a parent alone at ten at night can
+  // still finish, and the record says plainly that nobody witnessed it.
+  witness_mode: z.enum(["none", "here", "link"]).optional(),
+  witness_name: z.string().trim().max(120).optional().or(z.literal("")),
+  witness_email: z.string().trim().email().max(160).optional().or(z.literal("")),
+  witness_signature: z.string().trim().max(120).optional().or(z.literal("")),
   signature: z.string().trim().min(2, "Type your full name as your signature").max(120),
   payment_method: z.enum(["card", "etransfer", "aid"]),
   aid_note: long,
@@ -104,7 +119,25 @@ export const Sponsor = z.object({
   website: z.string().max(0).optional(),
 });
 
-export const Registration = z.discriminatedUnion("role", [YoungMan, Man, Sponsor]);
+const witnessComplete = (d: { witness_mode?: string; witness_name?: string; witness_email?: string; witness_signature?: string; participant_mode?: string; participant_consent_waiver?: boolean }, ctx: z.RefinementCtx) => {
+  if (d.participant_mode === "here" && !d.participant_consent_waiver) {
+    ctx.addIssue({ code: "custom", path: ["participant_consent_waiver"], message: "He needs to agree to the release too" });
+  }
+  if (d.witness_mode === "here") {
+    if (!d.witness_name?.trim()) ctx.addIssue({ code: "custom", path: ["witness_name"], message: "Their name" });
+    if (!d.witness_signature?.trim()) ctx.addIssue({ code: "custom", path: ["witness_signature"], message: "Ask them to type their name" });
+  }
+  if (d.witness_mode === "link" && !d.witness_email?.trim()) {
+    ctx.addIssue({ code: "custom", path: ["witness_email"], message: "Where do we send it?" });
+    if (!d.witness_name?.trim()) ctx.addIssue({ code: "custom", path: ["witness_name"], message: "Their name" });
+  }
+};
+
+export const Registration = z.discriminatedUnion("role", [
+  YoungMan.superRefine(witnessComplete),
+  Man.superRefine(witnessComplete),
+  Sponsor,
+]);
 export type YoungManT = z.infer<typeof YoungMan>;
 export type ManT = z.infer<typeof Man>;
 export type SponsorT = z.infer<typeof Sponsor>;

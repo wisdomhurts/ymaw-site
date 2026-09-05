@@ -14,9 +14,8 @@ export default function NewsletterForm({ where = "site", compact = false }: { wh
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [hp, setHp] = useState("");
-  const [lists, setLists] = useState<string[]>([FACTS.newsletters[0].name]);
+  const lists = FACTS.newsletters.map((n) => n.name);
   const [state, setState] = useState<"idle" | "busy" | "done" | "error">("idle");
-  const toggle = (l: string) => setLists((c) => (c.includes(l) ? c.filter((x) => x !== l) : [...c, l]));
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,15 +32,6 @@ export default function NewsletterForm({ where = "site", compact = false }: { wh
 
   return (
     <form onSubmit={submit} className="grid gap-3" aria-label="Join the mailing list">
-      {!compact && (
-        <div className="flex flex-wrap gap-2">
-          {FACTS.newsletters.map((n) => (
-            <button key={n.name} type="button" className="choice !rounded-full !px-4 !py-2 text-sm" data-on={lists.includes(n.name)} onClick={() => toggle(n.name)} aria-pressed={lists.includes(n.name)} title={`For ${n.who}: ${n.line}.`}>
-              {n.name}
-            </button>
-          ))}
-        </div>
-      )}
       <div className="grid gap-2 sm:grid-cols-[1fr_1.4fr_auto]">
         <input className="input" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" aria-label="Name" />
         <input className="input" type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" aria-label="Email" />

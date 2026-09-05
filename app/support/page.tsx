@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const WAYS = [
   { h: "Sponsor a seat", p: `$${FACTS.priceCAD} sends one young man. Any amount helps. Sponsor one you know, or one you don't.`, href: "/register?role=sponsor", cta: "Sponsor" },
-  { h: "Donate", p: "A gift of any size goes to gear, food, the bus, and seats for young men whose families can't cover the fee.", href: FACTS.donateLink, cta: "Give", ext: true },
+  { h: "Donate", p: "A gift of any size goes to gear, food, the bus, and seats for young men whose families can't cover the fee.", href: "/register?role=sponsor&intent=donate", cta: "Give" },
   { h: "Join the production team", p: "Fifty men make the weekend. Load Thursday, the weekend, strike Sunday. Criminal record check required.", href: "/register?role=man", cta: "Register as a man" },
   { h: "Give a day", p: "Can't do the whole weekend? Truck load-up is Thursday, September 10. Strike offload is Sunday evening, September 13, in Abbotsford. Shopping for supplies happens the week before.", href: "#ask", cta: "Tell us" },
 ];
@@ -43,11 +43,7 @@ export default function Support() {
             <Reveal key={w.h} delay={i * 50} className="flex flex-col rounded-2xl border border-ink/10 p-7">
               <h2 className="t-h3">{w.h}</h2>
               <p className="mt-3 flex-1 text-ink/75">{w.p}</p>
-              {w.ext ? (
-                <a href={w.href} target="_blank" rel="noopener" className="btn btn-ink mt-6 w-fit">{w.cta}</a>
-              ) : (
-                <Link href={w.href} className="btn btn-ink mt-6 w-fit">{w.cta}</Link>
-              )}
+              <Link href={w.href} className="btn btn-ink mt-6 w-fit">{w.cta}</Link>
             </Reveal>
           ))}
         </div>
@@ -94,9 +90,9 @@ export default function Support() {
             <div className="mt-6"><ShareButton text={`This is the weekend I wish I'd had. Young Men's Adventure Weekend, ${FACTS.dates.label}, Squamish. Ages 12–17.`} url="https://ymaw.com" className="!border-ink/20" /></div>
             <p className="mt-8 text-sm text-ink/60">Follow along: <a className="link" href={FACTS.instagram} target="_blank" rel="noopener">Instagram</a> · <a className="link" href={FACTS.facebook} target="_blank" rel="noopener">Facebook</a></p>
             <div className="mt-8 rounded-2xl border border-ink/10 p-6">
-              <p className="mono text-flame">Two newsletters</p>
+              <p className="mono text-flame">The newsletter</p>
               <h3 className="t-h3 mt-2">Stay in the circle.</h3>
-              <p className="mt-2 text-sm text-ink/70"><strong>Rising the Man Within</strong> for families and young men: fireside stories, the monthly gatherings, the weekend. <strong>The Forged Circle</strong> for the men: the board, the roster, the work. Say which, or both.</p>
+              <p className="mt-2 text-sm text-ink/70"><strong>{FACTS.newsletters[0].name}</strong>: {FACTS.newsletters[0].line}. A few times a year, never more.</p>
               <div className="mt-4"><NewsletterForm where="support" /></div>
             </div>
           </div>

@@ -13,7 +13,6 @@ export const FACTS = {
   email: "info@ymaw.com",
   instagram: "https://www.instagram.com/youngmensadventure/",
   facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
-  donateLink: "https://buy.stripe.com/3cseVq5ia73N5eUdQQ",
   region: "Squamish region, BC",
   ages: { min: 12, max: 17 },          // what the site says
   agesAccepted: { min: 11, max: 18 },  // what registration actually accepts
@@ -51,10 +50,9 @@ export const FACTS = {
   },
   // From the Society's own site and outreach documents.
   completed: "more than a thousand young men",
-  // The Society's two newsletters (the list itself lives in GHL).
+  // The Society's mailing list (it lives in GHL).
   newsletters: [
-    { name: "Rising the Man Within", who: "families and young men", line: "fireside stories, the monthly gatherings, the weekend" },
-    { name: "The Forged Circle", who: "the men", line: "the board, the roster, the work" },
+    { name: "Rising the Man Within", who: "families, young men and the men", line: "fireside stories, the monthly gatherings, the weekend" },
   ],
   // T.E.A.M.S. — the five values the men coach the young men in, from the
   // Society's "T.E.A.M.S. Core Values for Coaching Young Men". Definitions verbatim.

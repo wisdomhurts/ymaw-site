@@ -2,7 +2,7 @@
 // Society's existing registration forms and lightly edited for the screen.
 // If the wording changes, bump the version so records say which text was signed.
 
-export const WAIVER_VERSION = "v2026-3";
+export const WAIVER_VERSION = "v2026-4";
 
 // The privacy notice is versioned separately: it can change (a new processor, a
 // new retention period) without the waiver changing, and a record should say
@@ -49,5 +49,11 @@ export const MEN_WAIVER = [
   `I agree that all photographs and video taken of me during the Young Men's Adventure Weekend 2026 and its production events are the property of the Young Men's Adventure Weekend Society of BC and may be used at the Society's discretion.`,
   `I confirm that I have completed, or will complete before the weekend, a Criminal Record Check through the BC Criminal Records Review Program, and I understand I cannot attend without one.`,
 ];
+
+// The witness line the paper forms carried. On a screen a witness is only
+// worth something if they attest to what they actually saw, so the statement
+// says that and no more: not that the witness read the waiver, and not that
+// they take on any of it.
+export const WITNESS_ATTESTATION = `I am over the age of nineteen. I watched the person named above type their name as their signature on this registration, or they confirmed to me directly that they had done so. They appeared to me to be signing freely and to understand that they were signing a release and waiver of liability. I am signing only as a witness to that. I am not a party to the agreements above and I take on no obligation under them.`;
 
 export const MEDIA_RELEASE = `Photographs and video are taken at the Young Men's Adventure Weekend by the production men. I agree that images and film of the participant taken at the weekend, and at its related events, are the property of the Young Men's Adventure Weekend Society of BC and may be used by the Society on its website, its social media and in its materials, to invite the next young man. The circle and the ceremony are never filmed. To ask for a specific image to be taken down, email info@ymaw.com.`;
