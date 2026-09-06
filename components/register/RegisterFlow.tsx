@@ -347,7 +347,7 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <Select label="Shirt size" name="shirt_size" value={d.shirt_size || ""} onChange={(v) => set("shirt_size", v)} options={[...FACTS.shirtSizes]} required error={errs.shirt_size} half hint="Youth sizes start YS. Every young man gets one." />
             <Select label="Where does he get on the bus?" name="pickup" value={d.pickup || ""} onChange={(v) => set("pickup", v)} options={[...PICKUPS]} required error={errs.pickup} half />
             <p className="-mt-1 text-xs text-dust sm:col-span-2">
-              {STOPS.map((st) => `${st.town} — ${st.place}, ${st.address}, ${st.depart}`).join(" · ")}. He comes back to the same stop on Sunday. For Squamish, Transport emails you the place and the time.
+              {STOPS.map((st) => `${st.town} — ${st.place}, ${st.address}, ${st.depart}`).join(" · ")}. He comes back to the same stop on Sunday.
             </p>
           </div>
         </section>

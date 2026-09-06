@@ -47,7 +47,7 @@ export const SCHEDULE: Day[] = [
       { t: "6:30 am", what: "The young men are woken" },
       { t: "7:00 am", what: "Morning circle", note: "Games and exercise." },
       { t: "8:00 am", what: "Breakfast" },
-      { t: "9:00 am", what: "Circle up", note: "Shirts and markers handed out. Strike team arrives." },
+      { t: "9:00 am", what: "Circle up", note: "Shirts handed out. Strike team arrives." },
       { t: "10:00 am", what: "Future Plans and acknowledgments", note: "Each young man writes what he's claiming and where he's going. His shadows tell him what they saw all weekend, and give him something to keep.", still: "stump", mark: true },
       { t: "11:00 am", what: "Young men versus the men", note: "Handball meets British Bulldog. Wild, rowdy, and the men have been waiting since Friday.", still: "game-dust" },
       { t: "12:00 pm", what: "Strike", note: "The young men pack up their camps." },
