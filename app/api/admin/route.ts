@@ -40,7 +40,7 @@ export async function GET(req: Request) {
       stripe_secret_key: has("STRIPE_SECRET_KEY"),
       stripe_webhook_secret: has("STRIPE_WEBHOOK_SECRET"),
       resend: has("RESEND_API_KEY").set,
-      sheets_webhook: has("SHEETS_WEBHOOK_URL").set && has("SHEETS_WEBHOOK_SECRET").set,
+      sheets_webhook: has("SHEETS_WEBHOOK_URL").set ? "env" : "settings table (or nothing)",
       ghl: has("GHL_API_KEY").set && has("GHL_LOCATION_ID").set ? "api" : has("GHL_WEBHOOK_URL").set ? "webhook" : false,
       site_url: process.env.PUBLIC_SITE_URL || null,
       notify_email: process.env.NOTIFY_EMAIL || null,

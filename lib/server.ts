@@ -74,11 +74,32 @@ export function mailShell(title: string, bodyHtml: string) {
 }
 
 /* ───────────── Google Sheet (Apps Script webhook) ───────────── */
+
+// Where the sheet lives can come from the environment or from the settings
+// table. The table exists so the endpoint can be changed without a redeploy,
+// and so a value that is a capability rather than a secret does not have to be
+// pasted into a dashboard by hand. Read once per warm instance.
+let sheetUrl: string | null | undefined;
+
+async function sheetWebhookUrl(): Promise<string | null> {
+  if (process.env.SHEETS_WEBHOOK_URL) return process.env.SHEETS_WEBHOOK_URL;
+  if (sheetUrl !== undefined) return sheetUrl;
+  const db = supabase();
+  if (!db) return (sheetUrl = null);
+  const q = await db.from("settings").select("value").eq("key", "sheets_webhook_url").maybeSingle();
+  return (sheetUrl = q.data?.value ?? null);
+}
+
 export async function pushToSheet(row: Record<string, unknown>) {
-  const url = process.env.SHEETS_WEBHOOK_URL;
-  if (!url) return { ok: false, error: "SHEETS_WEBHOOK_URL not set" };
+  const url = await sheetWebhookUrl();
+  if (!url) return { ok: false, error: "no sheets webhook configured" };
   try {
-    const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ secret: process.env.SHEETS_WEBHOOK_SECRET || "", row }) });
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: process.env.SHEETS_WEBHOOK_SECRET || "", row }),
+      redirect: "follow",
+    });
     return { ok: r.ok };
   } catch (e) {
     return { ok: false, error: String(e) };
