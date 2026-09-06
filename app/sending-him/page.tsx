@@ -34,7 +34,8 @@ const SUNDAY = [
   "He may want to talk about it for three hours. Also normal.",
   "Ask what he wrote at Future Plans. He may show you. Don't push.",
   "Watch for the small things in the weeks after: how he speaks to his sister, whether he keeps his word, what he picks up without being asked.",
-  "Many families come back. Many fathers end up on the production team. The men will tell you how.",
+  "Many families come back. The programme is built new every year \u2014 different Quests, a different theme, different work \u2014 so a young man who comes four or five years running gets four or five different weekends, and more is asked of him each time.",
+  "Many fathers end up on the production team. The men will tell you how.",
 ];
 
 export default function SendingHim() {

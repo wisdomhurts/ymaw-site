@@ -87,7 +87,7 @@ export async function GET(req: Request) {
   if (new URL(req.url).searchParams.get("roster") === "1") {
     const sel = await db
       .from("registrations")
-      .select("ref, son_first, son_last, son_age, shirt_size, pickup, parent_name, parent_phone, emergency_name, emergency_relationship, emergency_phone, dietary, medical_notes, medications, payment_status")
+      .select("ref, son_first, son_last, son_age, shirt_size, pickup, dropoff, parent_name, parent_phone, emergency_name, emergency_relationship, emergency_phone, release_to_name, release_to_phone, release_to2_name, release_to2_phone, dietary, medical_notes, medications, payment_status")
       .eq("role", "young_man")
       .eq("event", FACTS.event)
       .order("son_last", { ascending: true });
@@ -97,11 +97,22 @@ export async function GET(req: Request) {
     const esc = (v: unknown) =>
       String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string);
     const stops = FACTS.stops;
-    const groups: { town: string; place: string; address: string; depart: string; ret: string; men: R[] }[] = stops.map((s) => ({
-      town: s.town, place: s.place, address: s.address, depart: s.depart, ret: s.return, men: rows.filter((r) => r.pickup === s.town),
-    }));
-    const orphans = rows.filter((r) => !stops.some((s) => s.town === r.pickup));
-    if (orphans.length) groups.push({ town: "No stop chosen", place: "Phone the parent before Friday", address: "", depart: "—", ret: "—", men: orphans });
+    type Sheet = { day: "Friday" | "Sunday"; town: string; place: string; address: string; time: string; men: R[] };
+
+    // Two sets of sheets, because they are two different jobs. Friday is a head
+    // count: is he here, and who do I phone if he isn't. Sunday is a handover:
+    // this young man goes home with this named person and nobody else.
+    const build = (day: "Friday" | "Sunday", key: "pickup" | "dropoff"): Sheet[] => {
+      const sheets: Sheet[] = stops.map((s) => ({
+        day, town: s.town, place: s.place, address: s.address,
+        time: day === "Friday" ? s.depart : s.return,
+        men: rows.filter((r) => r[key] === s.town),
+      }));
+      const rest = rows.filter((r) => !stops.some((s) => s.town === r[key]));
+      if (rest.length) sheets.push({ day, town: "No stop chosen", place: "Phone the parent before the weekend", address: "", time: "—", men: rest });
+      return sheets;
+    };
+    const groups: Sheet[] = [...build("Friday", "pickup"), ...build("Sunday", "dropoff")];
 
     const flags = (r: R) => {
       const f: string[] = [];
@@ -111,23 +122,35 @@ export async function GET(req: Request) {
       return f.join(" ");
     };
 
-    const sheet = (g: (typeof groups)[number]) => `
+    const releaseTo = (r: R) =>
+      [
+        `${esc(r.parent_name)} <span class="rel">(registered)</span><br><span class="tel">${esc(r.parent_phone)}</span>`,
+        r.release_to_name && String(r.release_to_name).trim().toLowerCase() !== String(r.parent_name ?? "").trim().toLowerCase()
+          ? `${esc(r.release_to_name)}<br><span class="tel">${esc(r.release_to_phone)}</span>`
+          : "",
+        r.release_to2_name ? `${esc(r.release_to2_name)}<br><span class="tel">${esc(r.release_to2_phone)}</span>` : "",
+      ]
+        .filter(Boolean)
+        .join('<span class="sep"></span>');
+
+    const sheet = (g: Sheet) => {
+      const friday = g.day === "Friday";
+      return `
     <section class="stop">
       <header>
         <div>
-          <p class="kicker">${esc(FACTS.short)} ${FACTS.year} · Bus roster</p>
+          <p class="kicker">${esc(FACTS.short)} ${FACTS.year} · ${friday ? "Friday · getting on" : "Sunday · handing over"}</p>
           <h1>${esc(g.town)}</h1>
           <p class="place">${esc(g.place)}${g.address ? " · " + esc(g.address) : ""}</p>
         </div>
         <div class="when">
-          <p><span>Departs</span> ${esc(g.depart)}</p>
-          <p><span>Returns</span> ${esc(g.ret)}</p>
-          <p class="count"><span>On this bus</span> ${g.men.length}</p>
+          <p><span>${friday ? "Departs" : "Arrives"}</span> ${esc(g.time)}</p>
+          <p class="count"><span>${friday ? "On this bus" : "Off here"}</span> ${g.men.length}</p>
         </div>
       </header>
       ${g.men.length === 0 ? `<p class="empty">Nobody registered for this stop yet.</p>` : `
       <table>
-        <thead><tr><th class="tick">On</th><th>Young man</th><th class="num">Age</th><th class="num">Shirt</th><th>Who to call</th><th>If no answer</th><th class="num">Flags</th></tr></thead>
+        <thead><tr><th class="tick">✓</th><th>Young man</th><th class="num">Age</th>${friday ? `<th class="num">Shirt</th><th>Who to call</th><th>If no answer</th>` : `<th>Goes home with — and nobody else</th>`}<th class="num">Flags</th></tr></thead>
         <tbody>
           ${g.men
             .map(
@@ -135,9 +158,13 @@ export async function GET(req: Request) {
             <td class="tick"><span class="box"></span></td>
             <td class="who"><strong>${esc(r.son_first)} ${esc(r.son_last)}</strong><br><span class="ref">${esc(r.ref)}</span>${r.payment_status !== "paid" ? ` <span class="unpaid">unpaid</span>` : ""}</td>
             <td class="num">${esc(r.son_age)}</td>
-            <td class="num">${esc(r.shirt_size) || "—"}</td>
+            ${
+              friday
+                ? `<td class="num">${esc(r.shirt_size) || "—"}</td>
             <td>${esc(r.parent_name)}<br><span class="tel">${esc(r.parent_phone)}</span></td>
-            <td>${esc(r.emergency_name)}${r.emergency_relationship ? ` <span class="rel">(${esc(r.emergency_relationship)})</span>` : ""}<br><span class="tel">${esc(r.emergency_phone)}</span></td>
+            <td>${esc(r.emergency_name)}${r.emergency_relationship ? ` <span class="rel">(${esc(r.emergency_relationship)})</span>` : ""}<br><span class="tel">${esc(r.emergency_phone)}</span></td>`
+                : `<td class="release">${releaseTo(r)}</td>`
+            }
             <td class="num flag">${flags(r)}</td>
           </tr>`,
             )
@@ -146,10 +173,15 @@ export async function GET(req: Request) {
       </table>`}
       <footer>
         <p>M · medication &nbsp; D · diet &nbsp; ! · medical note or allergy. The full file is with the safety team.</p>
-        <p>Anyone missing at departure: phone the parent, then ${esc(FACTS.email)}. Do not leave a young man in a parking lot.</p>
-        <p class="signoff">On board <span class="rule short"></span> of ${g.men.length} &nbsp;·&nbsp; Checked by <span class="rule"></span> &nbsp;·&nbsp; Time <span class="rule short"></span></p>
+        ${
+          friday
+            ? `<p>Anyone missing at departure: phone the parent, then ${esc(FACTS.email)}. Do not leave a young man in a parking lot.</p>`
+            : `<p>Hand him to a named person only. Anyone else, whoever they say they are: phone the parent first. If nobody comes, he stays with two men until someone does.</p>`
+        }
+        <p class="signoff">${friday ? "On board" : "Handed over"} <span class="rule short"></span> of ${g.men.length} &nbsp;·&nbsp; Checked by <span class="rule"></span> &nbsp;·&nbsp; Time <span class="rule short"></span></p>
       </footer>
     </section>`;
+    };
 
     const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>${esc(FACTS.short)} ${FACTS.year} bus roster</title>
@@ -188,6 +220,8 @@ export async function GET(req: Request) {
   .signoff { margin-top: 12px !important; color: #111; font-size: 11px; }
   .rule { display: inline-block; width: 12em; border-bottom: 1px solid #111; }
   .rule.short { width: 4em; }
+  .release { line-height: 1.35; }
+  .sep { display: block; height: 6px; }
 </style></head><body>${groups.map(sheet).join("")}</body></html>`;
     return new NextResponse(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
   }

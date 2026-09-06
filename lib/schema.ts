@@ -28,6 +28,9 @@ export const YoungMan = z.object({
   // Which stop he boards at, so the men on that bus have a list with his name
   // on it. Validated against the stops actually being run this year.
   pickup: z.string().refine((v) => (PICKUPS as string[]).includes(v), "Choose where he gets on the bus"),
+  // Usually the same stop, but not always: a young man who leaves from his
+  // mother's side of the river can come back to his father's.
+  dropoff: z.string().refine((v) => (PICKUPS as string[]).includes(v), "Choose where he gets off the bus"),
   wilderness_experience: long,
   dietary: long,
   medical_notes: long,
@@ -45,6 +48,12 @@ export const YoungMan = z.object({
   emergency_relationship: z.string().trim().min(2, "Relationship").max(60),
   emergency_phone: phone,
   emergency_alt_phone: short,
+  // Who the men are allowed to hand him to on Sunday. The parent or guardian
+  // signing this form is always allowed; these are the others.
+  release_to_name: name,
+  release_to_phone: phone,
+  release_to2_name: short,
+  release_to2_phone: short,
   heard_from: short,
   sponsor_name: short,
   sponsor_phone: short,

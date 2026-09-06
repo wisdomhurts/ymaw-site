@@ -68,6 +68,14 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
   }, []);
   const setInit = (prefix: string, i: number, v: string) => set(`${prefix}${i}`, v.toUpperCase().slice(0, 6));
 
+  // Almost every young man comes back to the stop he left from, so choosing the
+  // Friday stop fills Sunday too — until a parent deliberately changes it, at
+  // which point we leave their answer alone.
+  const setPickup = useCallback((v: string) => {
+    setD((cur) => ({ ...cur, pickup: v, dropoff: !cur.dropoff || cur.dropoff === cur.pickup ? v : cur.dropoff }));
+    setErrs((e) => { if (!e.pickup && !e.dropoff) return e; const n = { ...e }; delete n.pickup; delete n.dropoff; return n; });
+  }, []);
+
   const steps = useMemo(() => {
     if (role === "young_man") return ["Him", "His health", "You", "His part", "Your part", "Payment"];
     if (role === "man") return ["You", "Vehicle", "Agreements", "Waiver", "Payment"];
@@ -110,13 +118,14 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
     const name = steps[step];
     if (role === "young_man") {
       if (name === "Him") {
-        e = need(["son_first", "son_last", "dob", "attended_before", "shirt_size", "pickup"]);
+        e = need(["son_first", "son_last", "dob", "attended_before", "shirt_size", "pickup", "dropoff"]);
         const a = ageFrom(d.dob);
         if (d.dob && (a === null || a < FACTS.agesAccepted.min || a > FACTS.agesAccepted.max)) e.dob = `He needs to be ${FACTS.agesAccepted.min} to ${FACTS.agesAccepted.max} on ${FACTS.dates.label.split(",")[0]}.`;
       } else if (name === "His health") {
         e = need(["health_number", "doctor_name", "doctor_phone"]);
       } else if (name === "You") {
-        e = need(["parent_name", "relationship", "parent_email", "parent_phone", "street", "city", "province", "postal", "emergency_name", "emergency_relationship", "emergency_phone"]);
+        e = need(["parent_name", "relationship", "parent_email", "parent_phone", "street", "city", "province", "postal", "emergency_name", "emergency_relationship", "emergency_phone", "release_to_name", "release_to_phone"], { release_to_name: "Who is collecting him?", release_to_phone: "A phone the men can call from the stop" });
+        if (d.release_to2_name?.trim() && !d.release_to2_phone?.trim()) e.release_to2_phone = "A phone for them too";
         if (d.parent_email && !emailOk(d.parent_email)) e.parent_email = "That email doesn't look right";
       } else if (name === "His part") {
         if (d.participant_mode === "here") {
@@ -183,10 +192,12 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
         role, son_first: d.son_first, son_last: d.son_last, son_age: ageFrom(d.dob), dob: d.dob,
         attended_before: d.attended_before, times_attended: d.times_attended ? Number(d.times_attended) : undefined,
         wilderness_experience: d.wilderness_experience || "", dietary: d.dietary || "", medical_notes: d.medical_notes || "", medications: d.medications || "",
-        shirt_size: d.shirt_size, pickup: d.pickup,
+        shirt_size: d.shirt_size, pickup: d.pickup, dropoff: d.dropoff,
         health_number: d.health_number, doctor_name: d.doctor_name, doctor_phone: d.doctor_phone,
         parent_name: d.parent_name, relationship: d.relationship, parent_email: d.parent_email, parent_phone: d.parent_phone, address,
         emergency_name: d.emergency_name, emergency_relationship: d.emergency_relationship, emergency_phone: d.emergency_phone, emergency_alt_phone: d.emergency_alt_phone || "",
+        release_to_name: d.release_to_name, release_to_phone: d.release_to_phone,
+        release_to2_name: d.release_to2_name || "", release_to2_phone: d.release_to2_phone || "",
         heard_from: d.heard_from || "", sponsor_name: d.sponsor_name || "", sponsor_phone: d.sponsor_phone || "",
         participant_mode: d.participant_mode,
         participant_initials: d.participant_mode === "here" ? YM_AGREEMENTS.map((_, i) => d[`ym_init${i}`]) : undefined,
@@ -342,12 +353,14 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <Field label="His last name" name="son_last" value={d.son_last || ""} onChange={(v) => set("son_last", v)} required autoComplete="off" error={errs.son_last} half />
             <Field label="Date of birth" name="dob" type="date" value={d.dob || ""} onChange={(v) => set("dob", v)} required error={errs.dob} half hint={d.dob && ageFrom(d.dob) !== null ? `${ageFrom(d.dob)} on the Friday of the weekend` : `He must be ${FACTS.agesAccepted.min}–${FACTS.agesAccepted.max} on ${FACTS.dates.label.split(",")[0]}`} min={DOB_MIN} max={DOB_MAX} />
             <YesNo label="Has he been to YMAW before?" value={d.attended_before || ""} onChange={(v) => set("attended_before", v)} error={errs.attended_before} />
+            <p className="-mt-1 text-xs text-dust sm:col-span-2">The programme is built new every year — different Quests, different theme, different work. Young men often come four or five years running, and it is a different weekend each time.</p>
             {d.attended_before === "yes" && <Field label="How many times?" name="times_attended" type="number" inputMode="numeric" value={d.times_attended || ""} onChange={(v) => set("times_attended", v)} half />}
-            <Field label="Any wilderness experience?" name="wilderness_experience" value={d.wilderness_experience || ""} onChange={(v) => set("wilderness_experience", v)} textarea placeholder="Camping, scouts, hiking, none — all fine." />
+            <Field label="Any wilderness experience?" name="wilderness_experience" value={d.wilderness_experience || ""} onChange={(v) => set("wilderness_experience", v)} textarea placeholder="Camping, scouts, hiking, none — all fine." half />
             <Select label="Shirt size" name="shirt_size" value={d.shirt_size || ""} onChange={(v) => set("shirt_size", v)} options={[...FACTS.shirtSizes]} required error={errs.shirt_size} half hint="Youth sizes start YS. Every young man gets one." />
-            <Select label="Where does he get on the bus?" name="pickup" value={d.pickup || ""} onChange={(v) => set("pickup", v)} options={[...PICKUPS]} required error={errs.pickup} half />
+            <Select label="Where does he get on the bus?" name="pickup" value={d.pickup || ""} onChange={(v) => setPickup(v)} options={[...PICKUPS]} required error={errs.pickup} half />
+            <Select label="Where does he get off on Sunday?" name="dropoff" value={d.dropoff || ""} onChange={(v) => set("dropoff", v)} options={[...PICKUPS]} required error={errs.dropoff} half hint="Usually the same stop. Change it if he's coming back to a different one." />
             <p className="-mt-1 text-xs text-dust sm:col-span-2">
-              {STOPS.map((st) => `${st.town} — ${st.place}, ${st.address}, ${st.depart}`).join(" · ")}. He comes back to the same stop on Sunday.
+              {STOPS.map((st) => `${st.town} — ${st.place}, ${st.depart}, back ${st.return}`).join(" · ")}.
             </p>
           </div>
         </section>
@@ -387,6 +400,22 @@ export default function RegisterFlow({ initialRole, canceledRef, intent }: { ini
             <Select label="Relationship to him" name="emergency_relationship" value={d.emergency_relationship || ""} onChange={(v) => set("emergency_relationship", v)} options={EMERGENCY_RELATIONSHIPS} required error={errs.emergency_relationship} half />
             <Field label="Phone" name="emergency_phone" type="tel" inputMode="tel" value={d.emergency_phone || ""} onChange={(v) => set("emergency_phone", v)} required error={errs.emergency_phone} half />
             <Field label="Second phone" name="emergency_alt_phone" type="tel" inputMode="tel" value={d.emergency_alt_phone || ""} onChange={(v) => set("emergency_alt_phone", v)} half />
+            <h2 className="t-h3 mt-4 sm:col-span-2">Who can collect him on Sunday</h2>
+            <p className="-mt-2 text-sm text-[color:var(--muted)] sm:col-span-2">
+              The men do not hand a young man to anyone who isn&rsquo;t on this list. You are on it already — name whoever else might be at the stop.
+              {d.parent_name?.trim() && d.parent_phone?.trim() ? (
+                <>
+                  {" "}
+                  <button type="button" className="link" onClick={() => { set("release_to_name", d.parent_name); set("release_to_phone", d.parent_phone); }}>
+                    It&rsquo;s me
+                  </button>
+                </>
+              ) : null}
+            </p>
+            <Field label="Name" name="release_to_name" value={d.release_to_name || ""} onChange={(v) => set("release_to_name", v)} required error={errs.release_to_name} half />
+            <Field label="Their phone" name="release_to_phone" type="tel" inputMode="tel" value={d.release_to_phone || ""} onChange={(v) => set("release_to_phone", v)} required error={errs.release_to_phone} half />
+            <Field label="Anyone else" name="release_to2_name" value={d.release_to2_name || ""} onChange={(v) => set("release_to2_name", v)} half />
+            <Field label="Their phone" name="release_to2_phone" type="tel" inputMode="tel" value={d.release_to2_phone || ""} onChange={(v) => set("release_to2_phone", v)} error={errs.release_to2_phone} half />
             <h2 className="t-h3 mt-4 sm:col-span-2">Two more things</h2>
             <Select label="How did you hear about YMAW?" name="heard_from" value={d.heard_from || ""} onChange={(v) => set("heard_from", v)} options={HEARD} />
             <Field label="Sponsor's name" name="sponsor_name" value={d.sponsor_name || ""} onChange={(v) => set("sponsor_name", v)} half hint="If a man invited him, name him. He'll want to know." />
