@@ -7,3 +7,4 @@ shoot.mjs
 *.log
 .DS_Store
 tsconfig.tsbuildinfo
+.vercel
