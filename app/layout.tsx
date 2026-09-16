@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: "YMAW · Young Men's Adventure Weekend · A rite of passage since 1990",
     template: "%s · YMAW",
   },
-  description: `Not a summer camp. A rite of passage. Three days of fire, water and real work in the Squamish wilderness for young men aged ${FACTS.ages.min}–${FACTS.ages.max}, with men who have shown up for young men since 1990. ${FACTS.dates.label}. $${FACTS.priceCAD} CAD.`,
+  description: `Not a summer camp. A rite of passage. Three days of fire, water and real work in the BC wilderness for young men aged ${FACTS.ages.min}–${FACTS.ages.max}, with men who have shown up for young men since 1990. ${FACTS.dates.label}. $${FACTS.priceCAD} CAD.`,
   openGraph: {
     title: "YMAW · Young Men's Adventure Weekend",
     description: `Not a summer camp. A rite of passage. ${FACTS.dates.label}, ${FACTS.region}.`,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     // JPG at 1.91:1, not WebP: WhatsApp, iMessage, Facebook and LinkedIn all
     // render this one, and most families first meet the weekend as a link
     // someone texted them.
-    images: [{ url: "/og.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Fifty young men and men in a circle around a fire by the lake, Squamish region" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Fifty young men and men in a circle around a fire by the lake" }],
     locale: "en_CA",
     type: "website",
   },

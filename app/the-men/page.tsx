@@ -147,7 +147,7 @@ export default function TheMen() {
             <p className="mono text-ember">Straight talk for men</p>
             <h2 className="t-chapter mt-3">We need men like you.</h2>
             <div className="mt-5 grid gap-3 max-w-[36rem] text-bone/85">
-              <p>You'll be challenged mentally, physically, emotionally and spiritually. The team meets every other Thursday at Central Park in Burnaby, and on the off weeks by Zoom with men from Alberta to Washington State. Training is Friday morning, July 9, in Squamish. Load is Thursday, July 8. Strike offload is Sunday evening in Abbotsford. You'll pay ${FACTS.priceCAD} like everyone else, get a criminal record check, and keep the standards.</p>
+              <p>You'll be challenged mentally, physically, emotionally and spiritually. The team meets every other Thursday at Central Park in Burnaby, and on the off weeks by Zoom with men from Alberta to Washington State. Training is Friday morning, July 9, on site. Load is Thursday, July 8. Strike offload is Sunday evening in Abbotsford. You'll pay ${FACTS.priceCAD} like everyone else, get a criminal record check, and keep the standards.</p>
               <p>In return: young men are watching, and they learn more from what we do than what we say. Most men who staff once describe it as one of the most meaningful things they've done. Many come back for twenty years.</p>
             </div>
           </div>

@@ -45,7 +45,7 @@ export const STATIONS: Station[] = [
     ],
     you: [
       "Most young men arrive because a man they know told their parents. Not a brochure. A conversation, usually short, usually something like: this is the weekend I wish I'd had.",
-      "The bus leaves Friday afternoon from Langley and Burnaby and heads north into the Squamish wilderness. You drop him off with a packed lunch, a sleeping bag, and no phone.",
+      "The bus leaves Friday afternoon from Langley and Burnaby and heads for the site. You drop him off with a packed lunch, a sleeping bag, and no phone.",
     ],
     media: { kind: "clip", id: "bus-forest-side" },
   },

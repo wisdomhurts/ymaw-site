@@ -58,7 +58,7 @@ export default function Hero() {
         </h1>
 
         <p className="t-lede mt-5 max-w-[44rem] text-bone/90 text-shadow" data-hero-fade>
-          Three days of fire, water and real work in the Squamish wilderness, for young men aged {FACTS.ages.min} to {FACTS.ages.max},
+          Three days of fire, water and real work in the BC wilderness, for young men aged {FACTS.ages.min} to {FACTS.ages.max},
           with men who have shown up for young men since {FACTS.since}.
         </p>
 

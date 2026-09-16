@@ -87,7 +87,7 @@ export default function Support() {
             <p className="mono text-flame">Spread the word</p>
             <h2 className="t-h2 mt-3"><Lines lines={["Most young men arrive", "because a man told", "their parents."]} /></h2>
             <p className="mt-4 max-w-[32rem] text-ink/75">Not a brochure. A conversation. One tap writes it.</p>
-            <div className="mt-6"><ShareButton text={`This is the weekend I wish I'd had. Young Men's Adventure Weekend, ${FACTS.dates.label}, Squamish. Ages 12–17.`} url="https://ymaw.com" className="!border-ink/20" /></div>
+            <div className="mt-6"><ShareButton text={`This is the weekend I wish I'd had. Young Men's Adventure Weekend, ${FACTS.dates.label}. Ages 12–17.`} url="https://ymaw.com" className="!border-ink/20" /></div>
             <p className="mt-8 text-sm text-ink/60">Follow along: <a className="link" href={FACTS.instagram} target="_blank" rel="noopener">Instagram</a> · <a className="link" href={FACTS.facebook} target="_blank" rel="noopener">Facebook</a></p>
             <div className="mt-8 rounded-2xl border border-ink/10 p-6">
               <p className="mono text-flame">The newsletter</p>

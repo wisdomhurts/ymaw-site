@@ -44,12 +44,12 @@ export default function Home() {
             <p className="mono text-ember">The bus leaves in</p>
             <div className="mt-4"><Countdown /></div>
             <h2 id="bus" className="t-h2 mt-8">
-              <Lines lines={["Friday, July 9.", "Two stops. One bus. North."]} />
+              <Lines lines={["Friday, July 9.", "Two stops. One bus. Three days."]} />
             </h2>
             <p className="mt-5 max-w-[40rem] text-bone/80">
               <V
-                him="Packed lunch. Water bottle. Sleeping bag. Your phone stays with whoever drops you off. The ride is about three hours and you'll want the lunch."
-                you="A packed lunch and a filled water bottle for the ride, a sleeping bag, and no phone. The ride is about three hours. Pick-up is Sunday afternoon at the same stop."
+                him="Packed lunch. Water bottle. Sleeping bag. Your phone stays with whoever drops you off. It's a long ride and you'll want the lunch."
+                you="A packed lunch and a filled water bottle for the ride, a sleeping bag, and no phone. It's a long ride. Pick-up is Sunday afternoon at the same stop."
               />
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function Home() {
               </div>
             ))}
             <p className="text-sm text-ash">
-              Coming from Squamish, the Island, or further? Email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a> and we'll sort the ride.
+              Coming from the Island, the Interior, or further? Email <a className="link" href={`mailto:${FACTS.email}`}>{FACTS.email}</a> and we'll sort the ride.
             </p>
           </Reveal>
         </div>

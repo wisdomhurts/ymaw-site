@@ -34,7 +34,7 @@ export const PACKING: Group[] = [
     why: "Eight meals cooked over fire. Plates, bowls and cutlery are supplied, biodegradable, so leave the kit at home.",
     items: [
       { item: "Water bottle, full", note: "For the bus and the weekend." },
-      { item: "A packed lunch for the bus", note: "The ride is about three hours. You'll want it." },
+      { item: "A packed lunch for the bus", note: "It's a long ride. You'll want it." },
     ],
   },
   {

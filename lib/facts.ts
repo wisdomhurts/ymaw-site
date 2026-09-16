@@ -13,7 +13,7 @@ export const FACTS = {
   email: "info@ymaw.com",
   instagram: "https://www.instagram.com/youngmensadventure/",
   facebook: "https://www.facebook.com/YoungMensAdventureWeekend/",
-  region: "Squamish region, BC",
+  region: "British Columbia",   // 2027 is at a new site; the exact location is never published
   ages: { min: 12, max: 17 },          // what the site says
   agesAccepted: { min: 11, max: 18 },  // what registration actually accepts
   priceCAD: 320,

@@ -62,7 +62,7 @@ export default function HisPath() {
             <h2 className="t-h2 mt-3"><Lines lines={["Not a camp.", "Not a course.", "Not therapy."]} /></h2>
           </div>
           <div className="grid gap-4 text-[1.1rem] leading-relaxed text-bone/85">
-            <p>A bus takes you and a bunch of other young men north into the Squamish wilderness on a Friday afternoon. The men are already there. They built the camp that morning. They paid to be here, just like you. Most of them have done this for years; some of them did it as young men.</p>
+            <p>A bus takes you and a bunch of other young men into the wilderness on a Friday afternoon. The men are already there. They built the camp that morning. They paid to be here, just like you. Most of them have done this for years; some of them did it as young men.</p>
             <p>For three days you live in a world run by men who take you seriously. You'll work with your hands, compete, fail, eat a lot, sleep outside, and sit around a fire at night. On Sunday you'll be acknowledged in front of your team for what you actually brought, and then you'll walk out between two lines of men and get back on the bus.</p>
             <p>This has happened since {FACTS.since}. {FACTS.completed.charAt(0).toUpperCase() + FACTS.completed.slice(1)} have done it.</p>
           </div>
@@ -178,7 +178,7 @@ export default function HisPath() {
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <Link href="/register?role=young-man" className="btn btn-ember btn-lg">Register</Link>
             <Link href="/what-to-bring" className="btn btn-ghost btn-lg">What to bring</Link>
-            <ShareButton text={`Read this. ${FACTS.dates.label}, Squamish. I want to go.`} url="https://ymaw.com/his-path" label="Send this to your dad" />
+            <ShareButton text={`Read this. ${FACTS.dates.label}. I want to go.`} url="https://ymaw.com/his-path" label="Send this to your dad" />
           </div>
         </div>
       </section>
