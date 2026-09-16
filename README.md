@@ -49,9 +49,9 @@ See `.env.example`. The site runs without them in an honest demo mode (nothing s
 
 ## Google Sheets (live registrations, 5 minutes)
 
-Three spreadsheets live in the Drive folder **YMAW 2026 Registrations**: *Young Men*, *Production Men*, *Sponsors*. The site pushes every new registration into the right one, and later changes (paid by card, admin status/notes, the young man signing) update the row by Ref. Health numbers never leave the site.
+Three spreadsheets live in the Drive folder **YMAW 2027 Registrations** (created Sept 16, 2026; the 2026 set is in **YMAW 2026 Registrations**): *Young Men*, *Production Men*, *Sponsors*. Their IDs are the `SHEETS` map at the top of `scripts/sheets-webhook.gs`. The site pushes every new registration into the right one, and later changes (paid by card, admin status/notes, the young man signing) update the row by Ref. Health numbers never leave the site.
 
-1. Open **YMAW 2026 · Young Men** → Extensions → Apps Script → paste `scripts/sheets-webhook.gs` → set `SECRET` to something long.
+1. Open **YMAW 2027 · Young Men** → Extensions → Apps Script → paste `scripts/sheets-webhook.gs` → set `SECRET` to something long.
 2. Deploy → New deployment → Web app → Execute as **Me**, access **Anyone** → copy the web app URL.
 3. Vercel → env vars: `SHEETS_WEBHOOK_URL` = that URL, `SHEETS_WEBHOOK_SECRET` = the same secret → Redeploy.
 
@@ -59,7 +59,7 @@ The script owns the header rows: if a column is missing it adds it at the end, s
 
 ## Live since Sept 4, 2026
 
-`https://ymaw.com` is the canonical address. `www.ymaw.com` and `ymaw.vercel.app` 308-redirect to it. DNS (Google nameservers): A `@` → `216.198.79.1`, CNAME `www` → `65711fde6896792c.vercel-dns-017.com`; the MX/TXT records are email and were left alone. Stripe is live on the Ymaw account (`acct_1Mz3b7…`) with webhook `ymaw-site-registrations` → `https://ymaw.com/api/stripe/webhook`. Not yet set: `RESEND_API_KEY` (no emails go out), `SHEETS_WEBHOOK_*` (sheets are not live yet).
+`https://ymaw.com` is the canonical address. `www.ymaw.com` and `ymaw.vercel.app` 308-redirect to it. DNS (Google nameservers): A `@` → `216.198.79.1`, CNAME `www` → `65711fde6896792c.vercel-dns-017.com`; the MX/TXT records are email and were left alone. Stripe is live on the Ymaw account (`acct_1Mz3b7…`) with webhook `ymaw-site-registrations` → `https://ymaw.com/api/stripe/webhook`. As of Sept 16, 2026 Resend (`RESEND_API_KEY`, `RESEND_FROM`; DKIM, `send.` SPF and DMARC all resolve) and GHL (`GHL_API_KEY`, `GHL_LOCATION_ID`) are set in production. Not yet set: `SHEETS_WEBHOOK_URL` / `SHEETS_WEBHOOK_SECRET` (sheets are not live yet).
 
 **Deploying (since Sept 16, 2026).** From a checkout of `next-2026` with node + git: `npx vercel link --yes --project ymaw`, then `npx vercel deploy --yes` for a preview and `npx vercel deploy --prod --yes` to ship (about a minute each; the CLI uploads the source and Vercel builds it). `vercel.json` pins `framework: nextjs`, which is what keeps the project from shipping an empty site when its dashboard preset drifts to *Other*. The project is not git-connected, so pushing alone deploys nothing. Earlier deploys went through the Vercel MCP with a one-file bootstrap that cloned `next-2026` in the install command; that path still works but is no longer needed. Rolled over to July 9–11, 2027 on Sept 16, 2026: dates/event/year in `lib/facts.ts`, waivers in `lib/legal.ts` (`v2027-1`), the roster is `FACTS.leadership`, field card re-rendered from `scripts/field-card.html` with headless Chrome + Google Fonts.
 
@@ -67,11 +67,11 @@ The script owns the header rows: if a column is missing it adds it at the end, s
 
 ## Still to do
 
-1. Resend: sign up as info@ymaw.com, set `RESEND_API_KEY` (team notifications work at once), verify ymaw.com (three DNS records) so parents and young men get their emails too.
-2. GHL: paste `GHL_API_KEY` + `GHL_LOCATION_ID` (or `GHL_WEBHOOK_URL`) so the mailing-list forms feed the CRM.
-3. Google Sheets live feed (section above).
-4. Stripe → Payment methods → register `ymaw.com` for Apple Pay / Google Pay.
-5. Redirect old URLs: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` — configured in `next.config.ts`; check them once after cancelling WP Engine.
+1. ~~Resend~~ done: keys set, domain verified.
+2. ~~GHL~~ done: keys set. (Not yet exercised end to end; watch the first mailing-list signup land as a contact.)
+3. Google Sheets live feed (section above): the 2027 sheets exist; the Apps Script still has to be pasted and deployed, and the two env vars set. The write-back (onEdit) script from the 2026 Young Men sheet has to be copied over too if the men want to type into the sheet; its token is `settings.sheet_write_token` in Supabase.
+4. ~~Stripe Apple Pay / Google Pay domain~~ not needed: the site uses Stripe-hosted Checkout (redirect to checkout.stripe.com), where both wallets are on automatically. Domain registration only matters if Checkout is ever embedded on ymaw.com.
+5. ~~Redirect old URLs~~ checked Sept 16, 2026: `/registration/`, `/registration-2/`, `/the-weekend/`, `/history/`, `/leadership/`, `/gallery/`, `/contact/` all 308 to the right pages on ymaw.com (two hops: trailing slash, then the mapping).
 6. Print the field card once; hand the T-shirt SVGs to the shop.
 
 ## Media

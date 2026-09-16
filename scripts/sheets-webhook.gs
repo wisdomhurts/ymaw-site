@@ -15,9 +15,9 @@
 const SECRET = "choose-a-secret";
 
 const SHEETS = {
-  young_man: "1hh0NLECvHJJBs7Hz55rLPISwtEfwIi_BPGIQ_xLGaLY",
-  man:       "18q3GFMmM0B2dZrWGtPcgIDJ_ZG8wnmQ9Cd-Jd1oVHyc",
-  sponsor:   "1R6n1fk_nBnaAm1xL58i2x5siXdn2xkxLWec8D2Fcu5c",
+  young_man: "1ZTLE86KfzV-0jnRB9E_d9FUGcjNkLG314VkojS5CgUU",
+  man:       "1RAD33BrdltALUoC25UCDeItDty-Jjc6V-KzZ0-n2fqo",
+  sponsor:   "1kYDnaH92ZFPfpc6KcqJOtc34-dCqd5TwalLnb-56wCM",
 };
 
 // Column order per sheet. Each entry is [header, function(row) → value].
