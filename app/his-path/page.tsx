@@ -41,7 +41,7 @@ const HOME = [
   ["Something a man gave you.", "Your shadow watched you all weekend. On Sunday he tells you what he saw, and gives you something to remember it by."],
   ["A line you wrote yourself.", "At Future Plans you write down what you're claiming and where you're going. It's yours."],
   ["Knots. Fire. An axe you're allowed to use.", "Skills men taught you because you asked."],
-  ["Fifty men who'll know your name.", "In a barbershop in ten years. At the bus stop next September."],
+  ["Fifty men who'll know your name.", "In a barbershop in ten years. At the bus stop next July."],
 ];
 
 export default function HisPath() {

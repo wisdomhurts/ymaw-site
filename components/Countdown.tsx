@@ -21,12 +21,12 @@ export default function Countdown({ compact = false }: { compact?: boolean }) {
     return () => clearInterval(t);
   }, []);
   const target = new Date(FACTS.dates.busISO).getTime();
-  const end = new Date("2026-09-13T15:00:00-07:00").getTime();
+  const end = new Date(FACTS.dates.endISO).getTime();
   if (now === null) return <div className="h-16" aria-hidden />;
 
   if (now > end) {
     return (
-      <p className="t-lede">The 2026 weekend is complete. The next one opens for enrolment in January.</p>
+      <p className="t-lede">The {FACTS.year} weekend is complete. The next one opens for enrolment in January.</p>
     );
   }
   if (now >= target) {

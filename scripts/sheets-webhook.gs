@@ -1,7 +1,7 @@
 /**
- * YMAW 2026 · registrations → Google Sheets
+ * YMAW 2027 · registrations → Google Sheets
  *
- * Paste this into Extensions → Apps Script of the "YMAW 2026 · Young Men"
+ * Paste this into Extensions → Apps Script of the "YMAW 2027 · Young Men"
  * spreadsheet, set SECRET, then Deploy → New deployment → Web app,
  * Execute as: Me, Who has access: Anyone. Copy the web app URL into Vercel as
  * SHEETS_WEBHOOK_URL and the same SECRET as SHEETS_WEBHOOK_SECRET, redeploy.
@@ -29,7 +29,7 @@ const addr = (r) => [r["details.address.street"], r["details.address.city"], r["
 const COLUMNS = {
   young_man: [
     ["Ref", (r) => r.ref], ["Registered", (r) => ts(r.created_at)], ["Young man", (r) => [r.son_first, r.son_last].filter(Boolean).join(" ")],
-    ["Age on Sept 11", (r) => r.son_age], ["Date of birth", (r) => r.dob], ["Parent / guardian", (r) => r.parent_name], ["Relationship", (r) => r.relationship],
+    ["Age on July 9", (r) => r.son_age], ["Date of birth", (r) => r.dob], ["Parent / guardian", (r) => r.parent_name], ["Relationship", (r) => r.relationship],
     ["Email", (r) => r.parent_email], ["Phone", (r) => r.parent_phone], ["Address", addr],
     ["Emergency contact", (r) => r.emergency_name], ["Emergency relationship", (r) => r.emergency_relationship], ["Emergency phone", (r) => r.emergency_phone], ["Alt phone", (r) => r.emergency_alt_phone],
     ["Dietary", (r) => r.dietary], ["Medical notes", (r) => r.medical_notes], ["Medications", (r) => r.medications], ["Doctor", (r) => r.doctor_name], ["Doctor phone", (r) => r.doctor_phone],

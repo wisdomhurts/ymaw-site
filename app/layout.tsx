@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description: `Not a summer camp. A rite of passage. Three days of fire, water and real work in the Squamish wilderness for young men aged ${FACTS.ages.min}–${FACTS.ages.max}, with men who have shown up for young men since 1990. ${FACTS.dates.label}. $${FACTS.priceCAD} CAD.`,
   openGraph: {
     title: "YMAW · Young Men's Adventure Weekend",
-    description: "Not a summer camp. A rite of passage. September 11–13, 2026, Squamish region, BC.",
+    description: `Not a summer camp. A rite of passage. ${FACTS.dates.label}, ${FACTS.region}.`,
     url: SITE,
     siteName: "YMAW",
     // JPG at 1.91:1, not WebP: WhatsApp, iMessage, Facebook and LinkedIn all
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "YMAW · Young Men's Adventure Weekend",
-    description: "Not a summer camp. A rite of passage. September 11–13, 2026, Squamish region, BC.",
+    description: `Not a summer camp. A rite of passage. ${FACTS.dates.label}, ${FACTS.region}.`,
     images: ["/og.jpg"],
   },
   icons: { icon: "/favicon.svg" },

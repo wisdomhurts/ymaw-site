@@ -7,7 +7,7 @@ export type Group = { name: string; why: string; items: Item[] };
 export const PACKING: Group[] = [
   {
     name: "On your back",
-    why: "Three days. It rains here even in September. Pack for cold and wet and you'll be fine either way.",
+    why: "Three days. It rains here even in July. Pack for cold and wet and you'll be fine either way.",
     items: [
       { item: "Socks, underwear, shirts for 3 days", note: "One more pair of socks than you think." },
       { item: "Pants and shorts" },

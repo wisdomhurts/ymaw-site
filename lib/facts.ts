@@ -18,15 +18,17 @@ export const FACTS = {
   agesAccepted: { min: 11, max: 18 },  // what registration actually accepts
   priceCAD: 320,
   priceCents: 32000,
-  event: "ymaw-2026",
-  year: 2026,
+  event: "ymaw-2027",
+  year: 2027,
   dates: {
-    label: "September 11–13, 2026",
-    short: "Sept 11–13",
-    start: "2026-09-11",
-    end: "2026-09-13",
+    label: "July 9–11, 2027",
+    short: "July 9–11",
+    start: "2027-07-09",
+    end: "2027-07-11",
     // Friday pickup, first bus stop (Langley) — America/Vancouver (PDT, UTC-7)
-    busISO: "2026-09-11T15:00:00-07:00",
+    busISO: "2027-07-09T15:00:00-07:00",
+    // Sunday, when the last bus is back — the countdown switches to "complete" after this
+    endISO: "2027-07-11T15:00:00-07:00",
   },
   stops: [
     {
@@ -110,8 +112,9 @@ export const FACTS = {
     { name: "Load & Strike", line: "Thursday load. Sunday strike. Strong backs, early mornings." },
     { name: "Enrolment", line: "The calls, the emails, the families, the seats filled." },
   ],
-  // 2026 production leadership, from the Society's team roster. Roles only.
-  team2026: [
+  // Production leadership, from the Society's team roster. Roles only.
+  // Carried over from the 2026 roster; update when the 2027 team is confirmed.
+  leadership: [
     { name: "Jeffery Woods", role: "Production Team Manager" },
     { name: "Cameron Tsoi-A-Sue", role: "S1 · second in command" },
     { name: "Bryan Wadsworth", role: "Enrolment manager" },

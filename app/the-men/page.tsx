@@ -57,14 +57,14 @@ export default function TheMen() {
         </div>
       </section>
 
-      {/* 2026 team */}
+      {/* The team */}
       <section className="bg-paper py-20 text-ink" data-surface="paper">
         <div className="wrap">
           <p className="mono text-flame">The {FACTS.year} team</p>
           <h2 className="t-h2 mt-3 max-w-[16ch]"><Lines lines={["Men you can", "call by name."]} /></h2>
-          <p className="mt-4 max-w-[40rem] text-ink/70">The leadership of this September's weekend, and about forty more men on the departments. Ask any of them anything at the bus stop.</p>
+          <p className="mt-4 max-w-[40rem] text-ink/70">The leadership of this July's weekend, and about forty more men on the departments. Ask any of them anything at the bus stop.</p>
           <ul className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-            {FACTS.team2026.map((m, i) => (
+            {FACTS.leadership.map((m, i) => (
               <Reveal key={m.name} as="li" delay={i * 30} className="border-t border-ink/15 pt-3">
                 <p className="display text-2xl leading-none">{m.name}</p>
                 <p className="mono mt-1 text-flame">{m.role}</p>
@@ -147,7 +147,7 @@ export default function TheMen() {
             <p className="mono text-ember">Straight talk for men</p>
             <h2 className="t-chapter mt-3">We need men like you.</h2>
             <div className="mt-5 grid gap-3 max-w-[36rem] text-bone/85">
-              <p>You'll be challenged mentally, physically, emotionally and spiritually. The team meets every other Thursday at Central Park in Burnaby, and on the off weeks by Zoom with men from Alberta to Washington State. Training is Friday morning, September 11, in Squamish. Load is Thursday, September 10. Strike offload is Sunday evening in Abbotsford. You'll pay ${FACTS.priceCAD} like everyone else, get a criminal record check, and keep the standards.</p>
+              <p>You'll be challenged mentally, physically, emotionally and spiritually. The team meets every other Thursday at Central Park in Burnaby, and on the off weeks by Zoom with men from Alberta to Washington State. Training is Friday morning, July 9, in Squamish. Load is Thursday, July 8. Strike offload is Sunday evening in Abbotsford. You'll pay ${FACTS.priceCAD} like everyone else, get a criminal record check, and keep the standards.</p>
               <p>In return: young men are watching, and they learn more from what we do than what we say. Most men who staff once describe it as one of the most meaningful things they've done. Many come back for twenty years.</p>
             </div>
           </div>

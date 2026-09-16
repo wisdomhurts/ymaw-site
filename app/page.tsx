@@ -44,7 +44,7 @@ export default function Home() {
             <p className="mono text-ember">The bus leaves in</p>
             <div className="mt-4"><Countdown /></div>
             <h2 id="bus" className="t-h2 mt-8">
-              <Lines lines={["Friday, September 11.", "Two stops. One bus. North."]} />
+              <Lines lines={["Friday, July 9.", "Two stops. One bus. North."]} />
             </h2>
             <p className="mt-5 max-w-[40rem] text-bone/80">
               <V

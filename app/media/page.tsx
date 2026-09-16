@@ -22,7 +22,7 @@ export default function MediaPage() {
           <div>
             <p className="mono text-flame">Your frame</p>
             <h2 className="t-h2 mt-3"><Lines lines={["The next frame", `is ${FACTS.dates.short}.`]} /></h2>
-            <p className="mt-4 max-w-[36rem] text-ink/75">Thirty-six years of these. Fathers in the early frames, sons in the late ones. Put him in this September's.</p>
+            <p className="mt-4 max-w-[36rem] text-ink/75">Thirty-six years of these. Fathers in the early frames, sons in the late ones. Put him in this July's.</p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <Link href="/register" className="btn btn-ink btn-lg">Register</Link>
