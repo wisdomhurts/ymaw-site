@@ -56,16 +56,16 @@ export default function TheWeekend() {
         <div className="wrap grid gap-6 sm:grid-cols-3">
           <div>
             <p className="mono text-ember">Friday · out</p>
-            <p className="display mt-2 text-2xl leading-none">Langley 3:00 pm</p>
+            <p className="display mt-2 text-2xl leading-none">Langley</p>
             <p className="mt-1 text-sm text-bone/70">McDonald's, 20394 88 Ave</p>
-            <p className="display mt-4 text-2xl leading-none">Burnaby 4:00 pm</p>
+            <p className="display mt-4 text-2xl leading-none">Burnaby</p>
             <p className="mt-1 text-sm text-bone/70">Christine Sinclair Community Centre, south lot, 3713 Kensington Ave</p>
           </div>
           <div>
             <p className="mono text-ember">Sunday · back</p>
-            <p className="display mt-2 text-2xl leading-none">Burnaby after 1:30 pm</p>
-            <p className="display mt-4 text-2xl leading-none">Langley after 2:30 pm</p>
-            <p className="mt-1 text-sm text-bone/70">The men text as the bus gets close.</p>
+            <p className="display mt-2 text-2xl leading-none">Burnaby</p>
+            <p className="display mt-4 text-2xl leading-none">Langley</p>
+            <p className="mt-1 text-sm text-bone/70">Times are emailed before the weekend. The men text as the bus gets close.</p>
           </div>
           <div>
             <p className="mono text-ember">In his bag</p>

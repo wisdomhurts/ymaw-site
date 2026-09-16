@@ -17,7 +17,7 @@ export const ARC: Beat[] = [
     name: "Departure",
     title: "The bus goes north.",
     body: [
-      "Langley at 3:00, Burnaby at 4:00, then north. Once the bus clears the city, phones and everything else with a screen are checked in and locked away until Sunday. Everyone survives this.",
+      "Langley, then Burnaby, then out of the city. Once the bus clears the city, phones and everything else with a screen are checked in and locked away until Sunday. Everyone survives this.",
     ],
     still: "bus-forest",
   },
@@ -66,7 +66,7 @@ export const ARC: Beat[] = [
     name: "Home",
     title: "Between two lines of men.",
     body: [
-      "Every man who was there stands in a line, and each young man walks out between them, eye to eye with every one. Then the bus goes south: Burnaby after 1:30, Langley after 2:30, and the men text as it gets close.",
+      "Every man who was there stands in a line, and each young man walks out between them, eye to eye with every one. Then the bus heads home, Burnaby then Langley, and the men text as it gets close.",
       "He steps off tired, proud, and one of the crew. Feed him and let him sleep.",
     ],
     still: "men-line",

@@ -17,7 +17,7 @@ const WAYS = [
   { h: "Sponsor a seat", p: `$${FACTS.priceCAD} sends one young man. Any amount helps. Sponsor one you know, or one you don't.`, href: "/register?role=sponsor", cta: "Sponsor" },
   { h: "Donate", p: "A gift of any size goes to gear, food, the bus, and seats for young men whose families can't cover the fee.", href: "/register?role=sponsor&intent=donate", cta: "Give" },
   { h: "Join the production team", p: "Fifty men make the weekend. Load Thursday, the weekend, strike Sunday. Criminal record check required.", href: "/register?role=man", cta: "Register as a man" },
-  { h: "Give a day", p: "Can't do the whole weekend? Truck load-up is Thursday, July 8. Strike offload is Sunday evening, July 11, in Abbotsford. Shopping for supplies happens the week before.", href: "#ask", cta: "Tell us" },
+  { h: "Give a day", p: "Can't do the whole weekend? Truck load-up is Thursday, July 8. Strike offload is Sunday evening, July 11. Shopping for supplies happens the week before.", href: "#ask", cta: "Tell us" },
 ];
 
 const PARTNERS = [

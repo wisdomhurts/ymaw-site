@@ -38,7 +38,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "ordinary",
   "year": 2023,
-  "note": "drone over the turquoise lakeshore",
+  "note": "drone over the turquoise shore",
   "faces": "none",
   "poster": "/media/gallery/posters/c-1461.webp",
   "dur": 5.6
@@ -64,7 +64,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "ordinary",
   "year": 2023,
-  "note": "the lake at dusk",
+  "note": "the water at dusk",
   "faces": "none",
   "poster": "/media/gallery/posters/c-1594.webp",
   "dur": 9.0
@@ -77,7 +77,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "ordinary",
   "year": 2022,
-  "note": "drone lake and forest",
+  "note": "drone water and forest",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0139.webp",
   "dur": 9.0
@@ -90,7 +90,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "ordinary",
   "year": 2019,
-  "note": "lake grey mountains kayak",
+  "note": "water grey mountains kayak",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0039.webp",
   "dur": 9.0
@@ -103,7 +103,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "ordinary",
   "year": 2019,
-  "note": "kayak on the lake long",
+  "note": "kayak on the water long",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0060.webp",
   "dur": 9.0
@@ -116,7 +116,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordinary",
   "year": 2019,
-  "note": "figures at the misty lakeshore under trees",
+  "note": "figures at the misty shore under trees",
   "faces": "silhouettes",
   "small": "/media/gallery/stills/p-y2019-0003-m.webp"
  },
@@ -128,7 +128,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordinary",
   "year": 2019,
-  "note": "figures at the misty lakeshore",
+  "note": "figures at the misty shore",
   "faces": "silhouettes",
   "small": "/media/gallery/stills/p-y2019-0004-m.webp"
  },
@@ -140,7 +140,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordinary",
   "year": 2019,
-  "note": "lake with driftwood mist",
+  "note": "water with driftwood mist",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0059-m.webp"
  },
@@ -152,7 +152,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordinary",
   "year": 2019,
-  "note": "misty lake beach",
+  "note": "misty water beach",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0114-m.webp"
  },
@@ -164,7 +164,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordinary",
   "year": 2019,
-  "note": "two kayaks on the grey lake",
+  "note": "two kayaks on the grey water",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0185-m.webp"
  },
@@ -176,7 +176,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordinary",
   "year": 2019,
-  "note": "lake mountains driftwood",
+  "note": "water mountains driftwood",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0201-m.webp"
  },
@@ -188,7 +188,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordinary",
   "year": 2019,
-  "note": "lake mountains",
+  "note": "water mountains",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0202-m.webp"
  },
@@ -200,7 +200,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordinary",
   "year": 2019,
-  "note": "kayaks on the grey lake",
+  "note": "kayaks on the grey water",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0409-m.webp"
  },
@@ -236,7 +236,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordinary",
   "year": 0,
-  "note": "misty lake",
+  "note": "misty water",
   "faces": "none",
   "small": "/media/gallery/stills/p-ymawphotos-0027-m.webp"
  },
@@ -248,7 +248,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordinary",
   "year": 0,
-  "note": "lakeshore evening",
+  "note": "shore evening",
   "faces": "none",
   "small": "/media/gallery/stills/p-ymawphotos-0069-m.webp"
  },
@@ -845,7 +845,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "allies",
   "year": 2023,
-  "note": "line of young men on the lake beach",
+  "note": "line of young men on the water beach",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-1505.webp",
   "dur": 9.0
@@ -1204,7 +1204,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1067,
   "stage": "allies",
   "year": 2003,
-  "note": "everyone on the rocks above the lake 2003",
+  "note": "everyone on the rocks above the water 2003",
   "faces": "distant",
   "small": "/media/gallery/stills/p-extra-0087-m.webp"
  },
@@ -1528,7 +1528,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 720,
   "stage": "camp",
   "year": 2023,
-  "note": "drone over the camp by the lake",
+  "note": "drone over the camp by the water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-2196.webp",
   "dur": 9.0
@@ -1541,7 +1541,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "camp",
   "year": 2022,
-  "note": "drone over the lakeshore camp",
+  "note": "drone over the shore camp",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-0133.webp",
   "dur": 9.0
@@ -1678,7 +1678,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "camp",
   "year": 2019,
-  "note": "shore driftwood lake",
+  "note": "shore driftwood water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-0027.webp",
   "dur": 9.0
@@ -1743,7 +1743,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "camp",
   "year": 2019,
-  "note": "group on the beach lake and mountains wide",
+  "note": "group on the beach water and mountains wide",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0030-m.webp"
  },
@@ -1815,7 +1815,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "camp",
   "year": 2019,
-  "note": "driftwood fire pit by the lake",
+  "note": "driftwood fire pit by the water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0166-m.webp"
  },
@@ -1827,7 +1827,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "camp",
   "year": 2019,
-  "note": "driftwood fire pit lake and mountains",
+  "note": "driftwood fire pit water and mountains",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0167-m.webp"
  },
@@ -1887,7 +1887,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "camp",
   "year": 2007,
-  "note": "the barge at the lakeshore 2007",
+  "note": "the barge at the shore 2007",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2007-0086-m.webp"
  },
@@ -1899,7 +1899,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "camp",
   "year": 2006,
-  "note": "raising the pole frame at the lakeshore 2006",
+  "note": "raising the pole frame at the shore 2006",
   "faces": "mixed",
   "small": "/media/gallery/stills/p-y2006-0208-m.webp"
  },
@@ -1911,7 +1911,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1800,
   "stage": "camp",
   "year": 0,
-  "note": "lake mountains group on the shore",
+  "note": "water mountains group on the shore",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0010-m.webp"
  },
@@ -2069,7 +2069,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2023,
-  "note": "drone over swimmers in the lake",
+  "note": "drone over swimmers in the water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-1462.webp",
   "dur": 9.0
@@ -2095,7 +2095,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2023,
-  "note": "kayaks on the turquoise lake",
+  "note": "kayaks on the turquoise water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-1552.webp",
   "dur": 9.0
@@ -2134,7 +2134,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2023,
-  "note": "swimming in the lake",
+  "note": "swimming in the water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-1601.webp",
   "dur": 9.0
@@ -2147,7 +2147,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2023,
-  "note": "swimming and splashing in the lake",
+  "note": "swimming and splashing in the water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-1603.webp",
   "dur": 9.0
@@ -2212,7 +2212,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 720,
   "stage": "trials",
   "year": 2023,
-  "note": "kayaks on the turquoise lake",
+  "note": "kayaks on the turquoise water",
   "faces": "none",
   "poster": "/media/gallery/posters/c-2171.webp",
   "dur": 9.0
@@ -2225,7 +2225,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 720,
   "stage": "trials",
   "year": 2023,
-  "note": "drone over swimmers in the turquoise lake",
+  "note": "drone over swimmers in the turquoise water",
   "faces": "distant",
   "poster": "/media/gallery/posters/c-2198.webp",
   "dur": 9.0
@@ -2238,7 +2238,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2022,
-  "note": "drone kayaks on the turquoise lake",
+  "note": "drone kayaks on the turquoise water",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0134.webp",
   "dur": 9.0
@@ -2251,7 +2251,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2022,
-  "note": "drone kayaks on the turquoise lake",
+  "note": "drone kayaks on the turquoise water",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0137.webp",
   "dur": 9.0
@@ -2264,7 +2264,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2022,
-  "note": "drone kayaks scattered on the lake",
+  "note": "drone kayaks scattered on the water",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0138.webp",
   "dur": 9.0
@@ -2388,7 +2388,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2019,
-  "note": "kayak on the lake",
+  "note": "kayak on the water",
   "faces": "none",
   "poster": "/media/gallery/posters/c-0037.webp",
   "dur": 7.8
@@ -2401,7 +2401,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "trials",
   "year": 2019,
-  "note": "wading into the misty lake",
+  "note": "wading into the misty water",
   "faces": "backs",
   "poster": "/media/gallery/posters/c-0118.webp",
   "dur": 8.3
@@ -2486,7 +2486,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "trials",
   "year": 2019,
-  "note": "kayak on the lake",
+  "note": "kayak on the water",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0183-m.webp"
  },
@@ -2498,7 +2498,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "trials",
   "year": 2019,
-  "note": "kayak on the lake",
+  "note": "kayak on the water",
   "faces": "none",
   "small": "/media/gallery/stills/p-y2019-0184-m.webp"
  },
@@ -2570,7 +2570,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1067,
   "stage": "trials",
   "year": 2003,
-  "note": "two young men poling a raft on the lake 2003",
+  "note": "two young men poling a raft on the water 2003",
   "faces": "distant",
   "small": "/media/gallery/stills/p-extra-0084-m.webp"
  },
@@ -2594,7 +2594,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "two young men on a raft on the lake",
+  "note": "two young men on a raft on the water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0008-m.webp"
  },
@@ -2606,7 +2606,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "group on the rocky point at the lake",
+  "note": "group on the rocky point at the water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0011-m.webp"
  },
@@ -2690,7 +2690,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "rafts on the lake mountains",
+  "note": "rafts on the water mountains",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0070-m.webp"
  },
@@ -2702,7 +2702,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "rafts on the lake",
+  "note": "rafts on the water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0071-m.webp"
  },
@@ -2714,7 +2714,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "two young men running into the lake",
+  "note": "two young men running into the water",
   "faces": "backs",
   "small": "/media/gallery/stills/p-ymawphotos-0073-m.webp"
  },
@@ -2774,7 +2774,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "swimming in the turquoise lake",
+  "note": "swimming in the turquoise water",
   "faces": "backs",
   "small": "/media/gallery/stills/p-ymawphotos-0095-m.webp"
  },
@@ -2786,7 +2786,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "swimming in the lake wide",
+  "note": "swimming in the water wide",
   "faces": "distant",
   "small": "/media/gallery/stills/p-ymawphotos-0096-m.webp"
  },
@@ -2798,7 +2798,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "wading into the lake",
+  "note": "wading into the water",
   "faces": "backs",
   "small": "/media/gallery/stills/p-ymawphotos-0106-m.webp"
  },
@@ -2810,7 +2810,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "trials",
   "year": 0,
-  "note": "wading in the lake",
+  "note": "wading in the water",
   "faces": "backs",
   "small": "/media/gallery/stills/p-ymawphotos-0107-m.webp"
  },
@@ -2998,7 +2998,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordeal",
   "year": 2019,
-  "note": "beach fire by the lake wide",
+  "note": "beach fire by the water wide",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0021-m.webp"
  },
@@ -3010,7 +3010,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordeal",
   "year": 2019,
-  "note": "beach fire smoke and the whole camp by the lake",
+  "note": "beach fire smoke and the whole camp by the water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0022-m.webp"
  },
@@ -3022,7 +3022,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordeal",
   "year": 2019,
-  "note": "beach fire with people mountain lake",
+  "note": "beach fire with people mountain water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0063-m.webp"
  },
@@ -3034,7 +3034,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "ordeal",
   "year": 2019,
-  "note": "beach fire with people mountain lake",
+  "note": "beach fire with people mountain water",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0064-m.webp"
  },
@@ -3118,7 +3118,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordeal",
   "year": 2006,
-  "note": "dusk fire circle by the lake 2006",
+  "note": "dusk fire circle by the water 2006",
   "faces": "silhouettes",
   "small": "/media/gallery/stills/p-y2006-0244-m.webp"
  },
@@ -3130,7 +3130,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "ordeal",
   "year": 2006,
-  "note": "dusk fire line by the lake 2006",
+  "note": "dusk fire line by the water 2006",
   "faces": "silhouettes",
   "small": "/media/gallery/stills/p-y2006-0246-m.webp"
  },
@@ -3276,7 +3276,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "reward",
   "year": 0,
-  "note": "inukshuk on the rock above the lake",
+  "note": "inukshuk on the rock above the water",
   "faces": "none",
   "small": "/media/gallery/stills/p-ymawphotos-0009-m.webp"
  },
@@ -3573,7 +3573,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 852,
   "stage": "return",
   "year": 2019,
-  "note": "whole group photo at the lake",
+  "note": "whole group photo at the water",
   "faces": "faces-distant",
   "small": "/media/gallery/stills/p-y2019-0300-m.webp"
  },
@@ -3597,7 +3597,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "return",
   "year": 2007,
-  "note": "everyone at the lake 2007",
+  "note": "everyone at the water 2007",
   "faces": "faces-distant",
   "small": "/media/gallery/stills/p-y2007-0393-m.webp"
  },
@@ -3621,7 +3621,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "return",
   "year": 0,
-  "note": "man and young man looking out at the lake",
+  "note": "man and young man looking out at the water",
   "faces": "silhouettes",
   "small": "/media/gallery/stills/p-ymawphotos-0030-m.webp"
  },
@@ -3645,7 +3645,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "return",
   "year": 0,
-  "note": "whole group at the lake arms up",
+  "note": "whole group at the water arms up",
   "faces": "faces-distant",
   "small": "/media/gallery/stills/p-ymawphotos-0109-m.webp"
  },
@@ -3742,7 +3742,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 576,
   "stage": "men",
   "year": 2023,
-  "note": "man in a hat arms crossed looking at the lake",
+  "note": "man in a hat arms crossed looking at the water",
   "faces": "partial",
   "poster": "/media/gallery/posters/c-1537.webp",
   "dur": 9.0
@@ -3806,7 +3806,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1200,
   "stage": "men",
   "year": 2019,
-  "note": "men on driftwood at the lake",
+  "note": "men on driftwood at the water",
   "faces": "backs",
   "small": "/media/gallery/stills/p-y2019-0024-m.webp"
  },
@@ -3818,7 +3818,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "men",
   "year": 2019,
-  "note": "men hauling a tarp on the lakeshore",
+  "note": "men hauling a tarp on the shore",
   "faces": "backs",
   "small": "/media/gallery/stills/p-y2019-0144-m.webp"
  },
@@ -3830,7 +3830,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "men",
   "year": 2019,
-  "note": "men in a line at the lakeshore",
+  "note": "men in a line at the shore",
   "faces": "faces-men",
   "small": "/media/gallery/stills/p-y2019-0215-m.webp"
  },
@@ -3842,7 +3842,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "men",
   "year": 2019,
-  "note": "men in a line at the lakeshore",
+  "note": "men in a line at the shore",
   "faces": "faces-men",
   "small": "/media/gallery/stills/p-y2019-0216-m.webp"
  },
@@ -3854,7 +3854,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "men",
   "year": 2019,
-  "note": "men in a line at the lakeshore mountains",
+  "note": "men in a line at the shore mountains",
   "faces": "faces-men",
   "small": "/media/gallery/stills/p-y2019-0217-m.webp"
  },
@@ -3950,7 +3950,7 @@ export const GALLERY: GalleryItem[] = [
   "h": 1350,
   "stage": "men",
   "year": 2019,
-  "note": "men hauling tarps at the lakeshore",
+  "note": "men hauling tarps at the shore",
   "faces": "distant",
   "small": "/media/gallery/stills/p-y2019-0377-m.webp"
  },

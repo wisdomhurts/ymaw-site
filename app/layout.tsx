@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     // JPG at 1.91:1, not WebP: WhatsApp, iMessage, Facebook and LinkedIn all
     // render this one, and most families first meet the weekend as a link
     // someone texted them.
-    images: [{ url: "/og.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Fifty young men and men in a circle around a fire by the lake" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Fifty young men and men in a circle around a fire by the water" }],
     locale: "en_CA",
     type: "website",
   },

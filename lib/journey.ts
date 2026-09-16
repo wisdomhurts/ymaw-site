@@ -37,7 +37,7 @@ export const STATIONS: Station[] = [
     id: "call",
     n: "II",
     stage: "The call",
-    when: "Friday, 3:00 pm",
+    when: "Friday afternoon",
     title: "Someone sent you here.",
     him: [
       "A father, an uncle, a coach, a man who went once and never forgot it. He didn't send you a link to a summer camp. He sent you on a journey. Not every journey starts with a ship. Yours starts at a bus.",

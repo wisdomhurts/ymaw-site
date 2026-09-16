@@ -259,7 +259,7 @@ export async function POST(req: Request) {
         d.role === "young_man" ? "He's on the list." : d.role === "man" ? "You're on the team." : "Thank you.",
         `<p>Reference <strong>${ref}</strong>. ${FACTS.dates.label}, ${FACTS.region}.</p>
          ${payNote}
-         ${d.role === "young_man" ? `<p>The bus: Langley (McDonald's, 20394 88 Ave) Friday 3:00 pm, or Burnaby (Christine Sinclair Community Centre, south lot) Friday 4:00 pm. Return Sunday afternoon at the same stop.</p><p>What to bring, printable: <a href="${SITE_URL}/what-to-bring" style="color:#e8652a">${SITE_URL}/what-to-bring</a></p>` : ""}
+         ${d.role === "young_man" ? `<p>The bus: Langley (McDonald's, 20394 88 Ave) or Burnaby (Christine Sinclair Community Centre, south lot), Friday afternoon. Times are emailed before the weekend. Return Sunday afternoon at the same stop.</p><p>What to bring, printable: <a href="${SITE_URL}/what-to-bring" style="color:#e8652a">${SITE_URL}/what-to-bring</a></p>` : ""}
          ${d.role === "man" ? `<p>Criminal record check: <a href="${FACTS.crc.portal}" style="color:#e8652a">${FACTS.crc.portal}</a>, access code <strong>${FACTS.crc.code}</strong>. Load is Thursday, the weekend is ${FACTS.dates.label}. The every-other-Thursday production meetings will be in your inbox.</p>` : ""}
          <p>Thank you for ${who}.</p>
          ${signedPdf ? `<p style="font-size:13px;color:#a9a89c">Attached: the full text of everything you signed, with the time and reference. Keep it.</p>` : ""}`,
