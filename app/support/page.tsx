@@ -92,7 +92,6 @@ export default function Support() {
             <div className="mt-8 rounded-2xl border border-ink/10 p-6">
               <p className="mono text-flame">The newsletter</p>
               <h3 className="t-h3 mt-2">Stay in the circle.</h3>
-              <p className="mt-2 text-sm text-ink/70"><strong>{FACTS.newsletters[0].name}</strong>: {FACTS.newsletters[0].line}. A few times a year, never more.</p>
               <div className="mt-4"><NewsletterForm where="support" /></div>
             </div>
           </div>
